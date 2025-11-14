@@ -593,7 +593,7 @@
 
 <script>
     // --- Map Initialization ---
-    const map = L.map('map').setView([1.3544957452433934, 103.81333631449832], 8);
+    const map = L.map('map').setView([-8.6557505239603, 125.91557803754111], 8);
 
     const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
