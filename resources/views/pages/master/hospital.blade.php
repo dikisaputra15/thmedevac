@@ -21,7 +21,7 @@
                       <th>No</th>
                       <th>ID</th>
                       <th>Hospital Name</th>
-                      <th>City Regency</th>
+                      <th>Administrative Post</th>
                       <th>Created At</th>
                       <th>Action</th>
                     </tr>
