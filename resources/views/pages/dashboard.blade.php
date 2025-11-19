@@ -205,52 +205,14 @@
 
 <div class="card">
     <div class="row" style="background-color: #dfeaf1;">
-        <div class="col-md-6">
-            <div class="d-flex p-3">
+       <div class="col-md-9">
+            <div class="d-flex p-3" style="justify-content: center;">
                 <div class="d-flex gap-2">
 
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="d-flex justify-content-end p-3">
-                <div class="d-flex gap-2 mt-2">
-
-                    <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
-                        <i class="bi bi-airplane fs-3"></i>
-                        <small>Airports</small>
-                    </a>
-
-                    <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
-                    <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
-                        <small>Medical</small>
-                    </a>
-
-                    <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
-                        <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
-                        <small>Air Charter</small>
-                    </a>
-
-                    <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
-                    <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
-                        <small>Embassies</small>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="col-md-12">
-                <!-- Legend container -->
-                  <div class="classification">
-                    <!-- Airfield Classification -->
-                    <div class="classification" style="margin-right: 30px; width: 30%;">
-                      <!-- Airport -->
-                      <div class="class-column">
+                <!-- Airport -->
+                      <div class="class-column" style="margin-right: 100px;">
                         <div class="class-header class-airport-category">Airfield Classification</div>
-                        <div class="hospital-list">
+                        <div class="airport-list">
                           <div class="hospital-row" style="flex-direction: column;">
                             <!-- Airport row 1 -->
                             <div class="hospital-item">
@@ -290,70 +252,103 @@
 
                         </div>
                       </div>
-                    </div>
 
-                    <!-- Hospital Classification -->
-                    <div class="classification" style="flex-direction: column; width:100%;">
-                      <div class="class-header class-medical-classification">Medical Facility Classification</div>
-                      <div class="classification">
-                        <!-- Advanced -->
-                        <div class="class-column">
-                          <div class="class-header class-advanced">Advanced</div>
-                          <div class="hospital-list">
-                            <div class="hospital-item">
-                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level66Modal">
-                                <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:24px; height:24px;">
-                                <small>Class A</small>
-                              </button>
-                            </div>
-                          </div>
+                      <!-- Medical Facility Legend -->
+                      <div style="flex-direction: column;">
+                        <!-- Title -->
+                        <div>
+                            <div class="class-header class-medical-classification">Medical Facility Classification</div>
                         </div>
-
-                        <!-- Intermediate -->
-                        <div class="class-column">
-                          <div class="class-header class-intermediate">Intermediate</div>
-                          <div class="hospital-list">
-                            <div class="hospital-row">
-                              <div class="hospital-item">
-                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level55Modal">
-                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
-                                  <small>Class B</small>
-                                </button>
-                              </div>
-                              <div class="hospital-item">
-                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level44Modal">
-                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:24px; height:24px;">
-                                  <small>Class C</small>
-                                </button>
+                        <div style="display: flex; flex-direction: row;">
+                            <!-- Advanced -->
+                            <div class="class-column">
+                              <div class="class-header class-advanced">Advanced</div>
+                              <div class="hospital-list">
+                                <div class="hospital-item">
+                                  <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level66Modal">
+                                    <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:24px; height:24px;">
+                                    <small>Class A</small>
+                                  </button>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
 
-                        <!-- Basic -->
-                        <div class="class-column">
-                          <div class="class-header class-basic">Basic</div>
-                          <div class="hospital-list">
-                            <div class="hospital-row">
-                              <div class="hospital-item">
-                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level33Modal">
-                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:24px; height:24px;">
-                                  <small>Class D</small>
-                                </button>
-                              </div>
-                              <div class="hospital-item">
-                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level11Modal">
-                                    <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:24px; height:24px;">
-                                    <small>PUSKESMAS</small>
-                                </button>
+                            <!-- Intermediate -->
+                            <div class="class-column">
+                              <div class="class-header class-intermediate">Intermediate</div>
+                              <div class="hospital-list">
+                                <div class="hospital-row">
+                                  <div class="hospital-item">
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level55Modal">
+                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
+                                      <small>Class B</small>
+                                    </button>
+                                  </div>
+                                  <div class="hospital-item">
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level44Modal">
+                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:24px; height:24px;">
+                                      <small>Class C</small>
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
+
+                            <!-- Basic -->
+                            <div class="class-column">
+                              <div class="class-header class-basic">Basic</div>
+                              <div class="hospital-list">
+                                <div class="hospital-row">
+                                  <div class="hospital-item">
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level33Modal">
+                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:24px; height:24px;">
+                                      <small>Class D</small>
+                                    </button>
+                                  </div>
+                                  <div class="hospital-item">
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level11Modal">
+                                        <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:24px; height:24px;">
+                                        <small>PUSKESMAS</small>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="d-flex justify-content-end p-3">
+                <div class="d-flex gap-2 mt-2">
+
+                    <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
+                        <i class="bi bi-airplane fs-3"></i>
+                        <small>Airports</small>
+                    </a>
+
+                    <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
+                    <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
+                        <small>Medical</small>
+                    </a>
+
+                    <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
+                        <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
+                        <small>Air Charter</small>
+                    </a>
+
+                    <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
+                    <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
+                        <small>Embassies</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <div id="map"></div>
 
