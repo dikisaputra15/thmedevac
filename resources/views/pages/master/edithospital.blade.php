@@ -905,7 +905,7 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Medical Support Website
+                Edit Emergency Medical Support
               </h3>
             </div>
             <!-- /.card-header -->
