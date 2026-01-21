@@ -44,7 +44,7 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit Administrative Post</label>
+                <label>Edit City</label>
                 <select class="form-control" name="city" id="city">
                     <?php
                         foreach ($cities as $city) {

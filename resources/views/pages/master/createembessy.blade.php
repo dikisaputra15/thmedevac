@@ -33,9 +33,9 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label for="city">Administrative Post</label>
+                <label for="city">City</label>
                 <select name="city" id="city" class="form-control">
-                    <option value="">-Choosse Administrative Post-</option>
+                    <option value="">-Choosse City-</option>
                 </select>
             </div>
         </div>

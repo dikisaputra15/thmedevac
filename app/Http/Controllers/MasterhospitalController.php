@@ -55,7 +55,7 @@ class MasterhospitalController extends Controller
      */
     public function create()
     {
-        $provinces = Provincesregion::all();
+        $provinces = Provincesregion::orderByRaw('LOWER(provinces_region) ASC')->get();
         return view('pages.master.createhospital', [
             'provinces' => $provinces
         ]);
@@ -152,8 +152,8 @@ class MasterhospitalController extends Controller
     public function edit($id)
     {
         $hospital = Hospital::findOrFail($id);
-        $provinces = Provincesregion::all();
-        $cities = City::all();
+        $provinces = Provincesregion::orderByRaw('LOWER(provinces_region) ASC')->get();
+        $cities = City::orderByRaw('LOWER(city) ASC')->get();
         return view('pages.master.edithospital', [
             'hospital' => $hospital,
             'provinces' => $provinces,
