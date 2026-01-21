@@ -165,7 +165,7 @@
 
                 <div class="col-md-10 mt-2">
                     <label class="form-label d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#provinceCollapse" aria-expanded="false" aria-controls="provinceCollapse">
-                        <span class="me-1">Province</span>
+                        <span class="me-1">Region</span>
                         <i class="bi bi-chevron-down" id="provinceToggleIcon"></i>
                     </label>
 
@@ -224,7 +224,7 @@
 
     const map = L.map('map', {
         fullscreenControl: true
-    }).setView([-8.6557505239603, 125.91557803754111], 6);
+    }).setView([15.561656906765931, 100.85374832882776], 6);
 
     // --- Define Tile Layers ---
     // 1. OpenStreetMap (Peta Jalan) - Ini akan menjadi default

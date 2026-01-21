@@ -184,7 +184,7 @@
                     <p>
                         <strong>Address:</strong>
                         {{ $city->city }},
-                        {{ $province->provinces_region }}, East Timor
+                        {{ $province->provinces_region }}, Thailand
                     </p>
                     <p>
                         <strong>Latitude:</strong> {{ $hospital->latitude }}

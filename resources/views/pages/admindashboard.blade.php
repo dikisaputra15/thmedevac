@@ -606,7 +606,7 @@
 
 <script>
     // --- Map Initialization ---
-    const map = L.map('map').setView([-8.6557505239603, 125.91557803754111], 8);
+    const map = L.map('map').setView([15.561656906765931, 100.85374832882776], 6);
 
     const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
@@ -894,7 +894,7 @@
                     </div>
 
                     <hr>
-                    <strong>Municipality</strong>
+                    <strong>Region</strong>
                     <div style="max-height:120px;overflow-y:auto;border:1px solid #ccc;padding:5px;border-radius:5px;margin-top:6px;">
                         @foreach ($provinces as $p)
                             <div class="form-check">
