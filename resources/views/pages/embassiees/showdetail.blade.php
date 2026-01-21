@@ -146,7 +146,10 @@
                     <strong>Longitude:</strong> {{ $embassy->longitude ?? '-' }}
                 </p>
                  <p>
-                    <strong>Location:</strong> {{ $embassy->location ?? '-' }}
+                    <strong>Location:</strong>
+                    {{ $embassy->location }},
+                    {{ $city->city }},
+                    {{ $province->provinces_region }}, Thailand
                 </p>
             </div>
             </div>

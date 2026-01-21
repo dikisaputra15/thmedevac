@@ -77,7 +77,9 @@ class EmbassieesController extends Controller
     public function showdetail($id)
     {
         $embassy = Embassiees::findOrFail($id);
-        return view('pages.embassiees.showdetail', compact('embassy'));
+        $city = DB::table('cities')->where('id', $embassy->city_id)->first();
+        $province = DB::table('provincesregions')->where('id', $embassy->province_id)->first();
+        return view('pages.embassiees.showdetail', compact('embassy','city','province'));
     }
 
     public function filter(Request $request)
