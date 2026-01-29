@@ -147,115 +147,94 @@ class HospitalController extends Controller
     public function filter(Request $request)
     {
         $query = Hospital::query();
-        $query->join('cities', 'hospitals.province_id', '=', 'cities.id');
-        $query->join('provincesregions', 'hospitals.province_id', '=', 'provincesregions.id');
-        $query->select('hospitals.*', 'cities.city', 'provincesregions.provinces_region');
+
+        //  JOIN YANG BENAR & AMAN
+        $query->leftJoin('cities', 'cities.id', '=', 'hospitals.city_id');
+        $query->leftJoin('provincesregions', 'provincesregions.id', '=', 'hospitals.province_id');
+
+        $query->select(
+            'hospitals.*',
+            'cities.city',
+            'provincesregions.provinces_region'
+        );
 
         $query->where('hospital_status', true);
 
         // Filter by name
         $query->when($request->filled('name'), function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->input('name') . '%');
+            $q->where('hospitals.name', 'like', '%' . $request->name . '%');
         });
 
         // Filter by category
         $query->when($request->filled('category'), function ($q) use ($request) {
-            $categories = $request->input('category'); // bisa array atau string
+            $categories = $request->category;
 
             if (is_array($categories)) {
-                $q->whereIn('facility_level', $categories);
+                $q->whereIn('hospitals.facility_level', $categories);
             } else {
-                $q->where('facility_level', 'like', '%' . $categories . '%');
+                $q->where('hospitals.facility_level', 'like', '%' . $categories . '%');
             }
         });
 
-
         // Filter by location
         $query->when($request->filled('location'), function ($q) use ($request) {
-            $q->where('address', 'like', '%' . $request->input('location') . '%');
+            $q->where('hospitals.address', 'like', '%' . $request->location . '%');
         });
 
-         // 4. Filter by Province IDs
+        // Filter by province
         $query->when($request->filled('provinces'), function ($q) use ($request) {
-            // Ensure province IDs are an array and valid integers
-            $provinceIds = array_filter((array) $request->input('provinces'), 'is_numeric');
+            $provinceIds = array_filter((array) $request->provinces, 'is_numeric');
             if (!empty($provinceIds)) {
                 $q->whereIn('hospitals.province_id', $provinceIds);
             }
         });
 
-        // Filter by radius (Haversine Formula)
+        // Radius filter (Haversine)
         if (
             $request->filled('radius') &&
             $request->filled('center_lat') &&
             $request->filled('center_lng') &&
-            is_numeric($request->input('radius')) &&
-            $request->input('radius') > 0
+            is_numeric($request->radius) &&
+            $request->radius > 0
         ) {
-            $centerLat = (float) $request->input('center_lat');
-            $centerLng = (float) $request->input('center_lng');
-            $radiusKm = (float) $request->input('radius');
+            $haversine = "(6371 * acos(
+                cos(radians(?)) * cos(radians(latitude))
+                * cos(radians(longitude) - radians(?))
+                + sin(radians(?)) * sin(radians(latitude))
+            ))";
 
-            // Haversine formula
-            $haversine = "(6371 * acos(cos(radians(?)) * cos(radians(latitude))
-                        * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude))))";
-
-            $query->selectRaw("hospitals.*, $haversine AS distance", [
-                    $centerLat, $centerLng, $centerLat
+            $query->selectRaw("$haversine AS distance", [
+                    $request->center_lat,
+                    $request->center_lng,
+                    $request->center_lat
                 ])
                 ->whereRaw("$haversine < ?", [
-                    $centerLat, $centerLng, $centerLat, $radiusKm
+                    $request->center_lat,
+                    $request->center_lng,
+                    $request->center_lat,
+                    $request->radius
                 ])
                 ->orderBy('distance');
         }
 
+        // Polygon filter tetap aman
         if ($request->filled('polygon')) {
-            try {
-                $polygonGeoJSON = json_decode($request->input('polygon'), true);
+            $polygon = json_decode($request->polygon, true);
 
-                if (json_last_error() === JSON_ERROR_NONE && isset($polygonGeoJSON['geometry']['coordinates'])) {
-                    $geometryType = $polygonGeoJSON['geometry']['type'];
-
-                    if ($geometryType === 'Polygon') {
-                        // Ambil koordinat luar dari polygon
-                        $coordinates = $polygonGeoJSON['geometry']['coordinates'][0]; // Koordinat luar (outer ring)
-
-                        // Konversi ke format WKT: "lng lat"
-                        $wktCoords = implode(',', array_map(function ($point) {
-                            return $point[0] . ' ' . $point[1]; // lng lat
-                        }, $coordinates));
-
-                        // Buat string WKT POLYGON
-                        $wktPolygon = "POLYGON(($wktCoords))";
-
-                        // Gunakan ST_Within + ST_GeomFromText (MySQL Spatial)
-                        $query->whereRaw("ST_Within(POINT(longitude, latitude), ST_GeomFromText(?))", [$wktPolygon]);
-
-                    } elseif ($geometryType === 'Point' && isset($polygonGeoJSON['properties']['radius'])) {
-                        // Tangani Circle (Leaflet.draw) menggunakan Haversine
-                        $centerLat = $polygonGeoJSON['geometry']['coordinates'][1]; // y = lat
-                        $centerLng = $polygonGeoJSON['geometry']['coordinates'][0]; // x = lng
-                        $radiusMeters = $polygonGeoJSON['properties']['radius'];
-
-                        $haversine = "(6371 * acos(cos(radians(?)) * cos(radians(latitude))
-                                        * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude))))";
-
-                        $query->whereRaw("$haversine < ?", [
-                            $centerLat, $centerLng, $centerLat, $radiusMeters / 1000 // m to km
-                        ]);
-                    } else {
-                        // \Log::warning("Unsupported GeoJSON geometry type: " . $geometryType);
-                    }
-                } else {
-                    // \Log::warning("Invalid or malformed GeoJSON: " . $request->input('polygon'));
-                }
-            } catch (Exception $e) {
-                // \Log::error("Error processing polygon filter: " . $e->getMessage());
+            if (
+                json_last_error() === JSON_ERROR_NONE &&
+                isset($polygon['geometry']['coordinates'])
+            ) {
+                $coords = $polygon['geometry']['coordinates'][0];
+                $wkt = implode(',', array_map(fn($p) => "{$p[0]} {$p[1]}", $coords));
+                $query->whereRaw(
+                    "ST_Within(POINT(longitude, latitude), ST_GeomFromText(?))",
+                    ["POLYGON(($wkt))"]
+                );
             }
         }
 
-         // Execute the query and return JSON response
-        $hospitals = $query->get();
-        return response()->json($hospitals);
-    }
+        return response()->json($query->get());
+}
+
 }
