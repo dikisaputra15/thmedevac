@@ -156,7 +156,7 @@ class MasterairportController extends Controller
         $public_facilities = !empty($airport->public_facilities) ? explode(', ', $airport->public_facilities) : [];
         $public_transportation = !empty($airport->public_transportation) ? explode(', ', $airport->public_transportation) : [];
         $provinces = Provincesregion::orderByRaw('LOWER(provinces_region) ASC')->get();
-        $cities = City::orderByRaw('LOWER(city) ASC')->get();
+        $cities = City::where('province_id', $airport->province_id)->orderByRaw('LOWER(city) ASC')->get();
         return view('pages.master.editairport', [
             'airport' => $airport,
             'category' => $category,

@@ -153,7 +153,7 @@ class MasterhospitalController extends Controller
     {
         $hospital = Hospital::findOrFail($id);
         $provinces = Provincesregion::orderByRaw('LOWER(provinces_region) ASC')->get();
-        $cities = City::orderByRaw('LOWER(city) ASC')->get();
+        $cities = City::where('province_id', $hospital->province_id)->orderByRaw('LOWER(city) ASC')->get();
         return view('pages.master.edithospital', [
             'hospital' => $hospital,
             'provinces' => $provinces,
