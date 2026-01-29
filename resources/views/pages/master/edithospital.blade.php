@@ -30,7 +30,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>Edit Region</label>
-                <select class="form-control" name="province_id">
+                <select class="form-control" name="province_id" id="province">
                     <?php
                         foreach ($provinces as $prov) {
 
