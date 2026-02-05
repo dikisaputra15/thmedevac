@@ -139,7 +139,7 @@
         <form id="filterForm">
             <div class="row g-3 align-items-end">
                  <div class="col-md-4">
-                        <label for="name" class="form-label">Embassy Name</label>
+                        <label for="name" class="form-label">Diplomatic Missions</label>
                         <select id="name" class="form-select select2-search" name="name">
                             <option value="">🔍 All Embassy</option>
                             @foreach($embassyNames as $name)
