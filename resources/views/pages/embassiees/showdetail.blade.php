@@ -147,9 +147,9 @@
                 </p>
                  <p>
                     <strong>Location:</strong>
-                    {{ $embassy->location }},
-                    {{ $city->city }},
-                    {{ $province->provinces_region }}, Thailand
+                    {{ $embassy->location ?? '-' }},
+                    {{ optional($city)->city ?? '-' }},
+                    {{ optional($province)->provinces_region ?? '-' }}, Thailand
                 </p>
             </div>
             </div>
