@@ -71,6 +71,81 @@
     .clinical-service-table td{
         padding: 6px;
     }
+
+    /* Classification */
+    .classification {
+      display: flex;
+      width: 100%;
+    }
+
+    .class-column {
+      flex: 1;
+      text-align: center;
+
+    }
+    .class-column:last-child {
+      border-right: none;
+    }
+
+    .class-header {
+      font-weight: 600;
+      padding: 0.1rem 0;
+    }
+
+    /* Color bars */
+    .class-medical-classification {border: none; text-align: center;}
+    .class-airport-category {border: none;}
+    .class-advanced { border-bottom: 3px solid #0070c0; }
+    .class-intermediate { border-bottom: 3px solid #00b050; }
+    .class-basic { border-bottom: 3px solid #ffc000; }
+
+    /* Hospital layout */
+    .hospital-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+    }
+
+    /* For side-by-side classes */
+    .hospital-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+    }
+
+    .hospital-item {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .hospital-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Image inside icon box */
+    .hospital-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Airfield icons */
+    .category-item img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+    }
 </style>
 
 @endpush
@@ -139,6 +214,60 @@
             @endrole
         </div>
     </div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="classification" style="flex-direction: column; width:100%;">
+                      <div class="class-header class-medical-classification">Medical Facility Classification</div>
+                      <div class="classification">
+                        <!-- Advanced -->
+                        <div class="class-column">
+                          <div class="class-header class-advanced">Advanced</div>
+                          <div class="hospital-list">
+                            <div class="hospital-item">
+                              <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level66Modal">
+                                <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:24px; height:24px;">
+                                <small>Tertiary</small>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Intermediate -->
+                        <div class="class-column">
+                          <div class="class-header class-intermediate">Intermediate</div>
+                          <div class="hospital-list">
+                            <div class="hospital-row">
+                              <div class="hospital-item">
+                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level55Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
+                                  <small>Secondary</small>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Basic -->
+                        <div class="class-column">
+                          <div class="class-header class-basic">Basic</div>
+                          <div class="hospital-list">
+                            <div class="hospital-row">
+                               <div class="hospital-item">
+                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level44Modal">
+                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:24px; height:24px;">
+                                  <small>Primary</small>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+        </div>
+    </div>
+</div>
 
     <div class="row">
         <div class="col-sm-6">
@@ -294,9 +423,62 @@
 
 </div>
 
+<div class="modal fade" id="level44Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+         <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Primary</h5>
+         </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>District Hospital - Rural Health Services (DH)</b></p>
+        <p class="p-modal text-justify">Primary and secondary level clinical services and district wide public health programs.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="level55Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Secondary</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>Provincial Hospital, Health Services and Public Health Programs (PHA)</b></p>
+        <p class="p-modal text-justify">Secondary level & specialist clinical care services, supporting primary health care, integrating public health programs, and patient referral.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="level66Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Tertiary</h5>
+        </div>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>National Referral Specialist Tertiary and Teaching Hospital - Health Services (NHA)</b></p>
+        <p class="p-modal text-justify">Complex tertiary level clinical services, supporting primary health care, public health programs, and a formalized patient referral arrangement.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 @endsection
 
 @push('service')
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 @endpush

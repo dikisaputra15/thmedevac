@@ -100,6 +100,73 @@
         .mb-4{
             margin-bottom: 0.5rem !important;
         }
+
+        .custom-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .select-input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .select-input input {
+            border: none;
+            outline: none;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: 110%;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            max-height: 280px;
+            overflow-y: auto;
+            display: none;
+            z-index: 999;
+        }
+
+        .select-dropdown.active {
+            display: block;
+        }
+
+        .dropdown-search {
+            width: 100%;
+            padding: 8px 10px;
+            border: none;
+            border-bottom: 1px solid #eee;
+            outline: none;
+        }
+
+        .select-dropdown ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .select-dropdown li {
+            padding: 8px 12px;
+        }
+
+        .select-dropdown li:hover {
+            background: #f1f5f9;
+        }
+
+        .select-dropdown label {
+            cursor: pointer;
+        }
 </style>
 
 @endpush
@@ -138,7 +205,7 @@
       <div class="filter-container p-3">
         <form id="filterForm">
             <div class="row g-3 align-items-end">
-                 <div class="col-md-4">
+                 <div class="col-md-2">
                         <label for="name" class="form-label">Diplomatic Missions</label>
                         <select id="name" class="form-select select2-search" name="name">
                             <option value="">🔍 All Embassy</option>
@@ -148,7 +215,7 @@
                         </select>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <label for="location" class="form-label">Location</label>
                         <select id="location" class="form-select select2-search" name="location">
                             <option value="">🔍 All Locations</option>
@@ -158,29 +225,45 @@
                         </select>
                     </div>
 
-                <div class="col-md-4">
-                    <label for="radiusRange" class="form-label">Search in radius <span id="radiusValue">0</span> kilometers</label>
-                    <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="400" value="0">
-                </div>
+                  <div class="col-md-2 filter-box" id="provinceSelect">
+                    <label class="filter-label">Region</label>
+                        <div class="select-input">
+                            <input
+                                type="text"
+                                id="provinceSearch"
+                                placeholder="🔍 Search..."
+                                readonly
+                            >
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
 
-                <div class="col-md-10 mt-2">
-                    <label class="form-label d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#provinceCollapse" aria-expanded="false" aria-controls="provinceCollapse">
-                        <span class="me-1">Region</span>
-                        <i class="bi bi-chevron-down" id="provinceToggleIcon"></i>
-                    </label>
+                        <div class="select-dropdown">
+                            <input
+                                type="text"
+                                class="dropdown-search"
+                                placeholder="Search Province..."
+                            >
 
-                    <div class="collapse" id="provinceCollapse">
-                        <div class="form-check-scrollable" style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
-                            @foreach ($provinces as $province)
-                                <div class="form-check">
-                                    <input class="form-check-input province-checkbox" type="checkbox" name="provinces[]" value="{{ $province->id }}" id="province_{{ $province->id }}">
-                                    <label class="form-check-label" for="province_{{ $province->id }}">
+                            <ul id="provinceList">
+                                @foreach($provinces as $province)
+                                <li>
+                                    <label>
+                                        <input type="checkbox"
+                                            class="province-checkbox"
+                                            name="provinces[]"
+                                            id="province_{{ $province->id }}"
+                                            value="{{ $province->id }}">
                                         {{ $province->provinces_region }}
                                     </label>
-                                </div>
-                            @endforeach
+                                </li>
+                                @endforeach
+                            </ul>
                         </div>
-                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <label for="radiusRange" class="form-label">Search in radius <span id="radiusValue">0</span> kilometers</label>
+                    <input type="range" id="radiusRange" name="radius" class="form-control" min="0" max="400" value="0">
                 </div>
 
                 <div class="col-md-2 mt-2">
@@ -206,18 +289,46 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    const provinceCollapse = document.getElementById('provinceCollapse');
-    const icon = document.getElementById('provinceToggleIcon');
+const provinceSelect = document.getElementById('provinceSelect');
+const dropdown = provinceSelect.querySelector('.select-dropdown');
+const displayInput = document.getElementById('provinceSearch');
+const checkboxes = provinceSelect.querySelectorAll('input[type="checkbox"]');
+const searchInput = provinceSelect.querySelector('.dropdown-search');
 
-    provinceCollapse.addEventListener('show.bs.collapse', () => {
-        icon.classList.remove('bi-chevron-down');
-        icon.classList.add('bi-chevron-up');
-    });
+// buka tutup dropdown
+provinceSelect.querySelector('.select-input').addEventListener('click', () => {
+    dropdown.classList.toggle('active');
+});
 
-    provinceCollapse.addEventListener('hide.bs.collapse', () => {
-        icon.classList.remove('bi-chevron-up');
-        icon.classList.add('bi-chevron-down');
+// update text input
+checkboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+        const selected = [...checkboxes]
+            .filter(i => i.checked)
+            .map(i => i.parentElement.innerText.trim());
+
+        displayInput.value = selected.length
+            ? selected.join(', ')
+            : 'Search Province';
     });
+});
+
+// search province
+searchInput.addEventListener('keyup', function () {
+    const keyword = this.value.toLowerCase();
+    document.querySelectorAll('#provinceList li').forEach(li => {
+        li.style.display = li.innerText.toLowerCase().includes(keyword)
+            ? ''
+            : 'none';
+    });
+});
+
+// klik di luar -> tutup
+document.addEventListener('click', e => {
+    if (!provinceSelect.contains(e.target)) {
+        dropdown.classList.remove('active');
+    }
+});
 </script>
 
 <script>
