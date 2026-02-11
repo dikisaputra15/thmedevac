@@ -943,13 +943,13 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Nearest Airport
+                Edit Nearest Airfields and Medical Facilities
               </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
 
-                <textarea id="summernote2" name="nearest_airport">
+                <textarea id="summernote2" name="nearest_airfield">
                     <?php echo $hospital->nearest_airfield; ?>
                 </textarea>
 
