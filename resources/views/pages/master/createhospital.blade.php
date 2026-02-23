@@ -61,22 +61,38 @@
             </div>
         </div>
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Facility Level</label>
-                <select class="form-control" name="facility_level">
-                    <option value="Tertiary">
-                        Tertiary
+       <div class="col-md-12">
+        <div class="form-group">
+            <label>Facility Level</label>
+            <select class="form-control" name="facility_level">
+
+                <optgroup label="Government">
+                    <option value="Regional Hospital (A)">
+                        Regional Hospital (A)
                     </option>
-                    <option value="Secondary">
-                        Secondary
+                    <option value="General Hospital (S, M1, M2)">
+                        General Hospital (S, M1, M2)
                     </option>
-                    <option value="Primary">
-                        Primary
+                    <option value="Community Hospital (F1, F2, F3) & SHPH">
+                        Community Hospital (F1, F2, F3) & SHPH
                     </option>
-                </select>
-            </div>
+                </optgroup>
+
+                <optgroup label="Private">
+                    <option value="Large Private Hospital">
+                        Large Private Hospital
+                    </option>
+                    <option value="Medium Private Hospital">
+                        Medium Private Hospital
+                    </option>
+                    <option value="Small Private Hospital & Private Clinic / Polyclinic">
+                        Small Private Hospital & Private Clinic / Polyclinic
+                    </option>
+                </optgroup>
+
+            </select>
         </div>
+    </div>
 
          <div class="col-md-12">
             <div class="form-group">
@@ -105,13 +121,74 @@
         </div>
 
         <div class="col-md-12">
-            <div class="form-group">
-                <label>Icon</label><br>
-                <input type="radio" name="icon" value="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital-pin-red.png"><img src="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital-pin-red.png" style="width:24; height:24;"> Tertiary
-                <input type="radio" name="icon" value="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-blue.png"><img src="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-blue.png" style="width:24; height:24;"> Secondary
-                <input type="radio" name="icon" value="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple.png"><img src="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple.png" style="width:24; height:24;"> Primary
-            </div>
+    <div class="form-group">
+        <label class="fw-bold">Icon</label>
+        <!-- GOVERNMENT -->
+            <div class="card-body">
+                <strong>Government :</strong>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="icon"
+                        value="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital-pin-red.png">
+                    <label class="form-check-label">
+                        <img src="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital-pin-red.png" style="width:24px; height:24px;">
+                        Regional Hospital (A)
+                    </label>
+                </div>
+
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="icon"
+                        value="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple.png">
+                    <label class="form-check-label">
+                        <img src="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple.png" style="width:24px; height:24px;">
+                        General Hospital (S, M1, M2)
+                    </label>
+                </div>
+
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="icon"
+                        value="https://id.concordreview.com/wp-content/uploads/2026/02/hospital_pin-orange.png">
+                    <label class="form-check-label">
+                        <img src="https://id.concordreview.com/wp-content/uploads/2026/02/hospital_pin-orange.png" style="width:24px; height:24px;">
+                        Community Hospital (F1, F2, F3) & SHPH
+                    </label>
+                </div>
+
         </div>
+
+        <!-- PRIVATE -->
+        <div class="card-body">
+                <strong>Private :</strong>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="icon"
+                        value="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-blue.png">
+                    <label class="form-check-label">
+                        <img src="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-blue.png" style="width:24px; height:24px;">
+                        Large Private Hospital
+                    </label>
+                </div>
+
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="icon"
+                        value="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-green.png">
+                    <label class="form-check-label">
+                        <img src="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-green.png" style="width:24px; height:24px;">
+                        Medium Private Hospital
+                    </label>
+                </div>
+
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="icon"
+                        value="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png">
+                    <label class="form-check-label">
+                        <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:24px; height:24px;">
+                        Small Private Hospital & Private Clinic / Polyclinic
+                    </label>
+                </div>
+        </div>
+
+    </div>
+</div>
+
 
          <div class="col-md-12">
             <div class="form-group">

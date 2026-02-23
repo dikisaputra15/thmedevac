@@ -84,22 +84,48 @@
             </div>
         </div>
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Facility Level</label>
-                <select class="form-control" name="facility_level">
-                    <option value="Tertiary" {{ old('facility_level', $hospital->facility_level ?? '') == 'Tertiary' ? 'selected' : '' }}>
-                        Tertiary
+       <div class="col-md-12">
+        <div class="form-group">
+            <label>Edit Facility Level</label>
+            <select class="form-control" name="facility_level">
+
+                <optgroup label="Government">
+                    <option value="Regional Hospital (A)"
+                        {{ old('facility_level', $hospital->facility_level ?? '') == 'Regional Hospital (A)' ? 'selected' : '' }}>
+                        Regional Hospital (A)
                     </option>
-                    <option value="Secondary" {{ old('facility_level', $hospital->facility_level ?? '') == 'Secondary' ? 'selected' : '' }}>
-                        Secondary
+
+                    <option value="General Hospital (S, M1, M2)"
+                        {{ old('facility_level', $hospital->facility_level ?? '') == 'General Hospital (S, M1, M2)' ? 'selected' : '' }}>
+                        General Hospital (S, M1, M2)
                     </option>
-                    <option value="Primary" {{ old('facility_level', $hospital->facility_level ?? '') == 'Primary' ? 'selected' : '' }}>
-                        Primary
+
+                    <option value="Community Hospital (F1, F2, F3) & SHPH"
+                        {{ old('facility_level', $hospital->facility_level ?? '') == 'Community Hospital (F1, F2, F3) & SHPH' ? 'selected' : '' }}>
+                        Community Hospital (F1, F2, F3) & SHPH
                     </option>
-                </select>
-            </div>
+                </optgroup>
+
+                <optgroup label="Private">
+                    <option value="Large Private Hospital"
+                        {{ old('facility_level', $hospital->facility_level ?? '') == 'Large Private Hospital' ? 'selected' : '' }}>
+                        Large Private Hospital
+                    </option>
+
+                    <option value="Medium Private Hospital"
+                        {{ old('facility_level', $hospital->facility_level ?? '') == 'Medium Private Hospital' ? 'selected' : '' }}>
+                        Medium Private Hospital
+                    </option>
+
+                    <option value="Small Private Hospital & Private Clinic / Polyclinic"
+                        {{ old('facility_level', $hospital->facility_level ?? '') == 'Small Private Hospital & Private Clinic / Polyclinic' ? 'selected' : '' }}>
+                        Small Private Hospital & Private Clinic / Polyclinic
+                    </option>
+                </optgroup>
+
+            </select>
         </div>
+    </div>
 
         <div class="col-md-12">
             <div class="form-group">
@@ -131,27 +157,65 @@
             </div>
         </div>
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Icon</label><br>
+       <div class="col-md-12">
+    <div class="form-group">
+        <label class="fw-bold">Icon</label><br>
 
-                @php
-                    $icons = [
-                        ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital-pin-red.png', 'label' => 'Tertiary'],
-                        ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-blue.png', 'label' => 'Secondary'],
-                        ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple.png', 'label' => 'Primary'],
-                    ];
-                @endphp
+        @php
+            $governmentIcons = [
+                ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital-pin-red.png', 'label' => 'Regional Hospital (A)'],
+                ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple.png', 'label' => 'General Hospital (S, M1, M2)'],
+                ['url' => 'https://id.concordreview.com/wp-content/uploads/2026/02/hospital_pin-orange.png', 'label' => 'Community Hospital (F1, F2, F3) & SHPH'],
+            ];
 
-                @foreach($icons as $icon)
-                    <label style="margin-right: 15px;">
-                        <input type="radio" name="icon" value="{{ $icon['url'] }}"
-                            @checked(old('icon', $hospital->icon ?? '') === $icon['url'])>
-                        <img src="{{ $icon['url'] }}" style="width:24px; height:24px;"> {{ $icon['label'] }}
-                    </label>
+            $privateIcons = [
+                ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-blue.png', 'label' => 'Large Private Hospital'],
+                ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-green.png', 'label' => 'Medium Private Hospital'],
+                ['url' => 'https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png', 'label' => 'Small Private Hospital & Private Clinic / Polyclinic'],
+            ];
+        @endphp
+
+        <!-- GOVERNMENT -->
+        <div class="card-body">
+                <strong>Government:</strong>
+                @foreach($governmentIcons as $icon)
+                    <div class="form-check mb-2">
+                        <input class="form-check-input"
+                               type="radio"
+                               name="icon"
+                               value="{{ $icon['url'] }}"
+                               @checked(old('icon', $hospital->icon ?? '') === $icon['url'])>
+
+                        <label class="form-check-label">
+                            <img src="{{ $icon['url'] }}" style="width:24px; height:24px;">
+                            {{ $icon['label'] }}
+                        </label>
+                    </div>
                 @endforeach
-            </div>
         </div>
+
+        <!-- PRIVATE -->
+        <div class="card-body">
+                <strong>Private:</strong>
+                @foreach($privateIcons as $icon)
+                    <div class="form-check mb-2">
+                        <input class="form-check-input"
+                               type="radio"
+                               name="icon"
+                               value="{{ $icon['url'] }}"
+                               @checked(old('icon', $hospital->icon ?? '') === $icon['url'])>
+
+                        <label class="form-check-label">
+                            <img src="{{ $icon['url'] }}" style="width:24px; height:24px;">
+                            {{ $icon['label'] }}
+                        </label>
+                    </div>
+                @endforeach
+        </div>
+
+    </div>
+</div>
+
 
         <div class="col-md-12">
             <div class="form-group">

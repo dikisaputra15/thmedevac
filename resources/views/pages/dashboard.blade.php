@@ -262,14 +262,37 @@
                         <div style="display: flex; flex-direction: row;">
                             <!-- Advanced -->
                             <div class="class-column">
+                              <div class="class-header class-advanced">&nbsp</div>
+                              <div class="hospital-list">
+                                <div class="hospital-item">
+                                  <button class="btn p-1">
+                                    Goverment
+                                  </button>
+                                </div>
+                                <div class="hospital-item">
+                                    <button class="btn p-1">
+                                      Private
+                                    </button>
+                                  </div>
+                              </div>
+                            </div>
+
+                             <!-- Advanced -->
+                            <div class="class-column">
                               <div class="class-header class-advanced">Advanced</div>
                               <div class="hospital-list">
                                 <div class="hospital-item">
                                   <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level66Modal">
                                     <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:24px; height:24px;">
-                                    <small>Tertiary</small>
+                                    <small>Regional Hospital (A)</small>
                                   </button>
                                 </div>
+                                <div class="hospital-item">
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level55Modal">
+                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
+                                      <small>Large Private Hospital</small>
+                                    </button>
+                                  </div>
                               </div>
                             </div>
 
@@ -277,15 +300,18 @@
                             <div class="class-column">
                               <div class="class-header class-intermediate">Intermediate</div>
                               <div class="hospital-list">
-                                <div class="hospital-row">
                                   <div class="hospital-item">
-                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level55Modal">
-                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
-                                      <small>Secondary</small>
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level44Modal">
+                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:24px; height:24px;">
+                                      <small>General Hospital (S,M1,M2)</small>
                                     </button>
                                   </div>
-
-                                </div>
+                                  <div class="hospital-item">
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level33Modal">
+                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:24px; height:24px;">
+                                      <small>Medium Private Hospital</small>
+                                    </button>
+                                  </div>
                               </div>
                             </div>
 
@@ -293,15 +319,19 @@
                             <div class="class-column">
                               <div class="class-header class-basic">Basic</div>
                               <div class="hospital-list">
-                                <div class="hospital-row">
                                   <div class="hospital-item">
-                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level44Modal">
-                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:24px; height:24px;">
-                                      <small>Primary</small>
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level111Modal">
+                                        <img src="https://id.concordreview.com/wp-content/uploads/2026/02/hospital_pin-orange.png" style="width:24px; height:24px;">
+                                        <small>Community Hospital (F1,F2,F3)</small>
                                     </button>
                                   </div>
+                                   <div class="hospital-item">
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level11Modal">
+                                        <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:24px; height:24px;">
+                                        <small>Small Private Hospital/Clinic</small>
+                                    </button>
+                                    </div>
                                 </div>
-                              </div>
                             </div>
                         </div>
                       </div>
@@ -462,18 +492,35 @@
   </div>
 </div>
 
+<div class="modal fade" id="level111Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+         <div class="d-flex align-items-center">
+            <img src="https://id.concordreview.com/wp-content/uploads/2026/02/hospital_pin-orange.png" style="width:30px; height:30px;">
+            <h5 class="modal-title" id="disclaimerLabel">Community Hospital</h5>
+         </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="level11Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
          <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Public Health Center (PUSKESMAS)</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Small Private Hospital/Clinic</h5>
          </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="p-modal">A basic healthcare facility focusing on preventive, promotive, and basic curative services. Located at the sub-district and village level, offers maternal and child health, immunization, and community health programs. </p>
+
       </div>
     </div>
   </div>
@@ -503,12 +550,12 @@
       <div class="modal-header">
          <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Class D — Sub-district Hospital</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Medium Private Hospital</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="p-modal">Provides basic inpatient and emergency care with general practitioners and limited specialist support. Mainly located in sub-districts serving as the first referral point before higher-level hospitals.</p>
+
       </div>
     </div>
   </div>
@@ -520,12 +567,35 @@
       <div class="modal-header">
          <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Primary — District-Level Hospital</h5>
+            <h5 class="modal-title" id="disclaimerLabel">General Hospital (Government)</h5>
          </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <p class="p-modal">Provides core specialist care in internal medicine, surgery, obstetrics, and pediatrics. Manages common medical conditions, refers complex cases to higher-level hospitals. </p>
+       <div class="modal-body">
+
+        <p class="text-justify">
+          A Large Private Hospital is a high-capacity secondary or tertiary care institution operating on a commercial basis. It provides comprehensive specialist and subspecialist services comparable to Advanced or Standard Level public hospitals. These hospitals typically serve urban populations and international patients, offering direct access without referral restrictions. They function as major private-sector healthcare hubs and often maintain international accreditation standards.
+        </p>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h6 class="fw-bold"><b>Bed Capacity</b></h6>
+            <p>> 250 beds (often 300–600+)</p>
+          </div>
+
+          <div class="col-md-12">
+            <h6 class="fw-bold"><b>Facilities & Services</b></h6>
+            <ul class="mb-0">
+              <li>Full specialist and subspecialist departments</li>
+              <li>Advanced surgical services (cardiac, neurosurgery, oncology)</li>
+              <li>ICU, NICU, CCU</li>
+              <li>CT scan, MRI, advanced diagnostics</li>
+              <li>Comprehensive laboratory and blood bank</li>
+              <li>Fully equipped emergency department</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -537,12 +607,35 @@
       <div class="modal-header">
         <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Secondary — Provincial Referral Hospital</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Large Private Hospital</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="p-modal">Provides broad specialist and limited subspecialist services, functions as regional referral centers, includes ICUs, operating theaters, and diagnostic facilities. </p>
+
+        <p class="text-justify">
+          A Large Private Hospital is a high-capacity secondary or tertiary care institution operating on a commercial basis. It provides comprehensive specialist and subspecialist services comparable to Advanced or Standard Level public hospitals. These hospitals typically serve urban populations and international patients, offering direct access without referral restrictions. They function as major private-sector healthcare hubs and often maintain international accreditation standards.
+        </p>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h6 class="fw-bold"><b>Bed Capacity</b></h6>
+            <p>> 250 beds (often 300–600+)</p>
+          </div>
+
+          <div class="col-md-12">
+            <h6 class="fw-bold"><b>Facilities & Services</b></h6>
+            <ul class="mb-0">
+              <li>Subspecialty departments</li>
+              <li>Cardiac and cancer centers</li>
+              <li>ICU/NICU</li>
+              <li>Advanced surgery</li>
+              <li>CT, MRI, catheterization lab</li>
+              <li>Full-service emergency department</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -554,12 +647,42 @@
       <div class="modal-header">
         <div class="d-flex align-items-center">
             <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Tertiary — National Referral Hospital</h5>
+            <h5 class="modal-title" id="disclaimerLabel">Regional Hospital (Government)</h5>
         </div>
          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="p-modal">Highest-level hospital providing, extensive specialist and subspecialist services supported by advanced technology and large bed capacity. Class A hospitals also often serve as teaching and research centers. </p>
+
+        <h6 class="fw-bold">
+          <b>Advance Level Referral Hospital (Category A)</b>
+        </h6>
+
+        <p class="text-justify">
+          An Advanced Level Hospital (Category A) is the highest-tier public hospital within Thailand’s provincial health system.
+          It is a regional referral center responsible for delivering comprehensive tertiary and subspecialty care.
+          These hospitals manage complex medical and surgical cases referred to from lower-level hospitals and serve as the principal clinical authority within their geographic region.
+          In addition to patient care, they commonly function as teaching and training institutions for medical professionals and support public health policy implementation at the regional level.
+        </p>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h6 class="fw-bold"><b>Bed Capacity</b></h6>
+            <p>≥ 500 beds (often 700–1,200+)</p>
+          </div>
+
+          <div class="col-md-12">
+            <h6 class="fw-bold"><b>Facilities & Services</b></h6>
+            <ul class="mb-0">
+              <li>Full specialist and subspecialist departments</li>
+              <li>Advanced surgical services (cardiac, neurosurgery, oncology)</li>
+              <li>ICU, NICU, CCU</li>
+              <li>CT scan, MRI, advanced diagnostics</li>
+              <li>Comprehensive laboratory and blood bank</li>
+              <li>Fully equipped emergency department</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -858,7 +981,7 @@
                             @endforeach
                         </select>
                         <label>Facility Level</label>
-                        ${['Tertiary','Secondary','Primary'].map(c => `
+                        ${['Regional Hospital (A)','General Hospital (S, M1, M2)','Community Hospital (F1, F2, F3) & SHPH','Large Private Hospital','Medium Private Hospital','Small Private Hospital & Private Clinic / Polyclinic'].map(c => `
                             <label style="display:block;font-size:13px;">
                                 <input type="checkbox" name="hospitalLevel" value="${c}"> ${c}
                             </label>`).join('')}

@@ -254,7 +254,7 @@
                       </div>
 
                       <!-- Medical Facility Legend -->
-                      <div style="flex-direction: column;">
+                        <div style="flex-direction: column;">
                         <!-- Title -->
                         <div>
                             <div class="class-header class-medical-classification">Medical Facility Classification</div>
@@ -267,9 +267,15 @@
                                 <div class="hospital-item">
                                   <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level66Modal">
                                     <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:24px; height:24px;">
-                                    <small>Tertiary</small>
+                                    <small>Regional Hospital (Government)</small>
                                   </button>
                                 </div>
+                                <div class="hospital-item">
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level55Modal">
+                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
+                                      <small>Large Private Hospital</small>
+                                    </button>
+                                  </div>
                               </div>
                             </div>
 
@@ -277,14 +283,18 @@
                             <div class="class-column">
                               <div class="class-header class-intermediate">Intermediate</div>
                               <div class="hospital-list">
-                                <div class="hospital-row">
                                   <div class="hospital-item">
-                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level55Modal">
-                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
-                                      <small>Secondary</small>
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level44Modal">
+                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:24px; height:24px;">
+                                      <small>General Hospital (Government)</small>
                                     </button>
                                   </div>
-                                </div>
+                                  <div class="hospital-item">
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level33Modal">
+                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:24px; height:24px;">
+                                      <small>Medium Private Hospital</small>
+                                    </button>
+                                  </div>
                               </div>
                             </div>
 
@@ -292,15 +302,19 @@
                             <div class="class-column">
                               <div class="class-header class-basic">Basic</div>
                               <div class="hospital-list">
-                                <div class="hospital-row">
                                   <div class="hospital-item">
-                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level44Modal">
-                                      <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:24px; height:24px;">
-                                      <small>Primary</small>
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level11Modal">
+                                        <img src="https://id.concordreview.com/wp-content/uploads/2026/02/hospital_pin-orange.png" style="width:24px; height:24px;">
+                                        <small>Community Hospital (Government)</small>
+                                    </button>
+                                  </div>
+                                   <div class="hospital-item">
+                                    <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level11Modal">
+                                        <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:24px; height:24px;">
+                                        <small>Small Private Hospital/Clinic</small>
                                     </button>
                                   </div>
                                 </div>
-                              </div>
                             </div>
                         </div>
                       </div>
