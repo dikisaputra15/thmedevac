@@ -70,11 +70,11 @@
                     <option value="Regional Hospital (A)">
                         Regional Hospital (A)
                     </option>
-                    <option value="General Hospital (S, M1, M2)">
-                        General Hospital (S, M1, M2)
+                    <option value="General Hospital (S, M1)">
+                        General Hospital (S, M1)
                     </option>
-                    <option value="Community Hospital (F1, F2, F3) & SHPH">
-                        Community Hospital (F1, F2, F3) & SHPH
+                    <option value="Community Hospital (M2, F1, F2, F3) & SHPH">
+                        Community Hospital (M2, F1, F2, F3) & SHPH
                     </option>
                 </optgroup>
 
@@ -140,7 +140,7 @@
                         value="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple.png">
                     <label class="form-check-label">
                         <img src="https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple.png" style="width:24px; height:24px;">
-                        General Hospital (S, M1, M2)
+                        General Hospital (S, M1)
                     </label>
                 </div>
 
@@ -149,7 +149,7 @@
                         value="https://id.concordreview.com/wp-content/uploads/2026/02/hospital_pin-orange.png">
                     <label class="form-check-label">
                         <img src="https://id.concordreview.com/wp-content/uploads/2026/02/hospital_pin-orange.png" style="width:24px; height:24px;">
-                        Community Hospital (F1, F2, F3) & SHPH
+                        Community Hospital (M2, F1, F2, F3) & SHPH
                     </label>
                 </div>
 

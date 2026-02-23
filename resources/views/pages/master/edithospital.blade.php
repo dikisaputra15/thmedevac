@@ -95,14 +95,14 @@
                         Regional Hospital (A)
                     </option>
 
-                    <option value="General Hospital (S, M1, M2)"
-                        {{ old('facility_level', $hospital->facility_level ?? '') == 'General Hospital (S, M1, M2)' ? 'selected' : '' }}>
-                        General Hospital (S, M1, M2)
+                    <option value="General Hospital (S, M1)"
+                        {{ old('facility_level', $hospital->facility_level ?? '') == 'General Hospital (S, M1)' ? 'selected' : '' }}>
+                        General Hospital (S, M1)
                     </option>
 
-                    <option value="Community Hospital (F1, F2, F3) & SHPH"
-                        {{ old('facility_level', $hospital->facility_level ?? '') == 'Community Hospital (F1, F2, F3) & SHPH' ? 'selected' : '' }}>
-                        Community Hospital (F1, F2, F3) & SHPH
+                    <option value="Community Hospital (M2, F1, F2, F3) & SHPH"
+                        {{ old('facility_level', $hospital->facility_level ?? '') == 'Community Hospital (M2, F1, F2, F3) & SHPH' ? 'selected' : '' }}>
+                        Community Hospital (M2, F1, F2, F3) & SHPH
                     </option>
                 </optgroup>
 
@@ -164,8 +164,8 @@
         @php
             $governmentIcons = [
                 ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital-pin-red.png', 'label' => 'Regional Hospital (A)'],
-                ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple.png', 'label' => 'General Hospital (S, M1, M2)'],
-                ['url' => 'https://id.concordreview.com/wp-content/uploads/2026/02/hospital_pin-orange.png', 'label' => 'Community Hospital (F1, F2, F3) & SHPH'],
+                ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple.png', 'label' => 'General Hospital (S, M1)'],
+                ['url' => 'https://id.concordreview.com/wp-content/uploads/2026/02/hospital_pin-orange.png', 'label' => 'Community Hospital (M2, F1, F2, F3) & SHPH'],
             ];
 
             $privateIcons = [
