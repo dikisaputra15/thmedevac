@@ -81,6 +81,7 @@ Route::middleware(['web', 'jwt.login'])->group(function () {
 
         Route::get('home', [HomeController::class, 'index'])->name('home');
         Route::get('/administrator', [HomeController::class, 'administrator']);
+        Route::get('exurl', [HomeController::class, 'exurl'])->name('exurl');
 
         // === MASTER DATA ===
         Route::resource('airportdata', MasterairportController::class);

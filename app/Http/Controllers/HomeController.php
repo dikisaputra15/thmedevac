@@ -78,4 +78,9 @@ class HomeController extends Controller
             ]
         );
     }
+
+    public function exurl(Request $request)
+    {
+        return view('pages.master.exurl');
+    }
 }
