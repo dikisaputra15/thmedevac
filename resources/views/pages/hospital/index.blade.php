@@ -355,9 +355,9 @@
             <p class="p-modal text-justify">
                 <a href="https://anamai.moph.go.th/en/home">MOPH (Ministry of Public Health) website</a>
             </p>
-            <h6 class="fw-bold">
-                <b>M2 - Large Community/Upper Secondary Hospital</b>
-            </h6>
+           <h5 class="fw-bold" style="color:#3c8dbc;">
+                M2 - Large Community/Upper Secondary Hospital
+            </h5>
             <h6 class="fw-bold">
                 <b>Overview</b>
             </h6>
@@ -462,9 +462,9 @@
                 </li>
             </ul>
         </p>
-        <h6 class="fw-bold">
-            <b>F1 – Large Community Public Hospital</b>
-        </h6>
+       <h5 class="fw-bold" style="color:#3c8dbc;">
+               F1 – Large Community Public Hospital
+            </h5>
         <h6 class="fw-bold">
             <b>Overview</b>
         </h6>
@@ -561,9 +561,9 @@
                 </li>
             </ul>
         </p>
-        <h6 class="fw-bold">
-          <b>F2 - Medium Community Hospital</b>
-        </h6>
+        <h5 class="fw-bold" style="color:#3c8dbc;">
+               F2 - Medium Community Hospital
+</h5>
         <h6 class="fw-bold">
           <b>Overview</b>
         </h6>
@@ -658,9 +658,9 @@
             </ul>
         </p>
 
-        <h6 class="fw-bold">
-          <b>F3 – Small Community Public Hospital</b>
-        </h6>
+        <h5 class="fw-bold" style="color:#3c8dbc;">
+             F3 – Small Community Public Hospital
+</h5>
         <h6 class="fw-bold">
           <b>Overview</b>
         </h6>
@@ -785,9 +785,9 @@
             <li>Basic imaging and laboratory</li>
         </ul>
 
-        <h6 class="fw-bold">
-          <b>Private Clinic / Polyclinic (No inpatient Service)</b>
-        </h6>
+        <h5 class="fw-bold" style="color:#3c8dbc;">
+             Private Clinic / Polyclinic (No inpatient Service)
+</h5>
         <p class="text-justify">
           A Private Clinic or Polyclinic is an outpatient-only medical facility delivering general practice or specialist consultations. It serves as a direct-access private primary care provider and does not offer inpatient admission.
         </p>
@@ -991,9 +991,9 @@
           <a href="https://anamai.moph.go.th/en/home" target="_blank">MOPH (Ministry of Public Health) website</a>
         </p>
 
-        <h6 class="fw-bold">
-          <b>S - Standard Level Hospital</b>
-        </h6>
+        <h5 class="fw-bold" style="color:#3c8dbc;">
+           S - Standard Level Hospital
+</h5>
 
         <h6 class="fw-bold">
           <b>Overview</b>
@@ -1098,9 +1098,9 @@
             </ul>
         </p>
 
-        <h6 class="fw-bold">
-          <b>M1 - Mid-Level General Hospital</b>
-        </h6>
+        <h5 class="fw-bold" style="color:#3c8dbc;">
+         M1 - Mid-Level General Hospital
+</h5>
         <h6 class="fw-bold">
           <b>Overview</b>
         </h6>
