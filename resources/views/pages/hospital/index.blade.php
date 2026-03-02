@@ -1707,7 +1707,7 @@ const FilterPanel = L.Control.extend({
                     @endforeach
                 </select>
                 <label>Facility Level:</label>
-                ${['Tertiary','Secondary','Primary'].map(c => `
+                ${['Regional Hospital (A)','General Hospital (S, M1)','Community Hospital (M2, F1, F2, F3) & SHPH','Large Private Hospital','Medium Private Hospital','Small Private Hospital & Private Clinic / Polyclinic'].map(c => `
                     <label style="display:block;font-size:13px;">
                         <input type="checkbox" name="hospitalLevel" value="${c}"> ${c}
                     </label>`).join('')}
