@@ -162,7 +162,7 @@ class HospitalController extends Controller
 
         // Filter by name
         $query->when($request->filled('name'), function ($q) use ($request) {
-            $q->where('hospitals.name', 'like', '%' . $request->name . '%');
+            $q->where('hospitals.name', '=', $request->name);
         });
 
         // Filter by category
