@@ -1678,8 +1678,12 @@ async function applyHospitalFilters() {
     const filteredHospitals = hospitals.filter(h => {
         if (levels.length === 0) return true;
         if (!h.facility_level) return false;
-        const dbLevels = h.facility_level.split(',').map(c => c.trim().toLowerCase());
-        return levels.some(sel => dbLevels.includes(sel.toLowerCase()));
+
+        const dbLevel = h.facility_level.trim().toLowerCase();
+
+        return levels.some(sel =>
+            dbLevel === sel.trim().toLowerCase()
+        );
     });
 
     addHospitalMarkers(filteredHospitals);
