@@ -8,7 +8,13 @@
     <!-- Bootstrap 5 CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body class="container">
+
+<nav class="navbar">
+        <a href="/home">
+            <img src="{{ asset('images/CMT-logo.png') }}" alt="CMT Logo" class="brand-image">
+        </a>
+</nav>
 
 <div class="container my-5">
 
@@ -60,9 +66,7 @@
     </div>
 
 </div>
-
 <!-- Bootstrap 5 JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

@@ -518,8 +518,12 @@
                 <a href="{{ route('exurl') }}" target="_blank">Click here to see Thailand Government Health System</a>
             </p>
             <p class="p-modal text-justify">
-                <a href="https://anamai.moph.go.th/en/home">MOPH (Ministry of Public Health) website</a>
+                <a href="https://anamai.moph.go.th/en/home" target="_blank">MOPH (Ministry of Public Health) website</a>
             </p>
+
+<p class="text-justify">
+         <u><b>Note:</b></u> The MOPH website can be difficult to access and may require a VPN.
+        </p>
             <h5 class="fw-bold" style="color:#3c8dbc;">
                 M2 - Large Community/Upper Secondary Hospital
             </h5>
@@ -926,6 +930,10 @@
           <a href="https://anamai.moph.go.th/en/home" target="_blank">MOPH (Ministry of Public Health) website</a>
         </p>
 
+        <p class="text-justify">
+         <u><b>Note:</b></u> The MOPH website can be difficult to access and may require a VPN.
+        </p>
+
         <h6 class="fw-bold">
           <b>Role</b>
         </h6>
@@ -958,6 +966,10 @@
         </p>
         <p class="text-justify">
           <a href="https://anamai.moph.go.th/en/home" target="_blank">MOPH (Ministry of Public Health) website</a>
+        </p>
+
+ <p class="text-justify">
+         <u><b>Note:</b></u> The MOPH website can be difficult to access and may require a VPN.
         </p>
 
         <h6 class="fw-bold">
@@ -1026,6 +1038,10 @@
 
         <p class="text-justify">
           <a href="https://anamai.moph.go.th/en/home" target="_blank">MOPH (Ministry of Public Health) website</a>
+        </p>
+
+ <p class="text-justify">
+         <u><b>Note:</b></u> The MOPH website can be difficult to access and may require a VPN.
         </p>
 
         <h6 class="fw-bold">
@@ -1154,6 +1170,10 @@
 
         <p class="text-justify">
           <a href="https://anamai.moph.go.th/en/home" target="_blank">MOPH (Ministry of Public Health) website</a>
+        </p>
+
+ <p class="text-justify">
+         <u><b>Note:</b></u> The MOPH website can be difficult to access and may require a VPN.
         </p>
 
         <h5 class="fw-bold" style="color:#3c8dbc;">
@@ -1408,6 +1428,10 @@
             <a href="https://anamai.moph.go.th/en/home" target="_blank">MOPH (Ministry of Public Health) website</a>
         </p>
 
+<p class="text-justify">
+         <u><b>Note:</b></u> The MOPH website can be difficult to access and may require a VPN.
+        </p>
+
         <h6 class="fw-bold">
           <b>Role</b>
         </h6>
@@ -1539,7 +1563,7 @@
         </p>
 
         <p class="text-justify">
-          <b><u>Note:</u></b> The MOPH website can be difficult to access and may require a VPN.
+         <u><b>Note:</b></u> The MOPH website can be difficult to access and may require a VPN.
         </p>
 
         <h6 class="fw-bold">
