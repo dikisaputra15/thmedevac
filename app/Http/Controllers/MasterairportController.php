@@ -97,6 +97,7 @@ class MasterairportController extends Controller
         $airport->military_branch = $request->input('military_branch');
         $airport->iata_code = $request->input('iata_code');
         $airport->icao_code = $request->input('icao_code');
+        $airport->tnrc = $request->input('tnrc');
         $airport->hrs_of_operation = $request->input('hrs_of_operation');
         $airport->distance_from = $request->input('distance_from');
         $airport->time_zone = $request->input('time_zone');
@@ -194,6 +195,7 @@ class MasterairportController extends Controller
             'military_branch' => $request->input('military_branch'),
             'iata_code' => $request->input('iata_code'),
             'icao_code' => $request->input('icao_code'),
+            'tnrc' => $request->input('tnrc'),
             'hrs_of_operation' => $request->input('hrs_of_operation'),
             'distance_from' => $request->input('distance_from'),
             'time_zone' => $request->input('time_zone'),

@@ -198,6 +198,13 @@
         </div>
 
          <div class="col-md-12">
+            <div class="form-group">
+                <label>Edit Thai National Reference Code</label>
+                <input type="text" class="form-control" name="tnrc" value="{{ $airport->tnrc; }}">
+            </div>
+        </div>
+
+         <div class="col-md-12">
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">

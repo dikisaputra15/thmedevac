@@ -155,6 +155,9 @@
                             @endif
                             <p><strong>IATA Code:</strong> {{ $airport->iata_code }} </p>
                             <p><strong>ICAO Code:</strong> {{ $airport->icao_code }} </p>
+                            @if(!empty($airport->tnrc))
+                                <p><strong>Thai National Reference Code:</strong> {{ $airport->tnrc }} </p>
+                            @endif
                             <p><strong>Hrs of Operation:</strong> {!! $airport->hrs_of_operation !!} </p>
                             <p><strong>Distance To:</strong><br>
                                 <?php echo $airport->distance_from; ?>
