@@ -1,6 +1,6 @@
 @extends('layouts.master-admin')
 
-@section('title','Embessy')
+@section('title','Embassy')
 
 @section('conten')
 

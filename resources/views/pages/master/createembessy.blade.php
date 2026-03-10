@@ -1,12 +1,12 @@
 @extends('layouts.master-admin')
 
-@section('title','Add Embessy')
+@section('title','Add Embassy')
 
 @section('conten')
 
 <div class="card">
     <div class="card-header bg-white">
-        <h3>Add Embessy</h3>
+        <h3>Add Embassy</h3>
     </div>
 
 <form action="{{ route('embessydata.store') }}" enctype="multipart/form-data" method="POST">
