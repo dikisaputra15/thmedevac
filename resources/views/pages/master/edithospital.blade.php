@@ -1026,7 +1026,7 @@
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title">
-                Edit Travel Agent
+                Edit Emergency Hotline
               </h3>
             </div>
             <!-- /.card-header -->
