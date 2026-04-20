@@ -387,7 +387,7 @@
             </div>
             <div class="card">
                 <div class="card-header fw-bold"><img src="{{ asset('images/icon-medical-support-website.png') }}" style="width: 24px; height: 24px;"> Emergency Medical Support</div>
-                <div class="card-body" style="max-height: 250px; overflow-y: auto;">
+                <div class="card-body" style="max-height: 192px; overflow-y: auto;">
                     <?php echo $hospital->medical_support_website; ?>
                 </div>
             </div>
