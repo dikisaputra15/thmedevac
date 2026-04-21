@@ -204,7 +204,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12" hidden>
             <div class="form-group">
                 <label>Population Catchment</label>
                 <input type="text" class="form-control" name="population_catchment">
