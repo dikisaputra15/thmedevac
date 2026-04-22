@@ -196,7 +196,7 @@ class AirportsController extends Controller
     public function showdetailemergency($id)
     {
         $airport = Airport::findOrFail($id);
-        $hospital = Hospital::select('medical_support_website')->first();
+        $hospital = Hospital::select('medical_support_website','travel_agent')->first();
 
           // --- Ambil Bandara Terdekat ---
         $nearbyAirports = Airport::selectRaw('*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance', [$airport->latitude, $airport->longitude, $airport->latitude])
