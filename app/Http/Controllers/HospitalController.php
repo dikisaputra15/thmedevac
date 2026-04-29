@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Hospital;
 use App\Models\Airport;
+use App\Models\Police;
 use App\Models\Provincesregion;
 use Illuminate\Support\Facades\DB;
 
@@ -141,7 +142,22 @@ class HospitalController extends Controller
         ->orderBy('distance')
         ->get();
 
-        return view('pages.hospital.showdetailemergency', compact('hospital','nearbyHospitals','radius_km','nearbyAirports'));
+           // === NEARBY POLICE ===
+        $nearbyPolices = Police::selectRaw("
+            id, name_police AS name, icon, latitude, longitude, location, telephone, level, classification, category, fax, email, website, hrs_of_operation,
+            ( 6371 * acos(
+                cos( radians(?) )
+                * cos( radians( latitude ) )
+                * cos( radians( longitude ) - radians(?) )
+                + sin( radians(?) )
+                * sin( radians( latitude ) )
+            )) AS distance
+        ", [$latitude, $longitude, $latitude])
+        ->having('distance', '<=', $radius_km)
+        ->orderBy('distance')
+        ->get();
+
+        return view('pages.hospital.showdetailemergency', compact('hospital','nearbyHospitals','radius_km','nearbyAirports','nearbyPolices'));
     }
 
     public function filter(Request $request)

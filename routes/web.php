@@ -13,9 +13,11 @@ use App\Http\Controllers\{
     MasterhospitalController,
     MasterembessyController,
     MasteraircharterController,
+    MasterPoliceController,
     RoleController,
     UserController,
-    HomeController
+    HomeController,
+    PoliceController
 };
 
 use App\Models\User;
@@ -31,7 +33,7 @@ Route::get('/redirect-to-wp', function (Illuminate\Http\Request $request) {
     $secret = env('JWT_AUTH_SECRET_KEY', 'Chelsea123!@#');
 
     $payload = [
-        'iss' => 'https://sg.concordcmt.com',
+        'iss' => 'https://th.concordcmt.com',
         'iat' => time(),
         'exp' => time() + 60, // Berlaku 1 menit
         'data' => [
@@ -88,12 +90,14 @@ Route::middleware(['web', 'jwt.login'])->group(function () {
         Route::resource('hospitaldata', MasterhospitalController::class);
         Route::resource('embessydata', MasterembessyController::class);
         Route::resource('aircharterdata', MasteraircharterController::class);
+        Route::resource('policedata', MasterPoliceController::class);
         Route::resource('roles', RoleController::class);
         Route::resource('user', UserController::class);
 
         Route::post('/airportdata/{id}/toggle-status', [MasterairportController::class, 'toggleStatus'])->name('airportdata.toggleStatus');
         Route::post('/hospitaldata/{id}/toggle-status', [MasterhospitalController::class, 'toggleStatus'])->name('hospitaldata.toggleStatus');
         Route::post('/embassydata/{id}/toggle-status', [MasterembessyController::class, 'toggleStatus'])->name('embassydata.toggleStatus');
+        Route::post('/policedata/{id}/toggle-status', [MasterPoliceController::class, 'toggleStatus'])->name('policedata.toggleStatus');
 
         // === FITUR APP ===
         Route::resource('hospital', HospitalController::class);
@@ -116,9 +120,13 @@ Route::middleware(['web', 'jwt.login'])->group(function () {
         Route::get('/api/airports', [AirportsController::class, 'filter']);
         Route::get('/api/embassy', [EmbassieesController::class, 'filter']);
         Route::get('/api/hospital', [HospitalController::class, 'filter']);
+        Route::get('/api/polices', [PoliceController::class, 'filter']);
 
         // === USER ROLE ===
         Route::post('/user/{user}/update-role', [UserController::class, 'updateRole'])->name('user.updateRole');
+
+        Route::resource('police', PoliceController::class);
+        Route::get('/police/{id}/detail', [PoliceController::class, 'showdetail']);
 
         // === DEPENDENCY ===
         Route::get('/get-cities/{province_id}', [MasterembessyController::class, 'getCities']);
