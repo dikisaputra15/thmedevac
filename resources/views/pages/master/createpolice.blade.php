@@ -33,9 +33,9 @@
 
          <div class="col-md-12">
             <div class="form-group">
-                <label for="city">Township</label>
+                <label for="city">City</label>
                 <select name="city" id="city" class="form-control">
-                    <option value="">-Choose Township-</option>
+                    <option value="">-Choose City-</option>
                 </select>
             </div>
         </div>
@@ -279,7 +279,7 @@
                 type: 'GET',
                 success: function (data) {
                     $('#city').empty();
-                    $('#city').append('<option value="">-- Choosse Township --</option>');
+                    $('#city').append('<option value="">-- Choosse City --</option>');
                     $.each(data, function (key, city) {
                         $('#city').append('<option value="' + city.id + '">' + city.city + '</option>');
                     });
@@ -287,7 +287,7 @@
             });
         } else {
             $('#city').empty();
-            $('#city').append('<option value="">-- Choosse Township  --</option>');
+            $('#city').append('<option value="">-- Choosse City  --</option>');
         }
     });
 </script>
