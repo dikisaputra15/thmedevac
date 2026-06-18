@@ -4,6 +4,8 @@
             <img src="{{ asset('images/CMT-logo.png') }}" alt="CMT Logo" class="brand-image">
         </a>
 
+        <h5 class="mb-0 ml-2" style="font-size:42px; text-transform:uppercase; font-family:arial;">Thailand</h5>
+
         <ul class="navbar-nav d-flex flex-row align-items-center">
 
             <li class="nav-item mr-3">
