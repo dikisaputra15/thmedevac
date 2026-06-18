@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Airport;
 use App\Models\Hospital;
+use App\Models\Embassiees;
 use App\Models\Provincesregion;
 use App\Models\Police;
 use App\Models\City;
@@ -36,7 +37,14 @@ class AirportsController extends Controller
      */
     public function filter(Request $request)
     {
-        $query = Airport::query();
+        $query = Airport::query()
+            ->leftJoin('cities', 'airports.city_id', '=', 'cities.id')
+            ->leftJoin('provincesregions', 'airports.province_id', '=', 'provincesregions.id')
+            ->select(
+                'airports.*',
+                'cities.city as city_name',
+                'provincesregions.provinces_region as province_name'
+            );
 
         $query->where('airport_status', true);
 
@@ -150,7 +158,33 @@ class AirportsController extends Controller
 
         // Execute the query and return JSON response
         $airports = $query->get();
-        return response()->json($airports);
+        $categoryCounts = [
+            'International' => 0,
+            'Domestic' => 0,
+            'Military' => 0,
+            'Regional' => 0,
+            'Private' => 0,
+        ];
+
+        foreach ($airports as $airport) {
+
+            if (!$airport->category) {
+                continue;
+            }
+
+            $categories = array_map('trim', explode(',', $airport->category));
+
+            foreach ($categories as $cat) {
+                if (isset($categoryCounts[$cat])) {
+                    $categoryCounts[$cat]++;
+                }
+            }
+        }
+
+        return response()->json([
+            'airports' => $airports,
+            'categoryCounts' => $categoryCounts
+        ]);
     }
 
     // Unchanged methods for other functionalities
@@ -217,9 +251,25 @@ class AirportsController extends Controller
             ->orderBy('distance')
             ->get();
 
+           // === NEARBY EMBASSY ===
+        $nearbyEmbassy = Embassiees::selectRaw("
+            id, name_embassiees AS name, latitude, longitude, location, telephone, fax, email, website,
+            ( 6371 * acos(
+                cos( radians(?) )
+                * cos( radians( latitude ) )
+                * cos( radians( longitude ) - radians(?) )
+                + sin( radians(?) )
+                * sin( radians( latitude ) )
+            )) AS distance
+        ", [$airport->latitude, $airport->longitude, $airport->latitude])
+        ->where('embassy_status', true)
+        ->having('distance', '<=', 500)
+        ->orderBy('distance')
+        ->get();
+
         $radius_km = 100; // Radius lingkaran untuk ditampilkan di peta
 
-        return view('pages.airports.showdetailemergency', compact('airport', 'nearbyAirports', 'nearbyHospitals', 'radius_km', 'hospital','nearbyPolices'));
+        return view('pages.airports.showdetailemergency', compact('airport', 'nearbyAirports', 'nearbyHospitals', 'radius_km', 'hospital','nearbyPolices','nearbyEmbassy'));
     }
 
     public function showairlinesdestination($id)

@@ -26,7 +26,14 @@ class PoliceController extends Controller
 
      public function filter(Request $request)
     {
-        $query = Police::query();
+        $query = Police::query()
+            ->leftJoin('cities', 'police.city_id', '=', 'cities.id')
+            ->leftJoin('provincesregions', 'police.province_id', '=', 'provincesregions.id')
+            ->select(
+                'police.*',
+                'cities.city as city_name',
+                'provincesregions.provinces_region as province_name'
+            );
 
         $query->where('police_status', true);
 
@@ -132,8 +139,33 @@ class PoliceController extends Controller
 
 
         // Execute the query and return JSON response
-        $police = $query->get();
-        return response()->json($police);
+        $polices = $query->get();
+        $categoryCounts = [
+            'National Police (HQ)' => 0,
+            'Regional Police' => 0,
+            'Provincial Police' => 0,
+            'City Police Station' => 0,
+        ];
+
+        foreach ($polices as $police) {
+
+            if (empty($police->category)) {
+                continue;
+            }
+
+            $cats = array_map('trim', explode(',', $police->category));
+
+            foreach ($cats as $cat) {
+                if (isset($categoryCounts[$cat])) {
+                    $categoryCounts[$cat]++;
+                }
+            }
+        }
+
+        return response()->json([
+            'polices' => $polices,
+            'categoryCounts' => $categoryCounts
+        ]);
     }
 
     public function showdetail($id)

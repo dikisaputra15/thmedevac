@@ -84,7 +84,14 @@ class EmbassieesController extends Controller
 
     public function filter(Request $request)
     {
-        $query = Embassiees::query();
+        $query = Embassiees::query()
+            ->leftJoin('cities', 'embassiees.city_id', '=', 'cities.id')
+            ->leftJoin('provincesregions', 'embassiees.province_id', '=', 'provincesregions.id')
+            ->select(
+                'embassiees.*',
+                'cities.city',
+                'provincesregions.provinces_region'
+            );
 
         $query->where('embassy_status', true);
 

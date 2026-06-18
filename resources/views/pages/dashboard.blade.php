@@ -197,7 +197,85 @@
       height: 16px;
       object-fit: contain;
     }
-    </style>
+
+    .filter-box {
+        position: relative;
+        width: 100%;
+    }
+
+    .filter-label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .select-input {
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 8px 10px;
+        background: #fff;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .select-input input {
+        border: none;
+        width: 100%;
+        cursor: pointer;
+        background: transparent;
+        outline: none;
+    }
+
+    .select-dropdown {
+        display: none;
+        position: absolute;
+        width: 100%;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        margin-top: 3px;
+        z-index: 9999;
+        max-height: 250px;
+        overflow: hidden;
+    }
+
+    .select-dropdown.show {
+        display: block;
+    }
+
+    .dropdown-search {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+        outline: none;
+    }
+
+    #provinceList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        max-height: 180px;
+        overflow-y: auto;
+    }
+
+    #provinceList li {
+        padding: 5px 10px;
+    }
+
+    #provinceList li:hover {
+        background: #f5f5f5;
+    }
+
+    #provinceList label {
+        width: 100%;
+        margin: 0;
+        cursor: pointer;
+    }
+
+</style>
 
 @endpush
 
@@ -335,6 +413,44 @@
                             </div>
                         </div>
                       </div>
+
+                       <div class="class-column" style="margin-left: 50px;">
+                        <div class="class-header class-airport-category">POLICE CLASSIFICATION</div>
+
+                        <div class="airport-list">
+                            <div class="hospital-row" style="flex-direction: column;">
+
+                                <!-- Baris Atas (3) -->
+                                <div class="hospital-item">
+                                    <button class="btn p-1">
+                                        <img src="{{ asset('images/dot-blue-ring-royal-papua.png') }}" style="width:12px; height:12px;">
+                                        <small>National Police (HQ)</small>
+                                    </button>
+
+                                    <button class="btn p-1">
+                                        <img src="{{ asset('images/dot-red.png') }}" style="width:12px; height:12px;">
+                                        <small>Regional Police</small>
+                                    </button>
+                                </div>
+
+                                <!-- Baris Bawah (2) -->
+                                <div class="hospital-item">
+                                    <button class="btn p-1">
+                                         <img src="{{ asset('images/dot-orange-ppc.png') }}" style="width:12px; height:12px;">
+                                        <small>Provincial Police</small>
+                                    </button>
+
+                                    <button class="btn p-1">
+                                        <img src="{{ asset('images/dot-green.png') }}" style="width:12px; height:12px;">
+                                        <small>City Police Station</small>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -1683,6 +1799,76 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.6.0/Control.FullScreen.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const provinceSelect = document.querySelector('#provinceSelect .select-input');
+    const provinceDropdown = document.querySelector('#provinceSelect .select-dropdown');
+    const provinceSearch = document.getElementById('provinceSearch');
+    const provinceSearchInput = document.getElementById('provinceSearchInput');
+
+    // buka/tutup dropdown
+    provinceSelect.addEventListener('click', () => {
+        provinceDropdown.classList.toggle('show');
+        const panel = document.querySelector('.leaflet-control-custom');
+
+        if (provinceDropdown.classList.contains('show')) {
+
+            const dropdownHeight =
+                provinceDropdown.scrollHeight;
+
+            panel.style.height =
+                (420 + dropdownHeight) + 'px';
+
+        } else {
+
+            panel.style.height = '420px';
+        }
+    });
+
+    // tutup saat klik luar
+    document.addEventListener('click', (e) => {
+        if (!document.getElementById('provinceSelect').contains(e.target)) {
+            provinceDropdown.classList.remove('show');
+        }
+    });
+
+    // filter pencarian
+    provinceSearchInput.addEventListener('keyup', function () {
+        const keyword = this.value.toLowerCase();
+
+        document.querySelectorAll('#provinceList li').forEach(li => {
+            const text = li.textContent.toLowerCase();
+
+            li.style.display = text.includes(keyword)
+                ? ''
+                : 'none';
+        });
+    });
+
+    // update text input ketika checkbox dipilih
+    document.addEventListener('change', function(e) {
+
+        if (e.target.classList.contains('province-checkbox')) {
+
+            const selected = [...document.querySelectorAll('.province-checkbox:checked')]
+                .map(cb => cb.parentElement.textContent.trim());
+
+            if (selected.length === 0) {
+                provinceSearch.value = '';
+                provinceSearch.placeholder = '🔍 Select Region / State';
+            } else if (selected.length <= 2) {
+                provinceSearch.value = selected.join(', ');
+            } else {
+                provinceSearch.value = selected.length + ' Region / State Selected';
+            }
+        }
+    });
+
+});
+</script>
+
 <script>
     // --- Map Initialization ---
     const map = L.map('map').setView([15.561656906765931, 100.85374832882776], 6);
@@ -1720,12 +1906,16 @@
     // --- Global States ---
     let airportMarkers = L.featureGroup().addTo(map);
     let hospitalMarkers = L.featureGroup().addTo(map);
+    let policeMarkers = L.featureGroup().addTo(map);
+    let embassyMarkers = L.featureGroup().addTo(map);
     let radiusCircle = null;
     let radiusPinMarker = null;
     let lastClickedLocation = null;
     let drawnPolygonGeoJSON = null;
     let totalHospitals = 0;
     let totalAirports = 0;
+    let totalPolice = 0;
+    let totalEmbassies = 0;
 
     // --- Leaflet Draw ---
     const drawnItems = new L.FeatureGroup().addTo(map);
@@ -1738,20 +1928,35 @@
     });
     map.addControl(drawControl);
 
-    map.on(L.Draw.Event.CREATED, e => {
+    map.on(L.Draw.Event.CREATED, async e => {
         drawnItems.clearLayers();
         drawnItems.addLayer(e.layer);
+
         drawnPolygonGeoJSON = e.layer.toGeoJSON();
-        applyFiltersWithMapControl('all');
+
+        // console.log('Polygon Created', drawnPolygonGeoJSON);
+
+        await refreshCurrentFilters();
     });
-    map.on(L.Draw.Event.EDITED, e => {
-        e.layers.eachLayer(layer => drawnPolygonGeoJSON = layer.toGeoJSON());
-        applyFiltersWithMapControl('all');
+    map.on(L.Draw.Event.EDITED, async e => {
+
+        e.layers.eachLayer(layer => {
+            drawnPolygonGeoJSON = layer.toGeoJSON();
+        });
+
+        // console.log('Polygon Edited', drawnPolygonGeoJSON);
+
+        await refreshCurrentFilters();
     });
-    map.on(L.Draw.Event.DELETED, () => {
+    map.on(L.Draw.Event.DELETED, async () => {
+
         drawnItems.clearLayers();
+
         drawnPolygonGeoJSON = null;
-        applyFiltersWithMapControl('all');
+
+        // console.log('Polygon Deleted');
+
+        await refreshCurrentFilters();
     });
 
     // --- Update Radius ---
@@ -1787,6 +1992,7 @@
             else if (v !== '' && v != null) params.append(k, v);
         });
         if (drawnPolygonGeoJSON) params.append('polygon', JSON.stringify(drawnPolygonGeoJSON));
+        //  console.log(url + '?' + params.toString());
 
         try {
             const res = await fetch(`${url}?${params.toString()}`);
@@ -1803,10 +2009,19 @@
         data.forEach(item => {
             if (!item || !item.latitude || !item.longitude) return;
 
+            let iconSize = [24, 24];
+            let iconAnchor = [12, 24];
+
+            // Police icon lebih kecil
+            if (item.name_police) {
+                iconSize = [12, 12];
+                iconAnchor = [6, 6];
+            }
+
             const icon = L.icon({
-                iconUrl: item.icon || defaultIconUrl || L.Icon.Default.imagePath + '/marker-icon.png',
-                iconSize: [24, 24],
-                iconAnchor: [12, 24],
+                iconUrl: item.icon || defaultIconUrl || 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+                iconSize: iconSize,
+                iconAnchor: iconAnchor,
                 popupAnchor: [0, -20]
             });
 
@@ -1820,8 +2035,11 @@
                 popupContent = `
                     <h5 style="border-bottom:1px solid #cccccc;">${itemName}</h5>
                     <strong>Classification:</strong> ${item.category || 'N/A'}<br>
-                    <strong>Address:</strong> ${item.address || 'N/A'}<br>
-                    ${item.website ? `<strong>Website:</strong> <a href='${item.website}' target='__blank'>${item.website}</a><br>` : ''}
+                    <strong>Address:</strong>
+                        ${item.address || 'N/A'}
+                        ${item.city_name ? ', ' + item.city_name : ''}
+                        ${item.province_name ? ', ' + item.province_name : ''}, Thailand <br>
+                    <strong>Website:</strong> ${item.website || 'N/A'} <br>
                 `;
             } else if (item.name) {
                 itemName = item.name;
@@ -1830,9 +2048,40 @@
                     <h5 style="border-bottom:1px solid #cccccc;">${itemName}</h5>
                     <strong>Global Classification:</strong> ${item.facility_category || 'N/A'}<br>
                     <strong>Country Classification:</strong> ${item.facility_level || 'N/A'}<br>
-                    <strong>Address:</strong> ${item.address || 'N/A'}<br>
-                    <strong>Coords:</strong> ${item.latitude}, ${item.longitude}<br>
-                    <strong>Province:</strong> ${item.provinces_region || 'N/A'}<br>
+                    <strong>Address:</strong>
+                        ${item.address || 'N/A'}
+                        ${item.city ? ', ' + item.city : ''}
+                        ${item.provinces_region ? ', ' + item.provinces_region : ''}, Thailand <br>
+                `;
+            } else if (item.name_police) {
+                itemName = item.name_police;
+                detailUrl = `/police/${item.id}/detail`;
+                popupContent = `
+                    <h5 style="border-bottom:1px solid #cccccc;">${itemName}</h5>
+                    <strong>Category:</strong> ${item.category || 'N/A'}<br>
+                    <strong>Address:</strong>
+                        ${item.location || 'N/A'}
+                        ${item.city_name ? ', ' + item.city_name : ''}
+                        ${item.province_name ? ', ' + item.province_name : ''}, Thailand <br>
+                    <strong>Phone:</strong> ${item.telephone || 'N/A'}<br>
+                    <strong>Fax:</strong> ${item.fax || 'N/A'}<br>
+                    <strong>Email:</strong> ${item.email || 'N/A'}<br>
+                    <strong>Website:</strong> ${item.website || 'N/A'}<br>
+                `;
+            }
+            else if (item.name_embassiees) {
+                itemName = item.name_embassiees;
+                detailUrl = `/embassiees/${item.id}/detail`;
+                popupContent = `
+                    <h5 style="border-bottom:1px solid #cccccc;">${itemName}</h5>
+                    <strong>Address:</strong>
+                        ${item.address || 'N/A'}
+                        ${item.city ? ', ' + item.city : ''}
+                        ${item.provinces_region ? ', ' + item.provinces_region : ''}, Thailand <br>
+                    <strong>Phone:</strong> ${item.telephone || 'N/A'}<br>
+                    <strong>Fax:</strong> ${item.fax || 'N/A'}<br>
+                    <strong>Email:</strong> ${item.email || 'N/A'}<br>
+                    <strong>Website:</strong> ${item.website || 'N/A'}<br>
                 `;
             }
 
@@ -1845,7 +2094,7 @@
 
     // --- Apply Filters ---
     async function applyFiltersWithMapControl(
-        type = 'all',
+        facilities = [],
         hospitalLevels = [],
         airportClasses = [],
         provinces = [],
@@ -1862,32 +2111,69 @@
 
         totalHospitals = 0;
         totalAirports = 0;
+        totalPolice = 0;
+        totalEmbassies = 0;
+
+        // jika tidak ada checkbox dipilih => tampilkan semua
+        const showAllFacilities = facilities.length === 0;
+
+        const showHospital =
+            showAllFacilities || facilities.includes('hospital');
+
+        const showAirport =
+            showAllFacilities || facilities.includes('airport');
+
+        const showPolice =
+            showAllFacilities || facilities.includes('police');
+
+        const showEmbassy =
+            showAllFacilities || facilities.includes('embassy');
 
         // === HOSPITALS ===
-        if (type === 'hospital' || type === 'all') {
-            const hospitals = await fetchData('/api/hospital', {
+        if (showHospital) {
+             const result = await fetchData('/api/hospital', {
                 ...common,
                 name: hospitalName,
                 category: hospitalLevels
             });
-            addMarkers(hospitals, hospitalMarkers, null);
-            totalHospitals = hospitals.length;
+
+            addMarkers(result.hospitals, hospitalMarkers, null);
+
+            totalHospitals = result.hospitals.length;
         } else {
             hospitalMarkers.clearLayers();
         }
 
         // === AIRPORTS ===
-        if (type === 'airport' || type === 'all') {
-            const airports = await fetchData('/api/airports', {
+       if (showAirport) {
+
+            const airportResponse = await fetchData('/api/airports', {
                 ...common,
                 name: airportName
             });
 
+            const airports = Array.isArray(airportResponse)
+                    ? airportResponse
+                    : airportResponse.airports || [];
+            const categoryCounts = airportResponse.categoryCounts || {};
+
             const filteredAirports = airports.filter(a => {
-                if (airportClasses.length === 0) return true;
-                if (!a.category) return false;
-                const dbCategories = a.category.split(',').map(c => c.trim().toLowerCase());
-                return airportClasses.some(sel => dbCategories.includes(sel.toLowerCase()));
+
+                if (airportClasses.length === 0) {
+                    return true;
+                }
+
+                if (!a.category) {
+                    return false;
+                }
+
+                const dbCategories = a.category
+                    .split(',')
+                    .map(c => c.trim().toLowerCase());
+
+                return airportClasses.some(sel =>
+                    dbCategories.includes(sel.toLowerCase())
+                );
             });
 
             addMarkers(
@@ -1895,9 +2181,61 @@
                 airportMarkers,
                 'https://pg.concordreview.com/wp-content/uploads/2024/10/International-Airport.png'
             );
+
             totalAirports = filteredAirports.length;
-        } else {
+        }else {
             airportMarkers.clearLayers();
+        }
+
+        // === POLICE ===
+       if (showPolice) {
+
+            const result = await fetchData('/api/polices', {
+                ...common
+            });
+
+            const police = result.polices || [];
+            const categoryCounts = result.categoryCounts || {};
+
+            addMarkers(
+                police,
+                policeMarkers,
+                null
+            );
+
+            totalPolice = police.length;
+
+            Object.keys(categoryCounts).forEach(cat => {
+
+                const id = cat.replace(/[^a-zA-Z0-9]/g, '-');
+
+                const el = document.getElementById(`count-${id}`);
+
+                if (el) {
+                    el.textContent = categoryCounts[cat];
+                }
+            });
+        } else {
+            policeMarkers.clearLayers();
+        }
+
+        // === EMBASSY ===
+        if (showEmbassy) {
+
+            const embassies = await fetchData('/api/embassy', {
+                ...common
+            });
+
+            addMarkers(
+                embassies,
+                embassyMarkers,
+                '/images/embassy-icon-new.png'
+            );
+
+            totalEmbassies = embassies.length;
+
+        } else {
+            embassyMarkers.clearLayers();
         }
 
         updateRadiusCircleAndPin(radius);
@@ -1905,10 +2243,12 @@
     }
 
     function updateTotalCountDisplay() {
+        document.getElementById('airportCount').textContent = totalAirports;
+        document.getElementById('hospitalCount').textContent = totalHospitals;
+        document.getElementById('policeCount').textContent = totalPolice;
+        document.getElementById('embassyCount').textContent = totalEmbassies;
+
         const el = document.getElementById('totalCountDisplay');
-        if (el) {
-            el.innerHTML = `<strong>Airports:</strong> ${totalAirports} <br><strong>Medical Facilities:</strong> ${totalHospitals}`;
-        }
     }
 
     // === COMBINED PANEL ===
@@ -1927,7 +2267,12 @@
 
             div.innerHTML = `
                 <button style="background:#007bff;color:white;border:none;width:100%;padding:8px;">Filter & Radius</button>
-                <div id="filterPanel" style="padding:10px;">
+                <div id="filterPanel" style="
+                    padding:10px;
+                    display:flex;
+                    flex-direction:column;
+                    height:100%;
+                ">
                     <strong>Radius: <span id="radiusValueMap">0</span> km</strong>
                     <input type="range" id="radiusRangeMap" min="0" max="500" value="0" style="width:100%;margin-bottom:6px;">
                     <div style="display:flex;gap:5px;">
@@ -1935,56 +2280,82 @@
                         <button id="resetRadiusMap" class="btn btn-sm btn-danger flex-fill">Reset</button>
                     </div>
                     <hr>
-                    <h6>Filter Data</h6>
-                    <select id="mapFilter" class="form-select form-select-sm mb-2">
-                        <option value="all">Show All</option>
-                        <option value="hospital">Hospitals</option>
-                        <option value="airport">Airports</option>
-                    </select>
-
-                    <div id="airportFilter" style="display:none;">
-                        <label>Airport Name:</label>
-                        <select id="airport_name_map" class="form-select form-select-sm mb-2 select-search-airport">
-                            <option value="">Select Airport</option>
-                            @foreach($airportNames as $n)
-                                <option value="{{ $n }}">{{ $n }}</option>
-                            @endforeach
-                        </select>
-                        <label>Airport Category</label>
-                        ${['International','Domestic','Military','Regional','Private'].map(c => `
-                            <label style="display:block;font-size:13px;">
-                                <input type="checkbox" name="airportClass" value="${c}"> ${c}
-                            </label>`).join('')}
+                    <strong>Facilities</strong>
+                    <div class="form-check">
+                        <input class="form-check-input facility-checkbox" type="checkbox" value="hospital" id="facilityHospital">
+                        <label class="form-check-label" for="facilityHospital">
+                            Medical (<span id="hospitalCount">0</span>)
+                        </label>
                     </div>
 
-                    <div id="hospitalFilter" style="display:none;">
-                        <label>Hospital Name:</label>
-                        <select id="hospital_name_map" class="form-select form-select-sm mb-2 select-search-hospital">
-                            <option value="">Select Hospital</option>
-                            @foreach($hospitalNames as $n)
-                                <option value="{{ $n }}">{{ $n }}</option>
-                            @endforeach
-                        </select>
-                        <label>Facility Level</label>
-                        ${['Regional Hospital (A)','General Hospital (S, M1)','Community Hospital (M2, F1, F2, F3) & SHPH','Large Private Hospital','Medium Private Hospital','Small Private Hospital & Private Clinic / Polyclinic'].map(c => `
-                            <label style="display:block;font-size:13px;">
-                                <input type="checkbox" name="hospitalLevel" value="${c}"> ${c}
-                            </label>`).join('')}
+                    <div class="form-check">
+                        <input class="form-check-input facility-checkbox" type="checkbox" value="airport" id="facilityAirport">
+                        <label class="form-check-label" for="facilityAirport">
+                            Aviation (<span id="airportCount">0</span>)
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input facility-checkbox" type="checkbox" value="police" id="facilityPolice">
+                        <label class="form-check-label" for="facilityPolice">
+                            Police (<span id="policeCount">0</span>)
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input facility-checkbox" type="checkbox" value="embassy" id="facilityEmbassy">
+                        <label class="form-check-label" for="facilityEmbassy">
+                            Embassies (<span id="embassyCount">0</span>)
+                        </label>
                     </div>
 
                     <hr>
-                    <strong>Region</strong>
-                    <div style="max-height:120px;overflow-y:auto;border:1px solid #ccc;padding:5px;border-radius:5px;margin-top:6px;">
-                        @foreach ($provinces as $p)
-                            <div class="form-check">
-                                <input class="form-check-input province-checkbox" type="checkbox" value="{{ $p->id }}">
-                                <label class="form-check-label">{{ $p->provinces_region }}</label>
-                            </div>
-                        @endforeach
+                    <div class="filter-box" id="provinceSelect">
+                        <label class="filter-label">
+                            Region
+                        </label>
+
+                        <div class="select-input">
+                            <input
+                                type="text"
+                                id="provinceSearch"
+                                placeholder="🔍 Select Region"
+                                readonly
+                            >
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+
+                        <div class="select-dropdown">
+                            <input
+                                type="text"
+                                class="dropdown-search"
+                                id="provinceSearchInput"
+                                placeholder="Search Region..."
+                            >
+
+                            <ul id="provinceList">
+                                @foreach($provinces as $province)
+                                <li>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            class="province-checkbox"
+                                            value="{{ $province->id }}"
+                                        >
+                                        {{ $province->provinces_region }}
+                                    </label>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
 
                     <hr>
-                    <button id="resetMapFilter" class="btn btn-sm btn-secondary w-100">Reset All</button>
+                    <button id="resetMapFilter"
+                            class="btn btn-sm btn-secondary w-100"
+                            style="margin-top:auto;">
+                        Reset All
+                    </button>
                     <div id="totalCountDisplay" style="margin-top:8px;text-align:center;font-size:13px;"></div>
                 </div>`;
             L.DomEvent.disableClickPropagation(div);
@@ -2002,7 +2373,7 @@
     }, 300);
 
     function getCurrentFiltersFromUI() {
-        const type = document.getElementById('mapFilter')?.value || 'all';
+        const facilities = [...document.querySelectorAll('.facility-checkbox:checked')].map(el => el.value);
         const hLevels = [...document.querySelectorAll('input[name="hospitalLevel"]:checked')].map(e => e.value);
         const aClasses = [...document.querySelectorAll('input[name="airportClass"]:checked')].map(e => e.value);
         const provs = [...document.querySelectorAll('.province-checkbox:checked')].map(e => e.value);
@@ -2010,12 +2381,34 @@
         // untuk select2, .value akan tetap bekerja because Select2 keeps value in the <select>
         const airportName = document.getElementById('airport_name_map')?.value || '';
         const hospitalName = document.getElementById('hospital_name_map')?.value || '';
-        return { type, hLevels, aClasses, provs, radius, airportName, hospitalName };
+        return { facilities, hLevels, aClasses, provs, radius, airportName, hospitalName };
+    }
+
+    async function refreshCurrentFilters() {
+        const {
+            facilities,
+            hLevels,
+            aClasses,
+            provs,
+            radius,
+            airportName,
+            hospitalName
+        } = getCurrentFiltersFromUI();
+
+        await applyFiltersWithMapControl(
+            facilities,
+            hLevels,
+            aClasses,
+            provs,
+            radius,
+            airportName,
+            hospitalName
+        );
     }
 
     // === Event Logic ===
     document.addEventListener('change', async e => {
-        const type = document.getElementById('mapFilter').value;
+        const facilities = [...document.querySelectorAll('.facility-checkbox:checked')].map(el => el.value);
         const hLevels = [...document.querySelectorAll('input[name="hospitalLevel"]:checked')].map(e => e.value);
         const aClasses = [...document.querySelectorAll('input[name="airportClass"]:checked')].map(e => e.value);
         const provs = [...document.querySelectorAll('.province-checkbox:checked')].map(e => e.value);
@@ -2023,10 +2416,7 @@
         const airportName = document.getElementById('airport_name_map')?.value || '';
         const hospitalName = document.getElementById('hospital_name_map')?.value || '';
 
-        document.getElementById('airportFilter').style.display = type === 'airport' ? 'block' : 'none';
-        document.getElementById('hospitalFilter').style.display = type === 'hospital' ? 'block' : 'none';
-
-        await applyFiltersWithMapControl(type, hLevels, aClasses, provs, radius, airportName, hospitalName);
+        await applyFiltersWithMapControl(facilities, hLevels, aClasses, provs, radius, airportName, hospitalName);
     });
 
     // === INPUT: update tampilan radius saat slider digeser (live) ===
@@ -2046,13 +2436,21 @@ document.addEventListener('click', async (e) => {
 
     // APPLY RADIUS => ambil filter sekarang lalu panggil applyFiltersWithMapControl dengan radius
     if (e.target.id === 'applyRadiusMap') {
-        const { type, hLevels, aClasses, provs, radius, airportName, hospitalName } = getCurrentFiltersFromUI();
+        const {
+            facilities,
+            hLevels,
+            aClasses,
+            provs,
+            radius,
+            airportName,
+            hospitalName
+        } = getCurrentFiltersFromUI();
         // pastikan lastClickedLocation ada jika radius > 0
         if (radius > 0 && !lastClickedLocation) {
             alert('Tentukan titik di peta terlebih dahulu dengan klik peta untuk menggunakan filter radius.');
             return;
         }
-        await applyFiltersWithMapControl(type, hLevels, aClasses, provs, radius, airportName, hospitalName);
+        await applyFiltersWithMapControl(facilities, hLevels, aClasses, provs, radius, airportName, hospitalName);
         return;
     }
 
@@ -2070,19 +2468,34 @@ document.addEventListener('click', async (e) => {
         lastClickedLocation = null;
 
         // apply ulang tanpa radius (tetap simpan filter lain)
-        const { type, hLevels, aClasses, provs, airportName, hospitalName } = getCurrentFiltersFromUI();
-        await applyFiltersWithMapControl(type, hLevels, aClasses, provs, 0, airportName, hospitalName);
+        const { facilities, hLevels, aClasses, provs, airportName, hospitalName } = getCurrentFiltersFromUI();
+        await applyFiltersWithMapControl(facilities, hLevels, aClasses, provs, 0, airportName, hospitalName);
         return;
     }
 
     // RESET ALL FILTERS (tombol Reset All) -> gunakan handler yang sudah komprehensif
     if (e.target.id === 'resetMapFilter') {
         // 1) UI reset
-        document.querySelectorAll('#filterPanel input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelectorAll('#filterPanel input[type="checkbox"]').forEach(cb => {
+            cb.checked = false;
+        });
 
-        // reset dropdown tipe
-        const mapFilterEl = document.getElementById('mapFilter');
-        if (mapFilterEl) mapFilterEl.value = 'all';
+        // reset province dropdown text
+        const provinceSearch = document.getElementById('provinceSearch');
+        if (provinceSearch) {
+            provinceSearch.value = '';
+        }
+
+        // reset search keyword pada dropdown
+        const provinceSearchInput = document.getElementById('provinceSearchInput');
+        if (provinceSearchInput) {
+            provinceSearchInput.value = '';
+        }
+
+        // tampilkan kembali semua province
+        document.querySelectorAll('#provinceList li').forEach(li => {
+            li.style.display = '';
+        });
 
         // sembunyikan sub-panels
         const af = document.getElementById('airportFilter');
@@ -2117,12 +2530,24 @@ document.addEventListener('click', async (e) => {
         // 5) Clear markers and counters
         if (airportMarkers) airportMarkers.clearLayers();
         if (hospitalMarkers) hospitalMarkers.clearLayers();
+        if (policeMarkers) policeMarkers.clearLayers();
+        if (embassyMarkers) embassyMarkers.clearLayers();
         totalAirports = 0;
         totalHospitals = 0;
+        totalPolice = 0;
+        totalEmbassies = 0;
         updateTotalCountDisplay();
 
         // 6) Re-fetch semua data
-        await applyFiltersWithMapControl('all', [], [], [], 0, '', '');
+        await applyFiltersWithMapControl(
+            [],
+            [],
+            [],
+            [],
+            0,
+            '',
+            ''
+        );
 
         e.stopPropagation();
         e.preventDefault();
@@ -2136,39 +2561,26 @@ function bindFilterChangeAutoApply() {
     // checkbox change
     document.querySelectorAll('#filterPanel input[type="checkbox"]').forEach(el => {
         el.addEventListener('change', async () => {
-            const { type, hLevels, aClasses, provs, radius, airportName, hospitalName } = getCurrentFiltersFromUI();
-            await applyFiltersWithMapControl(type, hLevels, aClasses, provs, radius, airportName, hospitalName);
+            const { facilities, hLevels, aClasses, provs, radius, airportName, hospitalName } = getCurrentFiltersFromUI();
+            await applyFiltersWithMapControl(facilities, hLevels, aClasses, provs, radius, airportName, hospitalName);
         });
     });
-
-    // select dropdown change (mapFilter)
-    const mapFilterEl = document.getElementById('mapFilter');
-    if (mapFilterEl) {
-        mapFilterEl.addEventListener('change', () => {
-            const type = mapFilterEl.value;
-            document.getElementById('airportFilter').style.display = type === 'airport' ? 'block' : 'none';
-            document.getElementById('hospitalFilter').style.display = type === 'hospital' ? 'block' : 'none';
-            // also trigger apply
-            const { type: t, hLevels, aClasses, provs, radius, airportName, hospitalName } = getCurrentFiltersFromUI();
-            applyFiltersWithMapControl(t, hLevels, aClasses, provs, radius, airportName, hospitalName);
-        });
-    }
 
     // select2 change (nama)
     // if Select2 is used, listen with jQuery; otherwise plain change event above covers plain <select>
     if (typeof $ !== 'undefined' && $.fn && $.fn.select2) {
         $(document).on('change', '#airport_name_map, #hospital_name_map', async function () {
-            const { type, hLevels, aClasses, provs, radius, airportName, hospitalName } = getCurrentFiltersFromUI();
-            await applyFiltersWithMapControl(type, hLevels, aClasses, provs, radius, airportName, hospitalName);
+            const { facilities, hLevels, aClasses, provs, radius, airportName, hospitalName } = getCurrentFiltersFromUI();
+            await applyFiltersWithMapControl(facilities, hLevels, aClasses, provs, radius, airportName, hospitalName);
         });
     } else {
         document.getElementById('airport_name_map')?.addEventListener('change', async () => {
-            const { type, hLevels, aClasses, provs, radius, airportName, hospitalName } = getCurrentFiltersFromUI();
-            await applyFiltersWithMapControl(type, hLevels, aClasses, provs, radius, airportName, hospitalName);
+            const { facilities, hLevels, aClasses, provs, radius, airportName, hospitalName } = getCurrentFiltersFromUI();
+            await applyFiltersWithMapControl(facilities, hLevels, aClasses, provs, radius, airportName, hospitalName);
         });
         document.getElementById('hospital_name_map')?.addEventListener('change', async () => {
-            const { type, hLevels, aClasses, provs, radius, airportName, hospitalName } = getCurrentFiltersFromUI();
-            await applyFiltersWithMapControl(type, hLevels, aClasses, provs, radius, airportName, hospitalName);
+            const { facilities, hLevels, aClasses, provs, radius, airportName, hospitalName } = getCurrentFiltersFromUI();
+            await applyFiltersWithMapControl(facilities, hLevels, aClasses, provs, radius, airportName, hospitalName);
         });
     }
 }
@@ -2177,7 +2589,7 @@ function bindFilterChangeAutoApply() {
 setTimeout(bindFilterChangeAutoApply, 350);
 
     // --- Initial Load ---
-    applyFiltersWithMapControl('all');
+    refreshCurrentFilters();
 </script>
 
 @endpush

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Hospital;
 use App\Models\Airport;
 use App\Models\Police;
+use App\Models\Embassiees;
 use App\Models\Provincesregion;
 use Illuminate\Support\Facades\DB;
 
@@ -157,7 +158,23 @@ class HospitalController extends Controller
         ->orderBy('distance')
         ->get();
 
-        return view('pages.hospital.showdetailemergency', compact('hospital','nearbyHospitals','radius_km','nearbyAirports','nearbyPolices'));
+         // === NEARBY EMBASSY ===
+        $nearbyEmbassy = Embassiees::selectRaw("
+            id, name_embassiees AS name, latitude, longitude, location, telephone, fax, email, website,
+            ( 6371 * acos(
+                cos( radians(?) )
+                * cos( radians( latitude ) )
+                * cos( radians( longitude ) - radians(?) )
+                + sin( radians(?) )
+                * sin( radians( latitude ) )
+            )) AS distance
+        ", [$latitude, $longitude, $latitude])
+        ->where('embassy_status', true)
+        ->having('distance', '<=', $radius_km)
+        ->orderBy('distance')
+        ->get();
+
+        return view('pages.hospital.showdetailemergency', compact('hospital','nearbyHospitals','radius_km','nearbyAirports','nearbyPolices','nearbyEmbassy'));
     }
 
     public function filter(Request $request)
@@ -250,7 +267,37 @@ class HospitalController extends Controller
             }
         }
 
-        return response()->json($query->get());
+        $hospitals = $query->get();
+
+        $levelCounts = [
+            'Regional Hospital (A)' => 0,
+            'General Hospital (S, M1)' => 0,
+            'Community Hospital (M2, F1, F2, F3) & SHPH' => 0,
+            'Large Private Hospital' => 0,
+            'Medium Private Hospital' => 0,
+            'Small Private Hospital & Private Clinic / Polyclinic' => 0,
+        ];
+
+        foreach ($hospitals as $hospital) {
+
+            if (empty($hospital->facility_level)) {
+                continue;
+            }
+
+            $levels = array_map('trim', explode(',', $hospital->facility_level));
+
+            foreach ($levels as $level) {
+                if (isset($levelCounts[$level])) {
+                    $levelCounts[$level]++;
+                }
+            }
+        }
+
+        return response()->json([
+            'hospitals' => $hospitals,
+            'levelCounts' => $levelCounts
+        ]);
+
 }
 
 }

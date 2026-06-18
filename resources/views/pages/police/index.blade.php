@@ -158,22 +158,22 @@
 
                 <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level6Modal">
                     <img src="{{ asset('images/dot-blue-ring-royal-papua.png') }}" style="width:15px; height:15px;">
-                    <small>Royal Thai Police (National HQ)</small>
+                    <small>National Police (HQ)</small>
                 </button>
 
                 <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level5Modal">
                     <img src="{{ asset('images/dot-red.png') }}" style="width:15px; height:15px;">
-                    <small>Provincial Police Regions</small>
+                    <small>Regional Police</small>
                 </button>
 
                 <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level4Modal">
                     <img src="{{ asset('images/dot-orange-ppc.png') }}" style="width:15px; height:15px;">
-                    <small>Provincial Police HQ</small>
+                    <small>Provincial Police</small>
                 </button>
 
                 <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level3Modal">
                     <img src="{{ asset('images/dot-green.png') }}" style="width:15px; height:15px;">
-                    <small>Police Station</small>
+                    <small>City Police Station</small>
                 </button>
 
             </div>
@@ -281,7 +281,7 @@
 <script>
 // === Inisialisasi Peta ===
 const map = L.map('map')
-    .setView([-6.80188562253168, 144.0733101155011], 5);
+     .setView([15.561656906765931, 100.85374832882776], 5);
 
 // === Layer ===
 const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -360,7 +360,7 @@ function addPoliceMarkers(data) {
 
         const icon = L.icon({
             iconUrl: police.icon ? police.icon : 'https://png.pngtree.com/png-vector/20221211/ourmid/pngtree-minimal-location-map-icon-logo-symbol-vector-design-transparent-background-png-image_6520892.png',
-            iconSize: [16, 16],
+            iconSize: [12, 12],
             iconAnchor: [15, 30],
             popupAnchor: [0, -25]
         });
@@ -372,7 +372,10 @@ function addPoliceMarkers(data) {
 
         marker.bindPopup(`
             <h5>${police.name_police || 'N/A'}</h5>
-            <strong>Address:</strong> ${police.location || 'N/A'}<br>
+            <strong>Address:</strong>
+                ${police.location || 'N/A'}
+                ${police.city_name || 'N/A'}
+                ${police.province_name || 'N/A'}, Thailand<br>
             <strong>Phone:</strong> ${police.telephone || 'N/A'}<br>
             <strong>Website:</strong> ${police.website || 'N/A'}<br>
             ${police.id ? `<a href="/police/${police.id}/detail" class="btn btn-primary btn-sm mt-2" style="color:white;">Read More</a>` : ''}
@@ -387,10 +390,19 @@ function addPoliceMarkers(data) {
 // === Apply Filter POLICE ===
 async function applyPoliceFilters() {
     const provs = [...document.querySelectorAll('.province-checkbox:checked')].map(e => e.value);
+    const categories = [...document.querySelectorAll('input[name="policeCategory"]:checked')].map(e => e.value);
     const policeName = $('#police_name_map').val() || '';
     const radius = parseInt(document.getElementById('radiusRangeMap')?.value || 0);
 
     let filters = {};
+
+    if (policeName) filters.name = policeName;
+
+    if (provs.length > 0)
+        filters.provinces = provs;
+
+    if (categories.length > 0)
+        filters.categories = categories;
 
     if (policeName) filters.name = policeName;
     if (provs.length > 0) filters.provinces = provs;
@@ -401,12 +413,26 @@ async function applyPoliceFilters() {
         filters.center_lng = lastClickedLocation.lng;
     }
 
-    const polices = await fetchPoliceData(filters);
+    const result = await fetchPoliceData(filters);
+
+    const polices = result.polices;
+    const categoryCounts = result.categoryCounts;
 
     addPoliceMarkers(polices);
 
     document.getElementById('totalCountDisplay').innerHTML =
         `<strong>Police:</strong> ${polices.length}`;
+
+    Object.keys(categoryCounts).forEach(cat => {
+
+        const id = cat.replace(/[^a-zA-Z0-9]/g,'-');
+
+        const el = document.getElementById(`count-${id}`);
+
+        if (el) {
+            el.textContent = categoryCounts[cat];
+        }
+    });
 }
 
 // === Klik Map untuk radius ===
@@ -511,7 +537,23 @@ const FilterPanel = L.Control.extend({
 
                 <hr>
 
-                <strong>Province</strong>
+                <label>Category:</label>
+
+                ${[
+                    'National Police (HQ)',
+                    'Regional Police',
+                    'Provincial Police',
+                    'City Police Station',
+                ].map(c => `
+                <label style="display:block;font-size:13px;margin-bottom:4px;">
+                    <input type="checkbox" name="policeCategory" value="${c}">
+                    ${c} (<span id="count-${c.replace(/[^a-zA-Z0-9]/g,'-')}">0</span>)
+                </label>
+                `).join('')}
+
+                <hr>
+
+                <strong>Region</strong>
                 <div style="max-height:120px;overflow-y:auto;border:1px solid #ccc;padding:5px;border-radius:5px;margin-top:6px;">
                     @foreach ($provinces as $p)
                         <div class="form-check">
@@ -530,6 +572,7 @@ const FilterPanel = L.Control.extend({
                 <div id="totalCountDisplay"
                     style="margin-top:8px;text-align:center;font-size:13px;">
                 </div>
+
             </div>
         `;
 
@@ -588,6 +631,7 @@ const FilterPanel = L.Control.extend({
 
             // checkbox
             div.querySelectorAll('.province-checkbox').forEach(cb => cb.checked = false);
+            div.querySelectorAll('[name="policeCategory"]').forEach(cb => cb.checked = false);
 
             // select2
             $('#police_name_map').val('').trigger('change');
@@ -619,7 +663,10 @@ map.addControl(new FilterPanel());
 
 // === Event Filter ===
 document.addEventListener('change', e => {
-    if (e.target.classList.contains('province-checkbox')) {
+    if (
+        e.target.classList.contains('province-checkbox') ||
+        e.target.name === 'policeCategory'
+    ) {
         applyPoliceFilters();
     }
 });
