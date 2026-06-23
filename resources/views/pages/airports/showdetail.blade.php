@@ -229,10 +229,22 @@
                     {!! $airport->supplies_eqipment !!} {{-- Menggunakan {!! !!} jika kontennya HTML --}}
 
                     <p><strong>Public Facilities:</strong></p>
-                    {!! $airport->public_facilities !!} {{-- Menggunakan {!! !!} jika kontennya HTML --}}
+                     @if(!empty($airport->public_facilities))
+                        <ul>
+                            @foreach(explode(',', $airport->public_facilities) as $facility)
+                                <li>{{ trim($facility) }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
 
                     <p><strong>Public Transportation:</strong></p>
-                    {!! $airport->public_transportation !!} {{-- Menggunakan {!! !!} jika kontennya HTML --}}
+                     @if(!empty($airport->public_transportation))
+                        <ul>
+                            @foreach(explode(',', $airport->public_transportation) as $transport)
+                                <li>{{ trim($transport) }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
 
                 </div>
             </div>
