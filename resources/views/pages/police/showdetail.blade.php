@@ -150,11 +150,15 @@
                 <p>
                     <strong>Longitude:</strong> {{ $police->longitude ?? '-' }}
                 </p>
-                 <p>
+                <p>
                     <strong>Location:</strong>
                     {{ $police->location ?? '-' }},
                     {{ $city->city }},
                     {{ $province->provinces_region }}
+                </p>
+                <p>
+                    <strong>Hours of Operation:</strong>
+                    {{ $police->hrs_of_operation ?? '-' }}
                 </p>
             </div>
             </div>
