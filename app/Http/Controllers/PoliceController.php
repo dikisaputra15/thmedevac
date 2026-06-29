@@ -43,8 +43,8 @@ class PoliceController extends Controller
         });
 
         // 2. Filter by Category (case-insensitive search)
-        $query->when($request->filled('category'), function ($q) use ($request) {
-            $q->where('category', $request->input('category'));
+        $query->when($request->filled('categories'), function ($q) use ($request) {
+            $q->whereIn('category', (array) $request->categories);
         });
 
         // 3. Filter by Location (Address - case-insensitive search)
