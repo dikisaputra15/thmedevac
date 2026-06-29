@@ -155,7 +155,7 @@
                     <strong>Location:</strong>
                     {{ $police->location ?? '-' }},
                     {{ $city->city }},
-                    {{ $province->provinces_region }}
+                    {{ $province->provinces_region }}, Thailand
                 </p>
                 <p>
                     <strong>Hours of Operation:</strong>
