@@ -231,11 +231,23 @@
             </div>
         </div>
 
-        <div class="col-md-12" hidden>
-            <div class="form-group">
-                <label>Edit Population Catchment</label>
-                <input type="text" class="form-control" name="population_catchment" value="{{ $hospital->population_catchment; }}">
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Population Catchment
+              </h3>
             </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <textarea id="summernote16" name="population_catchment">
+                    <?php echo $hospital->population_catchment; ?>
+                </textarea>
+
+            </div>
+
+          </div>
         </div>
 
          <div class="col-md-12">
@@ -1073,6 +1085,7 @@
     $('#summernote13').summernote()
     $('#summernote14').summernote()
     $('#summernote15').summernote()
+    $('#summernote16').summernote()
 
   })
 </script>
