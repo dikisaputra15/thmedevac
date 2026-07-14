@@ -375,8 +375,8 @@ function addPoliceMarkers(data) {
         marker.bindPopup(`
             <h5>${police.name_police || 'N/A'}</h5>
             <strong>Address:</strong>
-                ${police.location || 'N/A'}
-                ${police.city_name || 'N/A'}
+                ${police.location || 'N/A'},
+                ${police.city_name || 'N/A'},
                 ${police.province_name || 'N/A'}, Thailand<br>
             <strong>Phone:</strong> ${police.telephone || 'N/A'}<br>
             <strong>Website:</strong> ${police.website || 'N/A'}<br>
