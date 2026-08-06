@@ -115,6 +115,11 @@
 
         <div class="d-flex gap-2 mt-2">
 
+            <a href="{{ url('home') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('home') ? 'active' : '' }}">
+                <i class="bi bi-house-door-fill fs-3"></i>
+                <small>Home</small>
+            </a>
+
             <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
                 <i class="bi bi-airplane fs-3"></i>
                 <small>Airports</small>
@@ -123,11 +128,6 @@
             <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
              <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
                 <small>Medical</small>
-            </a>
-
-            <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
-                  <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
-                <small>Air Charter</small>
             </a>
 
             <a href="{{ url('police') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('police') ? 'active' : '' }}">
@@ -157,22 +157,22 @@
                 <span class="fw-bold me-2">Map Legend:</span>
 
                 <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level6Modal">
-                    <img src="{{ asset('images/dot-blue-ring-royal-papua.png') }}" style="width:15px; height:15px;">
+                    <img src="{{ asset('images/Layer1.png') }}" style="width:15px; height:15px;">
                     <small>National Police (HQ)</small>
                 </button>
 
                 <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level5Modal">
-                    <img src="{{ asset('images/dot-red.png') }}" style="width:15px; height:15px;">
+                    <img src="{{ asset('images/Layer2.png') }}" style="width:15px; height:15px;">
                     <small>Regional Police</small>
                 </button>
 
                 <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level4Modal">
-                    <img src="{{ asset('images/dot-orange-ppc.png') }}" style="width:15px; height:15px;">
+                    <img src="{{ asset('images/Layer3.png') }}" style="width:15px; height:15px;">
                     <small>Provincial Police</small>
                 </button>
 
                 <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level3Modal">
-                    <img src="{{ asset('images/dot-green.png') }}" style="width:15px; height:15px;">
+                    <img src="{{ asset('images/Layer4.png') }}" style="width:15px; height:15px;">
                     <small>City Police Station</small>
                 </button>
 
@@ -204,7 +204,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="d-flex align-items-center">
-             <img src="{{ asset('images/dot-green.png') }}" style="width:15px; height:15px;">
+             <img src="{{ asset('images/Layer4.png') }}" style="width:15px; height:15px;">
             <h5 class="modal-title" id="disclaimerLabel">Police Station</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -221,7 +221,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="d-flex align-items-center">
-            <img src="{{ asset('images/dot-orange-ppc.png') }}" style="width:15px; height:15px;">
+            <img src="{{ asset('images/Layer3.png') }}" style="width:15px; height:15px;">
             <h5 class="modal-title" id="disclaimerLabel">Provincial Police Command (PPC)</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -238,7 +238,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="d-flex align-items-center">
-            <img src="{{ asset('images/dot-red.png') }}" style="width:15px; height:15px;">
+            <img src="{{ asset('images/Layer2.png') }}" style="width:15px; height:15px;">
             <h5 class="modal-title" id="disclaimerLabel">Divisional Command</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -255,7 +255,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="d-flex align-items-center">
-            <img src="{{ asset('images/dot-blue-ring-royal-papua.png') }}" style="width:15px; height:15px;">
+            <img src="{{ asset('images/Layer1.png') }}" style="width:15px; height:15px;">
             <h5 class="modal-title" id="disclaimerLabel">Royal Papua New Guinea Constabulary (Commissioner HQ)</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

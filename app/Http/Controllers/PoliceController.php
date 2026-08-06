@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Police;
+use App\Models\Hospital;
+use App\Models\Airport;
+use App\Models\Embassiees;
 use App\Models\Provincesregion;
 use App\Models\City;
 use Illuminate\Support\Facades\DB;
@@ -174,5 +177,52 @@ class PoliceController extends Controller
         $city = DB::table('cities')->where('id', $police->city_id)->first();
         $province = DB::table('provincesregions')->where('id', $police->province_id)->first();
         return view('pages.police.showdetail', compact('police','city','province'));
+    }
+
+     public function showdetailemergency($id)
+    {
+        $police = Police::findOrFail($id);
+        $hospital = Hospital::select('medical_support_website','travel_agent')->first();
+
+          // --- Ambil Bandara Terdekat ---
+        $nearbyAirports = Airport::selectRaw('*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance', [$police->latitude, $police->longitude, $police->latitude])
+            ->where('airport_status', true)
+            ->having('distance', '<=', 500) // Filter dalam radius 100 km (sesuaikan)
+            ->where('id', '!=', $police->id) // Jangan sertakan bandara utama itu sendiri
+            ->orderBy('distance')
+            ->get();
+
+        // --- Ambil Rumah Sakit Terdekat ---
+        $nearbyHospitals = Hospital::selectRaw('*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance', [$police->latitude, $police->longitude, $police->latitude])
+            ->where('hospital_status', true)
+            ->having('distance', '<=', 500) // Filter dalam radius 100 km (sesuaikan)
+            ->orderBy('distance')
+            ->get();
+
+        $nearbyPolices = Police::selectRaw("*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ))) AS distance", [$police->latitude, $police->longitude, $police->latitude])
+            ->where('police_status', true)
+            ->having('distance', '<=', 500)
+            ->orderBy('distance')
+            ->get();
+
+         // === NEARBY EMBASSY ===
+        $nearbyEmbassy = Embassiees::selectRaw("
+            id, name_embassiees AS name, latitude, longitude, location, telephone, fax, email, website,
+            ( 6371 * acos(
+                cos( radians(?) )
+                * cos( radians( latitude ) )
+                * cos( radians( longitude ) - radians(?) )
+                + sin( radians(?) )
+                * sin( radians( latitude ) )
+            )) AS distance
+        ", [$police->latitude, $police->longitude, $police->latitude])
+        ->where('embassy_status', true)
+        ->having('distance', '<=', 500)
+        ->orderBy('distance')
+        ->get();
+
+        $radius_km = 500; // Radius lingkaran untuk ditampilkan di peta
+
+        return view('pages.police.showdetailemergency', compact('police', 'nearbyAirports', 'nearbyHospitals', 'radius_km', 'hospital', 'nearbyPolices', 'nearbyEmbassy'));
     }
 }

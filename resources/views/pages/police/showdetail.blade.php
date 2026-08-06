@@ -87,6 +87,11 @@
                 <small>General</small>
             </a>
 
+            <a href="{{ url('police') }}/{{$police->id}}/emergency" class="btn btn-outline-danger d-flex flex-column align-items-center p-3 {{ request()->is('police/'.$police->id.'/emergency') ? 'active' : '' }}">
+                <img src="{{ asset('images/icon-emergency-support-white.png') }}" style="width: 24px; height: 24px;">
+                <small>Emergency</small>
+            </a>
+
             <!-- Button 5 -->
             <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
                 <i class="bi bi-airplane fs-3"></i>
@@ -132,36 +137,46 @@
     <div class="row">
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header fw-bold"><i class="fas fa-phone"></i> Contact Information</div>
-                <div class="card-body">
-                <p>
-                    <strong>Telephone:</strong> {!! $police->telephone ?? '-' !!}
-                </p>
-                <p>
-                    <strong>Fax:</strong> {!! $police->fax ?? '-' !!}
-                </p>
-                    <strong>Email:</strong> {!! $police->email ?? '-' !!}
-                </p>
-                <p>
-                    <strong>Website:</strong> {!! $police->website !!}
-                </p>
-                <p>
-                    <strong>Latitude:</strong> {{ $police->latitude ?? '-' }}
-                </p>
-                <p>
-                    <strong>Longitude:</strong> {{ $police->longitude ?? '-' }}
-                </p>
-                <p>
-                    <strong>Location:</strong>
-                    {{ $police->location ?? '-' }},
-                    {{ $city->city }},
-                    {{ $province->provinces_region }}, Thailand
-                </p>
-                <p>
-                    <strong>Hours of Operation:</strong>
-                    {{ $police->hrs_of_operation ?? '-' }}
-                </p>
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-location.png') }}" style="width: 18px; height: 24px;"> Location</div>
+                <div class="card-body overflow-auto">
+                    <p>
+                        <strong>Address:</strong>
+                        {{ $police->location }},
+                        {{ $city->city }},
+                        {{ $province->provinces_region }}, Thailand
+                    </p>
+                    <p>
+                        <strong>Latitude:</strong> {{ $police->latitude }}
+                    </p>
+                    <p>
+                        <strong>Longitude:</strong> {{ $police->longitude }}
+                    </p>
+                </div>
             </div>
+
+             <div class="card">
+                <div class="card-header fw-bold"><img src="{{ asset('images/contact-icon.png') }}" style="width: 24px; height: 24px;"> Contact Details</div>
+                <div class="card-body overflow-auto">
+                    <p>
+                        <strong>Telephone:</strong> <?php echo $police->telephone; ?>
+                    </p>
+                    <p>
+                        <strong>Fax:</strong> <?php echo $police->fax; ?>
+                    </p>
+                    <p>
+                        <strong>Email:</strong> <?php echo $police->email; ?>
+                    </p>
+                    <p>
+                        <strong>Website:</strong> <?php echo $police->website; ?>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header fw-bold"><img src="{{ asset('images/icon-nearest-accomodation.png') }}" style="width: 24px; height: 18px;"> Accommodation Search</div>
+                <div class="card-body overflow-auto">
+                    <?php echo $police->nearest_accommodation; ?>
+                </div>
             </div>
         </div>
         <div class="col-md-8">
