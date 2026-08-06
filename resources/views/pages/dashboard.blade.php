@@ -275,6 +275,222 @@
         cursor: pointer;
     }
 
+    /* ===== Google Places Autocomplete Fix ===== */
+    .pac-container {
+        z-index: 99999 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important;
+        font-family: inherit !important;
+        margin-top: 2px !important;
+        border: 1px solid #ddd !important;
+    }
+
+    .pac-item {
+        padding: 6px 12px !important;
+        cursor: pointer !important;
+        font-size: 13px !important;
+        border-top: 1px solid #f0f0f0 !important;
+    }
+
+    .pac-item:hover {
+        background: #f0f6ff !important;
+    }
+
+    .pac-item-query {
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: #333 !important;
+    }
+
+    .pac-matched {
+        color: #1a73e8 !important;
+        font-weight: 700 !important;
+    }
+
+    #locationSearchMap:focus {
+        outline: none !important;
+        border-color: #1a73e8 !important;
+        box-shadow: 0 0 0 2px rgba(26,115,232,0.2) !important;
+    }
+
+    /* ===== Map Type Control (Google style: Map | Satellite) ===== */
+    .gmap-type-wrap {
+        border: none !important;
+        background: transparent;
+        font-family: Roboto, Arial, sans-serif;
+        position: relative;
+    }
+
+    .gmap-type-bar {
+        display: flex;
+        background: #fff;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px -1px rgba(0,0,0,0.3);
+        overflow: hidden;
+    }
+
+    .gmap-type-btn {
+        border: none;
+        background: #fff;
+        color: #565656;
+        font-size: 18px;
+        font-weight: 400;
+        height: 40px;
+        padding: 0 17px;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .gmap-type-btn:hover {
+        background: #ebebeb;
+    }
+
+    .gmap-type-btn.active {
+        color: #000;
+        font-weight: 500;
+    }
+
+    /* Dropdown opsi (Terrain / Labels) — muncul saat hover, seperti Google */
+    .gmap-type-sub {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 2px;
+        background: #fff;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px -1px rgba(0,0,0,0.3);
+        padding: 8px 14px;
+        font-size: 15px;
+        color: #000;
+        white-space: nowrap;
+    }
+
+    .gmap-type-wrap:hover .gmap-type-sub {
+        display: block;
+    }
+
+    .gmap-type-opt {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        cursor: pointer;
+        font-weight: 400;
+    }
+
+    .gmap-type-opt input {
+        cursor: pointer;
+        margin: 0;
+    }
+
+    /* ===== Fullscreen control (Google style, kanan atas) ===== */
+    .leaflet-control-zoom-fullscreen {
+        width: 40px !important;
+        height: 40px !important;
+        background-color: #fff !important;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cpath fill='%23666' d='M0 0h7v2H2v5H0V0zm11 0h7v7h-2V2h-5V0zM2 11v5h5v2H0v-7h2zm14 0h2v7h-7v-2h5v-5z'/%3E%3C/svg%3E") !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-size: 18px 18px !important;
+        border-radius: 2px !important;
+        box-shadow: 0 1px 4px -1px rgba(0,0,0,0.3) !important;
+        border: none !important;
+    }
+
+    /* ikon "keluar fullscreen" */
+    .leaflet-fullscreen-on .leaflet-control-zoom-fullscreen {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cpath fill='%23666' d='M5 0h2v7H0V5h5V0zm6 0h2v5h5v2h-7V0zM0 11h7v7H5v-5H0v-2zm11 0h7v2h-5v5h-2v-7z'/%3E%3C/svg%3E") !important;
+    }
+
+    .gmap-fullscreen {
+        border: none !important;
+        background: transparent !important;
+        margin-top: 10px !important;
+        margin-right: 10px !important;
+    }
+
+    /* ===== Camera / Pan Control (Google style, kanan bawah) ===== */
+    .gmap-camera-wrap {
+        border: none !important;
+        background: transparent !important;
+        margin: 0 10px 10px 0 !important;
+    }
+
+    .gmap-camera-toggle,
+    .gmap-camera-pad {
+        background: #fff;
+        border: none;
+        border-radius: 50%;
+        box-shadow: 0 1px 4px -1px rgba(0,0,0,0.3);
+        padding: 0;
+    }
+
+    .gmap-camera-toggle {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #666;
+    }
+
+    .gmap-camera-toggle:hover {
+        background: #f1f1f1;
+        color: #000;
+    }
+
+    .gmap-camera-pad {
+        display: none;
+        position: relative;
+        width: 96px;
+        height: 96px;
+    }
+
+    .gmap-camera-pad.show {
+        display: block;
+    }
+
+    .gmap-camera-pad button {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        border-radius: 50%;
+        color: #666;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .gmap-camera-pad button:hover {
+        background: #f1f1f1;
+        color: #000;
+    }
+
+    .gmap-camera-pad [data-dir="up"]    { top: 3px;  left: 33px; }
+    .gmap-camera-pad [data-dir="down"]  { bottom: 3px; left: 33px; }
+    .gmap-camera-pad [data-dir="left"]  { left: 3px;  top: 33px; }
+    .gmap-camera-pad [data-dir="right"] { right: 3px; top: 33px; }
+    .gmap-camera-pad [data-dir="close"] { top: 33px;  left: 33px; }
+
+    /* ===== Custom top-center control corner (Nearby bar & Clear Route) ===== */
+    .leaflet-top.leaflet-center {
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+    }
+
+    .leaflet-top.leaflet-center .leaflet-control {
+        pointer-events: auto;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
 </style>
 
 @endpush
@@ -459,6 +675,11 @@
             <div class="d-flex justify-content-end p-3">
                 <div class="d-flex gap-2 mt-2">
 
+                    <a href="{{ url('home') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('home') ? 'active' : '' }}">
+                        <i class="bi bi-house-door-fill fs-3"></i>
+                        <small>Home</small>
+                    </a>
+
                     <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
                         <i class="bi bi-airplane fs-3"></i>
                         <small>Airports</small>
@@ -467,11 +688,6 @@
                     <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
                     <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
                         <small>Medical</small>
-                    </a>
-
-                    <a href="{{ url('aircharter') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('aircharter') ? 'active' : '' }}">
-                        <img src="{{ asset('images/icon-air-charter.png') }}" style="width: 48px; height: 24px;">
-                        <small>Air Charter</small>
                     </a>
 
                     <a href="{{ url('police') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('police') ? 'active' : '' }}">
@@ -497,7 +713,50 @@
 
 </div>
 
+<div style="position:relative;">
+
 <div id="map"></div>
+
+<!-- Route Detail Panel -->
+<div id="routePanel" style="
+    display:none;
+    position:absolute;
+    top:10px;
+    left:10px;
+    width:300px;
+    max-height:calc(100% - 20px);
+    background:#fff;
+    border-radius:10px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.18);
+    z-index:999;
+    flex-direction:column;
+    overflow:hidden;
+    font-family:inherit;
+">
+    <!-- Header -->
+    <div style="background:#1a73e8;padding:12px 14px;color:#fff;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+        <div>
+            <div style="font-size:11px;opacity:0.85;letter-spacing:0.5px;">DRIVING DIRECTIONS</div>
+            <div id="routePanelTitle" style="font-size:13px;font-weight:600;margin-top:2px;">—</div>
+        </div>
+        <button onclick="closeRoutePanel()" style="background:rgba(255,255,255,0.2);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:15px;line-height:1;display:flex;align-items:center;justify-content:center;">&times;</button>
+    </div>
+    <!-- Summary -->
+    <div id="routeSummary" style="padding:10px 14px;background:#f0f4ff;border-bottom:1px solid #dde8ff;display:flex;gap:16px;flex-shrink:0;">
+        <div style="text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:#1a73e8;" id="routeDistance">—</div>
+            <div style="font-size:10px;color:#666;text-transform:uppercase;letter-spacing:0.4px;">Distance</div>
+        </div>
+        <div style="text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:#395272;" id="routeDuration">—</div>
+            <div style="font-size:10px;color:#666;text-transform:uppercase;letter-spacing:0.4px;">Est. Time</div>
+        </div>
+    </div>
+    <!-- Steps -->
+    <div id="routeSteps" style="overflow-y:auto;flex:1;padding:8px 0;"></div>
+</div>
+
+</div>
 
 <div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -1817,6 +2076,8 @@
 @push('service')
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCd-WVlGgZFJwAtPZkbAEca2Np6OI7CBTM&libraries=places,geometry,drawing"></script>
+<script src="https://unpkg.com/leaflet.gridlayer.googlemutant@0.14.1/dist/Leaflet.GoogleMutant.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.6.0/Control.FullScreen.js"></script>
@@ -1834,20 +2095,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // buka/tutup dropdown
     provinceSelect.addEventListener('click', () => {
         provinceDropdown.classList.toggle('show');
-        const panel = document.querySelector('.leaflet-control-custom');
-
-        if (provinceDropdown.classList.contains('show')) {
-
-            const dropdownHeight =
-                provinceDropdown.scrollHeight;
-
-            panel.style.height =
-                (420 + dropdownHeight) + 'px';
-
-        } else {
-
-            panel.style.height = '420px';
-        }
     });
 
     // tutup saat klik luar
@@ -1894,34 +2141,155 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <script>
     // --- Map Initialization ---
-    const map = L.map('map').setView([15.561656906765931, 100.85374832882776], 6);
+    // zoomControl & attributionControl dimatikan: atribusi + kontrol sudah
+    // disediakan basemap Google, sama seperti dashboard-ref
+    const map = L.map('map', {
+        zoomControl: false,
+        attributionControl: false
+    }).setView([15.561656906765931, 100.85374832882776], 6);
 
-    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
-    }).addTo(map);
+    // --- Basemap: Google (roadmap / terrain / satellite / hybrid) ---
+    const baseLayers = {
+        roadmap:   L.gridLayer.googleMutant({ type: 'roadmap',   maxZoom: 21 }),
+        terrain:   L.gridLayer.googleMutant({ type: 'terrain',   maxZoom: 21 }),
+        satellite: L.gridLayer.googleMutant({ type: 'satellite', maxZoom: 21 }),
+        hybrid:    L.gridLayer.googleMutant({ type: 'hybrid',    maxZoom: 21 })
+    };
 
-    const satelliteLayer = L.tileLayer(
-        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-        { attribution: 'Tiles © Esri', maxZoom: 19 }
-    );
+    let currentBaseLayer = baseLayers.roadmap.addTo(map);
 
-    L.control.layers(
-        { "Street Map": osmLayer, "Satellite Map": satelliteLayer },
-        null,
-        { position: 'topleft' } // posisi kiri atas
-    ).addTo(map);
+    function setBasemap(type) {
+        if (currentBaseLayer === baseLayers[type]) return;
+        if (currentBaseLayer) map.removeLayer(currentBaseLayer);
+        currentBaseLayer = baseLayers[type].addTo(map);
+        if (currentBaseLayer.bringToBack) currentBaseLayer.bringToBack();
+    }
 
-    L.control.fullscreen({
-        position: 'topleft' // tetap di kiri atas
-    }).addTo(map);
+    // --- Map Type Control (Google style: Map | Satellite) ---
+    const MapTypeControl = L.Control.extend({
+        options: { position: 'topleft' },
+        onAdd: function () {
+            const wrap = L.DomUtil.create('div', 'gmap-type-wrap');
+
+            wrap.innerHTML = `
+                <div class="gmap-type-bar">
+                    <button type="button" class="gmap-type-btn active" data-mode="map">Map</button>
+                    <button type="button" class="gmap-type-btn" data-mode="satellite">Satellite</button>
+                </div>
+                <div class="gmap-type-sub">
+                    <label class="gmap-type-opt" data-opt="terrain">
+                        <input type="checkbox" id="mapTypeTerrain"> Terrain
+                    </label>
+                    <label class="gmap-type-opt" data-opt="labels" style="display:none;">
+                        <input type="checkbox" id="mapTypeLabels" checked> Labels
+                    </label>
+                </div>`;
+
+            const btns      = wrap.querySelectorAll('.gmap-type-btn');
+            const optTerrain = wrap.querySelector('[data-opt="terrain"]');
+            const optLabels  = wrap.querySelector('[data-opt="labels"]');
+            const cbTerrain  = wrap.querySelector('#mapTypeTerrain');
+            const cbLabels   = wrap.querySelector('#mapTypeLabels');
+
+            let mode = 'map'; // 'map' | 'satellite'
+
+            function apply() {
+                if (mode === 'map') {
+                    optTerrain.style.display = '';
+                    optLabels.style.display  = 'none';
+                    setBasemap(cbTerrain.checked ? 'terrain' : 'roadmap');
+                } else {
+                    optTerrain.style.display = 'none';
+                    optLabels.style.display  = '';
+                    setBasemap(cbLabels.checked ? 'hybrid' : 'satellite');
+                }
+                btns.forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+            }
+
+            btns.forEach(b => b.addEventListener('click', () => {
+                mode = b.dataset.mode;
+                apply();
+            }));
+            cbTerrain.addEventListener('change', apply);
+            cbLabels.addEventListener('change', apply);
+
+            L.DomEvent.disableClickPropagation(wrap);
+            L.DomEvent.disableScrollPropagation(wrap);
+            return wrap;
+        }
+    });
+    map.addControl(new MapTypeControl());
+
+    // --- Camera / Pan Control (Google style, kanan bawah) ---
+    const PAN_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2 15 6H9l3-4zm0 20-3-4h6l-3 4zM2 12l4-3v6l-4-3zm20 0-4 3V9l4 3z"/>
+        <circle cx="12" cy="12" r="1.8"/>
+    </svg>`;
+
+    const ARROWS = {
+        up:    `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 6l6 8H6z"/></svg>`,
+        down:  `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>`,
+        left:  `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 12l8-6v12z"/></svg>`,
+        right: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 12l-8 6V6z"/></svg>`,
+        close: `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg>`
+    };
+
+    const CameraControl = L.Control.extend({
+        options: { position: 'bottomright' },
+        onAdd: function (map) {
+            const wrap = L.DomUtil.create('div', 'gmap-camera-wrap');
+
+            wrap.innerHTML = `
+                <button type="button" class="gmap-camera-toggle" title="Map camera controls">${PAN_ICON}</button>
+                <div class="gmap-camera-pad">
+                    <button type="button" data-dir="up"    title="Pan up">${ARROWS.up}</button>
+                    <button type="button" data-dir="left"  title="Pan left">${ARROWS.left}</button>
+                    <button type="button" data-dir="right" title="Pan right">${ARROWS.right}</button>
+                    <button type="button" data-dir="down"  title="Pan down">${ARROWS.down}</button>
+                    <button type="button" data-dir="close" title="Close">${ARROWS.close}</button>
+                </div>`;
+
+            const toggle = wrap.querySelector('.gmap-camera-toggle');
+            const pad    = wrap.querySelector('.gmap-camera-pad');
+
+            const PAN_STEP = 120; // px
+
+            toggle.addEventListener('click', () => {
+                pad.classList.add('show');
+                toggle.style.display = 'none';
+            });
+
+            pad.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    switch (btn.dataset.dir) {
+                        case 'up':    map.panBy([0, -PAN_STEP]); break;
+                        case 'down':  map.panBy([0,  PAN_STEP]); break;
+                        case 'left':  map.panBy([-PAN_STEP, 0]); break;
+                        case 'right': map.panBy([ PAN_STEP, 0]); break;
+                        case 'close':
+                            pad.classList.remove('show');
+                            toggle.style.display = '';
+                            break;
+                    }
+                });
+            });
+
+            L.DomEvent.disableClickPropagation(wrap);
+            L.DomEvent.disableScrollPropagation(wrap);
+            return wrap;
+        }
+    });
+    map.addControl(new CameraControl());
+
+    // Fullscreen di kanan atas (default Google), di atas panel Filter & Radius
+    const fullscreenControl = L.control.fullscreen({ position: 'topright' });
+    map.addControl(fullscreenControl);
+    L.DomUtil.addClass(fullscreenControl.getContainer(), 'gmap-fullscreen');
 
     const style = document.createElement('style');
     style.textContent = `
-        .leaflet-top.leaflet-left .leaflet-control-layers {
-            margin-top: 5px !important;
-        }
-        .leaflet-top.leaflet-left .leaflet-control-zoom {
-            margin-top: 10px !important;
+        .leaflet-top.leaflet-left .gmap-type-wrap {
+            margin: 10px 0 0 10px !important;
         }
         `;
     document.head.appendChild(style);
@@ -1940,72 +2308,702 @@ document.addEventListener('DOMContentLoaded', function () {
     let totalPolice = 0;
     let totalEmbassies = 0;
 
-    // --- Leaflet Draw ---
-    const drawnItems = new L.FeatureGroup().addTo(map);
-    const drawControl = new L.Control.Draw({
-        draw: {
-            polygon: { allowIntersection: false, shapeOptions: { color: '#0000FF', fillOpacity: 0.2 } },
-            polyline: false, rectangle: false, circle: false, marker: false, circlemarker: false
-        },
-        edit: { featureGroup: drawnItems }
+    // --- Custom "topcenter" control corner ---
+    map._controlCorners['topcenter'] = L.DomUtil.create(
+        'div', 'leaflet-top leaflet-center', map._controlContainer
+    );
+
+    // --- Directions (in-map routing) ---
+    const directionsService = new google.maps.DirectionsService();
+    const routeLayer = L.featureGroup().addTo(map);
+
+    function clearRouteLayer() {
+        routeLayer.clearLayers();
+    }
+
+    // "Clear Route" button
+    const clearRouteBtn = document.createElement('div');
+    clearRouteBtn.id = 'clearRouteBtn';
+    clearRouteBtn.innerHTML = '✕ Clear Route';
+    Object.assign(clearRouteBtn.style, {
+        display: 'none',
+        background: '#fff',
+        border: '2px solid rgba(0,0,0,0.2)',
+        borderRadius: '6px',
+        padding: '6px 12px',
+        fontSize: '13px',
+        fontWeight: '600',
+        cursor: 'pointer',
+        margin: '10px',
+        color: '#d32f2f',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.15)'
     });
-    map.addControl(drawControl);
-
-    map.on(L.Draw.Event.CREATED, async e => {
-        drawnItems.clearLayers();
-        drawnItems.addLayer(e.layer);
-
-        drawnPolygonGeoJSON = e.layer.toGeoJSON();
-
-        // console.log('Polygon Created', drawnPolygonGeoJSON);
-
-        await refreshCurrentFilters();
+    clearRouteBtn.title = 'Clear the current route';
+    clearRouteBtn.addEventListener('click', () => {
+        clearRouteLayer();
+        clearRouteBtn.style.display = 'none';
     });
-    map.on(L.Draw.Event.EDITED, async e => {
 
-        e.layers.eachLayer(layer => {
-            drawnPolygonGeoJSON = layer.toGeoJSON();
+    const ClearRouteControl = L.Control.extend({
+        options: { position: 'topcenter' },
+        onAdd: function () {
+            L.DomEvent.disableClickPropagation(clearRouteBtn);
+            return clearRouteBtn;
+        }
+    });
+    map.addControl(new ClearRouteControl());
+
+    // --- Nearby Category Bar (Google Maps style) ---
+    let categoryMarkers   = [];
+    let activeCategoryBtn = null;
+
+    const categoryBar = document.createElement('div');
+    categoryBar.id = 'nearbyCategBar';
+    Object.assign(categoryBar.style, {
+        display:       'none',
+        background:    'transparent',
+        padding:       '8px 10px 0',
+        gap:           '8px',
+        flexWrap:      'nowrap',
+        overflowX:     'auto',
+        maxWidth:      '90vw',
+        scrollbarWidth:'none'
+    });
+
+    const nearbyCategories = [
+        { label: 'Hotels', icon: '🏨', type: 'lodging' }
+    ];
+
+    nearbyCategories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.textContent = cat.icon + ' ' + cat.label;
+        Object.assign(btn.style, {
+            display:      'inline-flex',
+            alignItems:   'center',
+            gap:          '4px',
+            padding:      '6px 14px',
+            borderRadius: '20px',
+            border:       '1px solid rgba(0,0,0,0.12)',
+            background:   '#fff',
+            color:        '#222',
+            fontSize:     '13px',
+            fontWeight:   '500',
+            cursor:       'pointer',
+            whiteSpace:   'nowrap',
+            boxShadow:    '0 1px 4px rgba(0,0,0,0.15)',
+            transition:   'all 0.15s'
         });
 
-        // console.log('Polygon Edited', drawnPolygonGeoJSON);
+        btn.addEventListener('click', () => {
+            if (activeCategoryBtn === btn) {
+                // toggle off
+                clearCategoryMarkers();
+                resetCategoryBtn(btn);
+                activeCategoryBtn = null;
+                return;
+            }
+            if (activeCategoryBtn) resetCategoryBtn(activeCategoryBtn);
+            activeCategoryBtn = btn;
+            btn.style.background = '#1a73e8';
+            btn.style.color      = '#fff';
+            btn.style.borderColor= '#1a73e8';
+            showNearbyCategory(cat.type, cat.label);
+        });
 
-        await refreshCurrentFilters();
+        categoryBar.appendChild(btn);
     });
-    map.on(L.Draw.Event.DELETED, async () => {
 
-        drawnItems.clearLayers();
+    const CategoryBarControl = L.Control.extend({
+        options: { position: 'topcenter' },
+        onAdd: function () {
+            L.DomEvent.disableClickPropagation(categoryBar);
+            L.DomEvent.disableScrollPropagation(categoryBar);
+            return categoryBar;
+        }
+    });
+    map.addControl(new CategoryBarControl());
 
+    function resetCategoryBtn(btn) {
+        btn.style.background  = '#fff';
+        btn.style.color       = '#222';
+        btn.style.borderColor = 'rgba(0,0,0,0.12)';
+    }
+
+    function clearCategoryMarkers() {
+        categoryMarkers.forEach(m => map.removeLayer(m));
+        categoryMarkers = [];
+    }
+
+    function showNearbyCategory(type, label) {
+        if (!lastClickedLocation) return;
+        clearCategoryMarkers();
+
+        const center  = new google.maps.LatLng(lastClickedLocation.lat, lastClickedLocation.lng);
+        const service = new google.maps.places.PlacesService(document.createElement('div'));
+
+        // Color map per category
+        const iconColors = {
+            lodging:    '#1a73e8',
+            restaurant: '#e53935',
+            pharmacy:   '#2e7d32',
+            atm:        '#f57c00',
+            parking:    '#1565c0',
+            cafe:       '#6d4c41',
+            hospital:   '#c62828',
+        };
+        const color = iconColors[type] || '#555';
+
+        function makeSvgIcon(col) {
+            const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='32' height='40' viewBox='0 0 32 40'>`
+                      + `<path d='M16 0C7.16 0 0 7.16 0 16c0 12 16 24 16 24S32 28 32 16C32 7.16 24.84 0 16 0z' fill='${col}'/>`
+                      + `<circle cx='16' cy='16' r='7' fill='#fff'/>`
+                      + `</svg>`;
+            return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+        }
+
+        const placeIcon = L.icon({
+            iconUrl: makeSvgIcon(color),
+            iconSize: [32, 40],
+            iconAnchor: [16, 40],
+            popupAnchor: [0, -36]
+        });
+
+        const searchRadiusM  = 20000; // 20 km
+        const searchRadiusKm = searchRadiusM / 1000;
+
+        service.nearbySearch({ location: center, radius: searchRadiusM, type }, (results, status) => {
+            if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                if (status === 'ZERO_RESULTS') {
+                    alert(`No ${label.toLowerCase()} found within ${searchRadiusKm} km.`);
+                } else {
+                    alert(`Failed to load ${label.toLowerCase()}. Error status: ${status}. Please ensure "Places API" is enabled and billing is active.`);
+                    console.error('PlacesService nearbySearch failed with status:', status);
+                }
+                return;
+            }
+            if (!results.length) return;
+
+            results.forEach(place => {
+                if (!place.geometry?.location) return;
+
+                const destLat = place.geometry.location.lat();
+                const destLng = place.geometry.location.lng();
+
+                const marker = L.marker([destLat, destLng], {
+                    icon: placeIcon,
+                    title: place.name
+                }).addTo(map);
+
+                const dist     = google.maps.geometry.spherical.computeDistanceBetween(center, place.geometry.location);
+                const distText = dist >= 1000 ? (dist / 1000).toFixed(1) + ' km' : Math.round(dist) + ' m';
+                const rating   = place.rating ? `⭐ ${place.rating.toFixed(1)}` : '';
+                const safeName = (place.name || '').replace(/'/g, "\\'");
+
+                marker.bindPopup(`
+                    <div style="font-size:13px;min-width:190px;">
+                        <h5 style="border-bottom:1px solid #ccc;margin:0 0 6px;font-size:14px;">${place.name}</h5>
+                        <div style="color:#666;font-size:12px;margin-bottom:3px;">${label}</div>
+                        ${rating  ? `<div style="font-size:12px;">${rating}</div>` : ''}
+                        <div style="margin-top:4px;font-size:12px;color:#555;"> ${distText} from search location</div>
+                        <div style="margin-top:8px;">
+                            <button onclick="showRouteOnMap(${center.lat()},${center.lng()},${destLat},${destLng},'${safeName}')"
+                                    style="display:inline-flex;align-items:center;gap:5px;
+                                           background:#1a73e8;color:#fff;border:none;
+                                           padding:5px 12px;border-radius:6px;font-size:12px;
+                                           font-weight:500;cursor:pointer;">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+                                    <polygon points='3 11 22 2 13 21 11 13 3 11'/>
+                                </svg>
+                                Get Directions
+                            </button>
+                        </div>
+                    </div>`);
+
+                categoryMarkers.push(marker);
+            });
+        });
+    }
+
+    // Helper: close route panel
+    function closeRoutePanel() {
+        const panel = document.getElementById('routePanel');
+        if (panel) panel.style.display = 'none';
+        clearRouteLayer();
+        clearRouteBtn.style.display = 'none';
+    }
+
+    // Helper: draw route on map + show panel
+    function showRouteOnMap(originLat, originLng, destLat, destLng, destName) {
+        directionsService.route({
+            origin: new google.maps.LatLng(originLat, originLng),
+            destination: new google.maps.LatLng(destLat, destLng),
+            travelMode: google.maps.TravelMode.DRIVING
+        }, (result, status) => {
+            if (status === 'OK') {
+                clearRouteLayer();
+                map.closePopup();
+
+                const route = result.routes[0];
+                const leg   = route.legs[0];
+
+                // --- Draw route polyline + endpoint markers ---
+                const path = (route.overview_path || []).map(p => [p.lat(), p.lng()]);
+                if (path.length) {
+                    L.polyline(path, {
+                        color: '#1a73e8', weight: 5, opacity: 0.85
+                    }).addTo(routeLayer);
+                }
+                L.marker([leg.start_location.lat(), leg.start_location.lng()])
+                    .bindPopup('Start').addTo(routeLayer);
+                L.marker([leg.end_location.lat(), leg.end_location.lng()])
+                    .bindPopup(destName || 'Destination').addTo(routeLayer);
+
+                if (routeLayer.getLayers().length) {
+                    map.fitBounds(routeLayer.getBounds(), { padding: [40, 40] });
+                }
+
+                clearRouteBtn.style.display = 'inline-block';
+
+                // --- Populate Route Panel ---
+                const panel = document.getElementById('routePanel');
+                document.getElementById('routePanelTitle').textContent = destName || 'Destination';
+                document.getElementById('routeDistance').textContent  = leg.distance.text;
+                document.getElementById('routeDuration').textContent  = leg.duration.text;
+
+                const stepsEl = document.getElementById('routeSteps');
+                stepsEl.innerHTML = leg.steps.map((step, i) => {
+                    const raw = (step.html_instructions || step.instructions || '');
+                    const instruction = raw.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+                    if (!instruction) return ''; // skip steps with no text
+                    const icons = {
+                        'Turn left':        '↰',
+                        'Turn right':       '↱',
+                        'Keep left':        '↖',
+                        'Keep right':       '↗',
+                        'Continue':         '↑',
+                        'Head':             '↑',
+                        'Roundabout':       '↻',
+                        'U-turn':           '⟳',
+                        'Merge':            '↑',
+                        'Ramp':             '↗',
+                        'Destination':      '📍',
+                    };
+                    let icon = '•';
+                    for (const [key, val] of Object.entries(icons)) {
+                        if (instruction.startsWith(key)) { icon = val; break; }
+                    }
+                    const isLast = i === leg.steps.length - 1;
+                    return `
+                        <div style="display:flex;gap:10px;padding:8px 14px;
+                                    border-bottom:${isLast ? 'none' : '1px solid #f0f0f0'};
+                                    align-items:flex-start;">
+                            <div style="min-width:22px;height:22px;background:${isLast ? '#395272' : '#e8f0fe'};
+                                        border-radius:50%;display:flex;align-items:center;
+                                        justify-content:center;font-size:12px;
+                                        color:${isLast ? '#fff' : '#1a73e8'};flex-shrink:0;margin-top:1px;">
+                                ${icon}
+                            </div>
+                            <div style="flex:1;">
+                                <div style="font-size:12px;color:#222;line-height:1.4;">${instruction}</div>
+                                <div style="font-size:11px;color:#888;margin-top:2px;">${step.distance.text}</div>
+                            </div>
+                        </div>`;
+                }).join('');
+
+                panel.style.display = 'flex';
+            } else {
+                if (status === 'ZERO_RESULTS') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Route Not Found',
+                        text: 'No driving route could be found between your location and the destination. The two locations may not be connected by road.',
+                        confirmButtonColor: '#1a73e8',
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Directions Error',
+                        text: 'Could not get directions: ' + status,
+                        confirmButtonColor: '#1a73e8',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            }
+        });
+    }
+
+    // --- Polygon Draw (Custom Point-by-Point) ---
+    let isDrawingPolygon = false;
+    let polygonLatLngs = [];
+    let activePolygon = null;
+    let activePolyline = null;
+    let cursorPolyline = null;
+    let startMarker = null;
+
+    const drawButton = document.createElement('div');
+    drawButton.innerHTML = '⬟';
+    drawButton.style.backgroundColor = 'white';
+    drawButton.style.border = '2px solid rgba(0,0,0,0.2)';
+    drawButton.style.borderRadius = '4px';
+    drawButton.style.width = '34px';
+    drawButton.style.height = '34px';
+    drawButton.style.textAlign = 'center';
+    drawButton.style.lineHeight = '30px';
+    drawButton.style.fontSize = '18px';
+    drawButton.style.cursor = 'pointer';
+    drawButton.style.margin = '10px';
+    drawButton.title = 'Draw Polygon (Click point by point, click starting point to finish)';
+
+    const clearButton = document.createElement('div');
+    clearButton.innerHTML = '🗑️';
+    clearButton.style.backgroundColor = 'white';
+    clearButton.style.border = '2px solid rgba(0,0,0,0.2)';
+    clearButton.style.borderRadius = '4px';
+    clearButton.style.width = '34px';
+    clearButton.style.height = '34px';
+    clearButton.style.textAlign = 'center';
+    clearButton.style.lineHeight = '30px';
+    clearButton.style.fontSize = '16px';
+    clearButton.style.cursor = 'pointer';
+    clearButton.style.margin = '10px 0';
+    clearButton.title = 'Clear Polygon';
+
+    const PolygonDrawControl = L.Control.extend({
+        options: { position: 'topleft' },
+        onAdd: function () {
+            const wrap = L.DomUtil.create('div', 'polygon-draw-control');
+            wrap.style.border = 'none';
+            wrap.style.margin = '0';
+            wrap.style.display = 'flex';
+            wrap.style.flexDirection = 'column';
+            wrap.style.alignItems = 'flex-start';
+            wrap.appendChild(drawButton);
+            wrap.appendChild(clearButton);
+            L.DomEvent.disableClickPropagation(wrap);
+            return wrap;
+        }
+    });
+    map.addControl(new PolygonDrawControl());
+
+    drawButton.addEventListener('click', () => {
+        isDrawingPolygon = !isDrawingPolygon;
+        if (isDrawingPolygon) {
+            map.dragging.disable();
+            map.doubleClickZoom.disable();
+            drawButton.style.backgroundColor = '#ccc';
+            map.getContainer().style.cursor = 'crosshair';
+            polygonLatLngs = [];
+            if (activePolygon) map.removeLayer(activePolygon);
+            if (activePolyline) map.removeLayer(activePolyline);
+            if (cursorPolyline) map.removeLayer(cursorPolyline);
+            if (startMarker) map.removeLayer(startMarker);
+            activePolygon = null;
+            activePolyline = L.polyline([], {
+                color: '#0000FF',
+                opacity: 0.8,
+                weight: 3,
+                interactive: false
+            }).addTo(map);
+            cursorPolyline = L.polyline([], {
+                color: '#0000FF',
+                opacity: 0.5,
+                weight: 3,
+                interactive: false
+            }).addTo(map);
+            startMarker = null;
+            drawnPolygonGeoJSON = null;
+        } else {
+            finishPolygon();
+        }
+    });
+
+    map.on('click', e => {
+        if (!isDrawingPolygon) return;
+        polygonLatLngs.push(e.latlng);
+        activePolyline.setLatLngs(polygonLatLngs);
+
+        if (polygonLatLngs.length === 1) {
+            startMarker = L.circleMarker(e.latlng, {
+                radius: 6,
+                fillColor: '#FFFFFF',
+                fillOpacity: 1,
+                color: '#0000FF',
+                weight: 2
+            }).addTo(map);
+            startMarker.on('click', () => {
+                if (isDrawingPolygon) finishPolygon();
+            });
+        }
+    });
+
+    map.on('mousemove', e => {
+        if (!isDrawingPolygon || polygonLatLngs.length === 0) return;
+        const lastPoint = polygonLatLngs[polygonLatLngs.length - 1];
+        cursorPolyline.setLatLngs([lastPoint, e.latlng]);
+    });
+
+    map.on('contextmenu', () => {
+        if (isDrawingPolygon) finishPolygon();
+    });
+
+    async function finishPolygon() {
+        if (!isDrawingPolygon) return;
+        isDrawingPolygon = false;
+        map.dragging.enable();
+        map.doubleClickZoom.enable();
+        drawButton.style.backgroundColor = 'white';
+        map.getContainer().style.cursor = '';
+        if (cursorPolyline) { map.removeLayer(cursorPolyline); cursorPolyline = null; }
+        if (startMarker) { map.removeLayer(startMarker); startMarker = null; }
+
+        if (polygonLatLngs.length > 2) {
+            if (activePolyline) { map.removeLayer(activePolyline); activePolyline = null; }
+            activePolygon = L.polygon(polygonLatLngs, {
+                color: '#0000FF',
+                opacity: 0.8,
+                weight: 3,
+                fillColor: '#0000FF',
+                fillOpacity: 0.2
+            }).addTo(map);
+
+            const coordinates = polygonLatLngs.map(p => [p.lng, p.lat]);
+            coordinates.push([polygonLatLngs[0].lng, polygonLatLngs[0].lat]); // Close polygon
+
+            drawnPolygonGeoJSON = {
+                type: "Feature",
+                geometry: { type: "Polygon", coordinates: [coordinates] },
+                properties: {}
+            };
+
+            // Editable vertices (leaflet.draw edit handler)
+            if (activePolygon.editing) activePolygon.editing.enable();
+
+            const updatePolygonFilter = async () => {
+                if (!activePolygon) return;
+                const ring = activePolygon.getLatLngs()[0];
+                if (ring.length > 2) {
+                    const newCoords = ring.map(p => [p.lng, p.lat]);
+                    newCoords.push([ring[0].lng, ring[0].lat]);
+                    drawnPolygonGeoJSON.geometry.coordinates = [newCoords];
+                    await refreshCurrentFilters();
+                }
+            };
+
+            activePolygon.on('edit', updatePolygonFilter);
+
+            await refreshCurrentFilters();
+        } else {
+            if (activePolyline) { map.removeLayer(activePolyline); activePolyline = null; }
+            activePolygon = null;
+            drawnPolygonGeoJSON = null;
+        }
+    }
+
+    clearButton.addEventListener('click', async () => {
+        if (activePolygon) map.removeLayer(activePolygon);
+        if (activePolyline) map.removeLayer(activePolyline);
+        if (cursorPolyline) map.removeLayer(cursorPolyline);
+        if (startMarker) map.removeLayer(startMarker);
+        activePolygon = null;
+        activePolyline = null;
+        cursorPolyline = null;
+        startMarker = null;
+        polygonLatLngs = [];
         drawnPolygonGeoJSON = null;
-
-        // console.log('Polygon Deleted');
-
+        isDrawingPolygon = false;
+        map.dragging.enable();
+        map.doubleClickZoom.enable();
+        drawButton.style.backgroundColor = 'white';
+        map.getContainer().style.cursor = '';
         await refreshCurrentFilters();
     });
 
     // --- Update Radius ---
     function updateRadiusCircleAndPin(radius = 0) {
         if (radiusCircle) { map.removeLayer(radiusCircle); radiusCircle = null; }
-        if (radiusPinMarker) { map.removeLayer(radiusPinMarker); radiusPinMarker = null; }
 
         if (radius > 0 && lastClickedLocation) {
             radiusCircle = L.circle(lastClickedLocation, {
                 color: 'red', fillColor: '#f03', fillOpacity: 0.3, radius: radius * 1000
             }).addTo(map);
-            const redIcon = L.icon({
-                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
-            });
-            radiusPinMarker = L.marker(lastClickedLocation, { icon: redIcon }).addTo(map);
         }
     }
 
+    // Red pin marker for searched location (separate from radius circle)
+    function placeLocationPin(location, label) {
+        if (radiusPinMarker) { map.removeLayer(radiusPinMarker); radiusPinMarker = null; }
+        const redIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+        });
+        radiusPinMarker = L.marker(location, {
+            icon: redIcon,
+            title: label || 'Selected Location',
+            zIndexOffset: 9999
+        }).addTo(map);
+    }
+
+    // Enable/disable radius section based on whether location is set
+    function setRadiusSectionEnabled(enabled) {
+        const section = document.getElementById('radiusSection');
+        if (!section) return;
+        section.style.opacity = enabled ? '1' : '0.4';
+        section.style.pointerEvents = enabled ? 'auto' : 'none';
+    }
+
     map.on('click', e => {
+        if (isDrawingPolygon) return; // klik dipakai untuk menggambar polygon
         lastClickedLocation = { lat: e.latlng.lat, lng: e.latlng.lng };
         const radius = parseInt(document.querySelector('#radiusRangeMap')?.value || 0);
         document.querySelector('#radiusValueMap').textContent = radius;
+        placeLocationPin(lastClickedLocation);
+        setRadiusSectionEnabled(true);
         updateRadiusCircleAndPin(radius);
+        categoryBar.style.display = 'flex';
     });
+
+    // --- Init Location Search — Google Places Autocomplete ---
+    // .pac-container is repositioned to position:fixed via MutationObserver
+    // to bypass the map/panel container overflow:hidden clipping.
+    function initLocationSearch() {
+        const input = document.getElementById('locationSearchMap');
+        if (!input) {
+            setTimeout(initLocationSearch, 300);
+            return;
+        }
+
+        const clearBtn = document.getElementById('locationSearchClear');
+
+        // ── 1. Create Google Places Autocomplete ──────────────────────────────
+        const autocomplete = new google.maps.places.Autocomplete(input, {
+            types: ['geocode', 'establishment'],
+            fields: ['geometry', 'name', 'formatted_address']
+        });
+
+        // ── 2. Fix .pac-container position to avoid map overflow:hidden ───────
+        // Google appends .pac-container to <body> but uses position:absolute,
+        // calculated from the element's document offset. Because the map container
+        // applies its own offset context, the top/left values are wrong.
+        // We override with position:fixed + getBoundingClientRect().
+        let pacContainer = null;
+
+        function fixPacPosition() {
+            if (!pacContainer) return;
+            const rect = input.getBoundingClientRect();
+            pacContainer.style.position   = 'fixed';
+            pacContainer.style.zIndex     = '2147483647';
+            pacContainer.style.top        = (rect.bottom + 2) + 'px';
+            pacContainer.style.left       = rect.left + 'px';
+            pacContainer.style.width      = rect.width + 'px';
+            pacContainer.style.borderRadius = '0 0 8px 8px';
+            pacContainer.style.boxShadow  = '0 8px 24px rgba(0,0,0,0.2)';
+            pacContainer.style.fontFamily = 'inherit';
+        }
+
+        // Watch for Google to inject .pac-container into <body>
+        const observer = new MutationObserver(() => {
+            if (!pacContainer) {
+                pacContainer = document.querySelector('.pac-container');
+                if (pacContainer) {
+                    fixPacPosition();
+                    // Re-fix on every style mutation (Google repositions it on scroll etc.)
+                    new MutationObserver(fixPacPosition).observe(
+                        pacContainer, { attributes: true, attributeFilter: ['style'] }
+                    );
+                }
+            }
+        });
+        observer.observe(document.body, { childList: true, subtree: false });
+
+        // Keep in sync with input position on scroll / resize
+        window.addEventListener('scroll', fixPacPosition, true);
+        window.addEventListener('resize', fixPacPosition);
+        input.addEventListener('focus',  fixPacPosition);
+        input.addEventListener('input',  fixPacPosition);
+
+        // ── 3. Prevent the map from capturing keyboard / pointer input ─────────
+        L.DomEvent.on(input, 'keydown keypress keyup mousedown dblclick wheel', L.DomEvent.stopPropagation);
+
+        // ── 4. Focus styling ───────────────────────────────────────────────────
+        input.addEventListener('focus', () => {
+            input.style.borderColor = '#1a73e8';
+            input.style.boxShadow   = '0 0 0 3px rgba(26,115,232,0.15)';
+        });
+        input.addEventListener('blur', () => {
+            input.style.borderColor = '#ddd';
+            input.style.boxShadow   = 'none';
+        });
+
+        // Show/hide × button
+        input.addEventListener('input', () => {
+            if (clearBtn) clearBtn.style.display = input.value.length ? 'inline' : 'none';
+        });
+
+        // ── 5. Handle place selection ─────────────────────────────────────────
+        autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            if (!place.geometry || !place.geometry.location) return;
+
+            const loc = {
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng()
+            };
+            lastClickedLocation = loc;
+
+            map.setView([loc.lat, loc.lng], 10);
+
+            const label = place.name || place.formatted_address || 'Location';
+            placeLocationPin(loc, label);
+
+            if (clearBtn) clearBtn.style.display = 'inline';
+
+            const badge    = document.getElementById('locationFoundBadge');
+            const badgeName = document.getElementById('locationFoundName');
+            if (badge)     badge.style.display = 'block';
+            if (badgeName) badgeName.textContent = label;
+
+            setRadiusSectionEnabled(true);
+            const radius = parseInt(document.getElementById('radiusRangeMap')?.value || 0);
+            updateRadiusCircleAndPin(radius);
+            refreshCurrentFilters();
+
+            // Show category bar
+            categoryBar.style.display = 'flex';
+        });
+
+        // ── 6. Clear button ───────────────────────────────────────────────────
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                input.value = '';
+                clearBtn.style.display = 'none';
+                if (pacContainer) pacContainer.style.display = 'none';
+
+                const badge = document.getElementById('locationFoundBadge');
+                if (badge) badge.style.display = 'none';
+
+                if (radiusPinMarker) { map.removeLayer(radiusPinMarker); radiusPinMarker = null; }
+                if (radiusCircle)    { map.removeLayer(radiusCircle);    radiusCircle    = null; }
+                lastClickedLocation = null;
+
+                // Hide category bar & clear category markers
+                categoryBar.style.display = 'none';
+                clearCategoryMarkers();
+                if (activeCategoryBtn) { resetCategoryBtn(activeCategoryBtn); activeCategoryBtn = null; }
+                closeRoutePanel();
+
+                setRadiusSectionEnabled(false);
+                const rEl    = document.getElementById('radiusRangeMap');
+                const rValEl = document.getElementById('radiusValueMap');
+                if (rEl)    rEl.value          = 0;
+                if (rValEl) rValEl.textContent = '0';
+
+                refreshCurrentFilters();
+                input.focus();
+            });
+        }
+    }
 
     // --- Fetch Data ---
     async function fetchData(url, filters = {}) {
@@ -2275,6 +3273,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // === COMBINED PANEL ===
+    let filterPanelDiv = null;
+
     const CombinedPanel = L.Control.extend({
         options: { position: 'topright' },
         onAdd: function () {
@@ -2284,26 +3284,62 @@ document.addEventListener('DOMContentLoaded', function () {
                 borderRadius: '8px',
                 boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
                 minWidth: '260px',
-                maxHeight: '85vh',
-                overflowY: 'auto'
+                maxWidth: '290px',
+                overflow: 'visible',
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column'
             });
 
             div.innerHTML = `
-                <button style="background:#007bff;color:white;border:none;width:100%;padding:8px;">Filter & Radius</button>
-                <div id="filterPanel" style="
-                    padding:10px;
-                    display:flex;
-                    flex-direction:column;
-                    height:100%;
-                ">
-                    <strong>Radius: <span id="radiusValueMap">0</span> km</strong>
-                    <input type="range" id="radiusRangeMap" min="0" max="500" value="0" style="width:100%;margin-bottom:6px;">
-                    <div style="display:flex;gap:5px;">
+                <button style="flex:0 0 auto;background:#007bff;color:white;border:none;width:100%;padding:8px;border-radius:8px 8px 0 0;font-weight:600;letter-spacing:0.3px;">Filter &amp; Radius</button>
+
+                <!-- Search Location - NOT inside scrollable div so dropdown is never clipped -->
+                <div id="searchSection" style="flex:0 0 auto;padding:10px 10px 6px 10px;background:white;position:relative;">
+                    <strong style="font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:#555;"> Search Location</strong>
+                    <div style="position:relative;margin-top:5px;">
+                        <input
+                            type="text"
+                            id="locationSearchMap"
+                            placeholder="Search Location..."
+                            autocomplete="off"
+                            style="width:100%;padding:7px 30px 7px 9px;border:1.5px solid #ddd;border-radius:6px;font-size:13px;box-sizing:border-box;"
+                        >
+                        <span id="locationSearchClear" title="Clear"
+                            style="position:absolute;right:8px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:15px;color:#aaa;display:none;">&times;</span>
+                        <!-- Autocomplete dropdown - inside input wrapper so position relative works correctly -->
+                        <div id="locationAutocompleteList"
+                            style="display:none;position:absolute;left:0;right:0;top:100%;margin-top:2px;background:white;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,0.18);z-index:999999;max-height:220px;overflow-y:auto;"
+                        ></div>
+                    </div>
+                    <div id="locationFoundBadge" style="display:none;margin-top:6px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:5px;padding:4px 8px;font-size:12px;color:#2e7d32;">
+                        &#128204; <span id="locationFoundName"></span>
+                    </div>
+                </div>
+
+                <!-- Radius - also outside scrollable, enabled after location selected -->
+                <div id="radiusSection" style="flex:0 0 auto;padding:0 10px 0 10px;opacity:0.4;pointer-events:none;transition:opacity 0.3s;">
+                    <hr style="margin:8px 0;">
+                    <strong style="font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:#555;">&#11096; Radius: <span id="radiusValueMap">0</span> km</strong>
+                    <input type="range" id="radiusRangeMap" min="0" max="500" value="0" style="width:100%;margin:4px 0;">
+                    <div style="display:flex;justify-content:space-between;font-size:11px;color:#888;margin-bottom:5px;">
+                        <span>0</span><span>250 km</span><span>500 km</span>
+                    </div>
+                    <div style="display:flex;gap:5px;margin-bottom:6px;">
                         <button id="applyRadiusMap" class="btn btn-sm btn-primary flex-fill">Apply</button>
                         <button id="resetRadiusMap" class="btn btn-sm btn-danger flex-fill">Reset</button>
                     </div>
-                    <hr>
-                    <strong>Facilities</strong>
+                </div>
+
+                <!-- Scrollable filters below -->
+                <div id="filterPanel" style="
+                    flex:1 1 auto;
+                    min-height:0;
+                    padding:0 10px 10px 10px;
+                    overflow-y:auto;
+                    border-top:1px solid #eee;
+                ">
+                    <strong style="margin-top:8px;">Facilities</strong>
                     <div class="form-check">
                         <input class="form-check-input facility-checkbox" type="checkbox" value="hospital" id="facilityHospital">
                         <label class="form-check-label" for="facilityHospital">
@@ -2381,11 +3417,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     </button>
                     <div id="totalCountDisplay" style="margin-top:8px;text-align:center;font-size:13px;"></div>
                 </div>`;
+            filterPanelDiv = div;
             L.DomEvent.disableClickPropagation(div);
+            L.DomEvent.disableScrollPropagation(div);
             return div;
         }
     });
     map.addControl(new CombinedPanel());
+
+    // Tinggi panel mengikuti tinggi peta supaya tombol "Reset All" tidak terpotong
+    function syncFilterPanelHeight() {
+        if (!filterPanelDiv) return;
+        filterPanelDiv.style.maxHeight = Math.max(220, map.getSize().y - 20) + 'px';
+    }
+    syncFilterPanelHeight();
+    map.on('resize', syncFilterPanelHeight);
+    window.addEventListener('resize', syncFilterPanelHeight);
 
     // === INIT SELECT2 ===
     setTimeout(() => {
@@ -2490,6 +3537,19 @@ document.addEventListener('click', async (e) => {
         if (radiusPinMarker) { map.removeLayer(radiusPinMarker); radiusPinMarker = null; }
         lastClickedLocation = null;
 
+        // reset location search + nearby
+        const locInput = document.getElementById('locationSearchMap');
+        const locClear = document.getElementById('locationSearchClear');
+        const locBadge = document.getElementById('locationFoundBadge');
+        if (locInput) locInput.value = '';
+        if (locClear) locClear.style.display = 'none';
+        if (locBadge) locBadge.style.display = 'none';
+        categoryBar.style.display = 'none';
+        clearCategoryMarkers();
+        if (activeCategoryBtn) { resetCategoryBtn(activeCategoryBtn); activeCategoryBtn = null; }
+        closeRoutePanel();
+        setRadiusSectionEnabled(false);
+
         // apply ulang tanpa radius (tetap simpan filter lain)
         const { facilities, hLevels, aClasses, provs, airportName, hospitalName } = getCurrentFiltersFromUI();
         await applyFiltersWithMapControl(facilities, hLevels, aClasses, provs, 0, airportName, hospitalName);
@@ -2537,7 +3597,7 @@ document.addEventListener('click', async (e) => {
             if (hospitalSel) hospitalSel.value = '';
         }
 
-        // 3) Reset radius visual
+        // 3) Reset radius visual & location search
         const radiusRange = document.getElementById('radiusRangeMap');
         const radiusValue = document.getElementById('radiusValueMap');
         if (radiusRange) radiusRange.value = 0;
@@ -2546,9 +3606,36 @@ document.addEventListener('click', async (e) => {
         if (radiusPinMarker) { map.removeLayer(radiusPinMarker); radiusPinMarker = null; }
         lastClickedLocation = null;
 
+        const locInput = document.getElementById('locationSearchMap');
+        const locClear = document.getElementById('locationSearchClear');
+        const locBadge = document.getElementById('locationFoundBadge');
+        if (locInput) locInput.value = '';
+        if (locClear) locClear.style.display = 'none';
+        if (locBadge) locBadge.style.display = 'none';
+
+        // sembunyikan nearby bar + hapus marker kategori & rute
+        categoryBar.style.display = 'none';
+        clearCategoryMarkers();
+        if (activeCategoryBtn) { resetCategoryBtn(activeCategoryBtn); activeCategoryBtn = null; }
+        closeRoutePanel();
+        setRadiusSectionEnabled(false);
+
         // 4) Remove drawn polygon and layers
-        if (drawnItems) drawnItems.clearLayers();
+        if (activePolygon) map.removeLayer(activePolygon);
+        if (activePolyline) map.removeLayer(activePolyline);
+        if (cursorPolyline) map.removeLayer(cursorPolyline);
+        if (startMarker) map.removeLayer(startMarker);
+        activePolygon = null;
+        activePolyline = null;
+        cursorPolyline = null;
+        startMarker = null;
+        polygonLatLngs = [];
         drawnPolygonGeoJSON = null;
+        isDrawingPolygon = false;
+        map.dragging.enable();
+        map.doubleClickZoom.enable();
+        drawButton.style.backgroundColor = 'white';
+        map.getContainer().style.cursor = '';
 
         // 5) Clear markers and counters
         if (airportMarkers) airportMarkers.clearLayers();
@@ -2609,7 +3696,10 @@ function bindFilterChangeAutoApply() {
 }
 
 // call binding after panel is rendered
-setTimeout(bindFilterChangeAutoApply, 350);
+setTimeout(() => {
+    bindFilterChangeAutoApply();
+    initLocationSearch();
+}, 350);
 
     // --- Initial Load ---
     refreshCurrentFilters();

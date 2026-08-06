@@ -107,6 +107,7 @@ Route::middleware(['web', 'jwt.login'])->group(function () {
 
         Route::resource('embassiees', EmbassieesController::class);
         Route::get('/embassiees/{id}/detail', [EmbassieesController::class, 'showdetail']);
+        Route::get('/embassiees/{id}/emergency', [EmbassieesController::class, 'showdetailemergency']);
 
         Route::resource('airports', AirportsController::class);
         Route::get('/airports/{id}/detail', [AirportsController::class, 'showdetail']);
@@ -127,6 +128,7 @@ Route::middleware(['web', 'jwt.login'])->group(function () {
 
         Route::resource('police', PoliceController::class);
         Route::get('/police/{id}/detail', [PoliceController::class, 'showdetail']);
+        Route::get('/police/{id}/emergency', [PoliceController::class, 'showdetailemergency']);
 
         // === DEPENDENCY ===
         Route::get('/get-cities/{province_id}', [MasterembessyController::class, 'getCities']);

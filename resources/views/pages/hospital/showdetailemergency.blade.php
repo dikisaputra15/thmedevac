@@ -158,6 +158,187 @@
       height: 16px;
       object-fit: contain;
     }
+
+    /* ===== Google Places Autocomplete ===== */
+    .pac-container {
+        z-index: 999999 !important;
+    }
+
+    /* ===== Map Type Control (Google style: Map | Satellite) ===== */
+    .gmap-type-wrap {
+        border: none !important;
+        background: transparent;
+        font-family: Roboto, Arial, sans-serif;
+        position: relative;
+    }
+
+    .gmap-type-bar {
+        display: flex;
+        background: #fff;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px -1px rgba(0,0,0,0.3);
+        overflow: hidden;
+    }
+
+    .gmap-type-btn {
+        border: none;
+        background: #fff;
+        color: #565656;
+        font-size: 18px;
+        font-weight: 400;
+        height: 40px;
+        padding: 0 17px;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .gmap-type-btn:hover {
+        background: #ebebeb;
+    }
+
+    .gmap-type-btn.active {
+        color: #000;
+        font-weight: 500;
+    }
+
+    .gmap-type-sub {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 2px;
+        background: #fff;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px -1px rgba(0,0,0,0.3);
+        padding: 8px 14px;
+        font-size: 15px;
+        color: #000;
+        white-space: nowrap;
+    }
+
+    .gmap-type-wrap:hover .gmap-type-sub {
+        display: block;
+    }
+
+    .gmap-type-opt {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        cursor: pointer;
+        font-weight: 400;
+    }
+
+    .gmap-type-opt input {
+        cursor: pointer;
+        margin: 0;
+    }
+
+    /* ===== Fullscreen control (Google style, kanan atas) ===== */
+    .leaflet-control-zoom-fullscreen {
+        width: 40px !important;
+        height: 40px !important;
+        background-color: #fff !important;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cpath fill='%23666' d='M0 0h7v2H2v5H0V0zm11 0h7v7h-2V2h-5V0zM2 11v5h5v2H0v-7h2zm14 0h2v7h-7v-2h5v-5z'/%3E%3C/svg%3E") !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-size: 18px 18px !important;
+        border-radius: 2px !important;
+        box-shadow: 0 1px 4px -1px rgba(0,0,0,0.3) !important;
+        border: none !important;
+    }
+
+    .leaflet-fullscreen-on .leaflet-control-zoom-fullscreen {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cpath fill='%23666' d='M5 0h2v7H0V5h5V0zm6 0h2v5h5v2h-7V0zM0 11h7v7H5v-5H0v-2zm11 0h7v2h-5v5h-2v-7z'/%3E%3C/svg%3E") !important;
+    }
+
+    .gmap-fullscreen {
+        border: none !important;
+        background: transparent !important;
+        margin-top: 10px !important;
+        margin-right: 10px !important;
+    }
+
+    /* ===== Camera / Pan Control (Google style, kanan bawah) ===== */
+    .gmap-camera-wrap {
+        border: none !important;
+        background: transparent !important;
+        margin: 0 10px 10px 0 !important;
+    }
+
+    .gmap-camera-toggle,
+    .gmap-camera-pad {
+        background: #fff;
+        border: none;
+        border-radius: 50%;
+        box-shadow: 0 1px 4px -1px rgba(0,0,0,0.3);
+        padding: 0;
+    }
+
+    .gmap-camera-toggle {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #666;
+    }
+
+    .gmap-camera-toggle:hover {
+        background: #f1f1f1;
+        color: #000;
+    }
+
+    .gmap-camera-pad {
+        display: none;
+        position: relative;
+        width: 96px;
+        height: 96px;
+    }
+
+    .gmap-camera-pad.show {
+        display: block;
+    }
+
+    .gmap-camera-pad button {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        border-radius: 50%;
+        color: #666;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .gmap-camera-pad button:hover {
+        background: #f1f1f1;
+        color: #000;
+    }
+
+    .gmap-camera-pad [data-dir="up"]    { top: 3px;  left: 33px; }
+    .gmap-camera-pad [data-dir="down"]  { bottom: 3px; left: 33px; }
+    .gmap-camera-pad [data-dir="left"]  { left: 3px;  top: 33px; }
+    .gmap-camera-pad [data-dir="right"] { right: 3px; top: 33px; }
+    .gmap-camera-pad [data-dir="close"] { top: 33px;  left: 33px; }
+
+    /* ===== Custom top-center control corner (Nearby bar) ===== */
+    .leaflet-top.leaflet-center {
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+    }
+
+    .leaflet-top.leaflet-center .leaflet-control {
+        pointer-events: auto;
+        margin-left: 0;
+        margin-right: 0;
+    }
 </style>
 @endpush
 
@@ -1730,6 +1911,8 @@
 
 @push('service')
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCd-WVlGgZFJwAtPZkbAEca2Np6OI7CBTM&libraries=places,geometry"></script>
+<script src="https://unpkg.com/leaflet.gridlayer.googlemutant@0.14.1/dist/Leaflet.GoogleMutant.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.6.0/Control.FullScreen.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
@@ -1752,6 +1935,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let map, mainMarker, radiusCircle, routingControl = null;
     let nearbyMarkersGroup = L.featureGroup();
+    let searchLocation = null;
+    let searchMarker = null;
 
     // === ICON DEFAULT ===
     const DEFAULT_HOSPITAL_ICON_URL = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png';
@@ -1768,32 +1953,154 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === INISIALISASI PETA ===
     function initializeMap() {
-        map = L.map('map')
-            .setView([hospitalData.latitude, hospitalData.longitude], 11);
+        // zoomControl & attributionControl dimatikan: kontrol + atribusi
+        // disediakan basemap Google
+        map = L.map('map', {
+            zoomControl: false,
+            attributionControl: false
+        }).setView([hospitalData.latitude, hospitalData.longitude], 11);
 
-        const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
+        // === Basemap: Google (roadmap / terrain / satellite / hybrid) ===
+        const baseLayers = {
+            roadmap:   L.gridLayer.googleMutant({ type: 'roadmap',   maxZoom: 21 }),
+            terrain:   L.gridLayer.googleMutant({ type: 'terrain',   maxZoom: 21 }),
+            satellite: L.gridLayer.googleMutant({ type: 'satellite', maxZoom: 21 }),
+            hybrid:    L.gridLayer.googleMutant({ type: 'hybrid',    maxZoom: 21 })
+        };
+
+        let currentBaseLayer = baseLayers.roadmap.addTo(map);
+
+        function setBasemap(type) {
+            if (currentBaseLayer === baseLayers[type]) return;
+            if (currentBaseLayer) map.removeLayer(currentBaseLayer);
+            currentBaseLayer = baseLayers[type].addTo(map);
+            if (currentBaseLayer.bringToBack) currentBaseLayer.bringToBack();
+        }
+
+        // === Map Type Control (Google style: Map | Satellite) ===
+        const MapTypeControl = L.Control.extend({
+            options: { position: 'topleft' },
+            onAdd: function () {
+                const wrap = L.DomUtil.create('div', 'gmap-type-wrap');
+
+                wrap.innerHTML = `
+                    <div class="gmap-type-bar">
+                        <button type="button" class="gmap-type-btn active" data-mode="map">Map</button>
+                        <button type="button" class="gmap-type-btn" data-mode="satellite">Satellite</button>
+                    </div>
+                    <div class="gmap-type-sub">
+                        <label class="gmap-type-opt" data-opt="terrain">
+                            <input type="checkbox" id="mapTypeTerrain"> Terrain
+                        </label>
+                        <label class="gmap-type-opt" data-opt="labels" style="display:none;">
+                            <input type="checkbox" id="mapTypeLabels" checked> Labels
+                        </label>
+                    </div>`;
+
+                const btns       = wrap.querySelectorAll('.gmap-type-btn');
+                const optTerrain = wrap.querySelector('[data-opt="terrain"]');
+                const optLabels  = wrap.querySelector('[data-opt="labels"]');
+                const cbTerrain  = wrap.querySelector('#mapTypeTerrain');
+                const cbLabels   = wrap.querySelector('#mapTypeLabels');
+
+                let mode = 'map'; // 'map' | 'satellite'
+
+                function apply() {
+                    if (mode === 'map') {
+                        optTerrain.style.display = '';
+                        optLabels.style.display  = 'none';
+                        setBasemap(cbTerrain.checked ? 'terrain' : 'roadmap');
+                    } else {
+                        optTerrain.style.display = 'none';
+                        optLabels.style.display  = '';
+                        setBasemap(cbLabels.checked ? 'hybrid' : 'satellite');
+                    }
+                    btns.forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+                }
+
+                btns.forEach(b => b.addEventListener('click', () => {
+                    mode = b.dataset.mode;
+                    apply();
+                }));
+                cbTerrain.addEventListener('change', apply);
+                cbLabels.addEventListener('change', apply);
+
+                L.DomEvent.disableClickPropagation(wrap);
+                L.DomEvent.disableScrollPropagation(wrap);
+                return wrap;
+            }
         });
+        map.addControl(new MapTypeControl());
 
-        const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles © Esri', maxZoom: 19
-        }).addTo(map);
+        // Fullscreen di kanan atas (default Google)
+        const fullscreenControl = L.control.fullscreen({ position: 'topright' });
+        map.addControl(fullscreenControl);
+        L.DomUtil.addClass(fullscreenControl.getContainer(), 'gmap-fullscreen');
 
-        L.control.layers(
-            { "Street Map": osmLayer, "Satellite Map": satelliteLayer },
-            null,
-            { position: 'topleft' }
-        ).addTo(map);
+        // === Camera / Pan Control (Google style, kanan bawah) ===
+        const PAN_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2 15 6H9l3-4zm0 20-3-4h6l-3 4zM2 12l4-3v6l-4-3zm20 0-4 3V9l4 3z"/>
+            <circle cx="12" cy="12" r="1.8"/>
+        </svg>`;
 
-        L.control.fullscreen({ position: 'topleft' }).addTo(map);
+        const ARROWS = {
+            up:    `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 6l6 8H6z"/></svg>`,
+            down:  `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>`,
+            left:  `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 12l8-6v12z"/></svg>`,
+            right: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 12l-8 6V6z"/></svg>`,
+            close: `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg>`
+        };
 
-        // === Styling posisi kontrol ===
-        const style = document.createElement('style');
-        style.textContent = `
-        .leaflet-top.leaflet-left .leaflet-control-layers { margin-top: 5px !important; }
-        .leaflet-top.leaflet-left .leaflet-control-zoom { margin-top: 10px !important; }
-        `;
-        document.head.appendChild(style);
+        const CameraControl = L.Control.extend({
+            options: { position: 'bottomright' },
+            onAdd: function (map) {
+                const wrap = L.DomUtil.create('div', 'gmap-camera-wrap');
+
+                wrap.innerHTML = `
+                    <button type="button" class="gmap-camera-toggle" title="Map camera controls">${PAN_ICON}</button>
+                    <div class="gmap-camera-pad">
+                        <button type="button" data-dir="up"    title="Pan up">${ARROWS.up}</button>
+                        <button type="button" data-dir="left"  title="Pan left">${ARROWS.left}</button>
+                        <button type="button" data-dir="right" title="Pan right">${ARROWS.right}</button>
+                        <button type="button" data-dir="down"  title="Pan down">${ARROWS.down}</button>
+                        <button type="button" data-dir="close" title="Close">${ARROWS.close}</button>
+                    </div>`;
+
+                const toggle = wrap.querySelector('.gmap-camera-toggle');
+                const pad    = wrap.querySelector('.gmap-camera-pad');
+                const PAN_STEP = 120; // px
+
+                toggle.addEventListener('click', () => {
+                    pad.classList.add('show');
+                    toggle.style.display = 'none';
+                });
+
+                pad.querySelectorAll('button').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        switch (btn.dataset.dir) {
+                            case 'up':    map.panBy([0, -PAN_STEP]); break;
+                            case 'down':  map.panBy([0,  PAN_STEP]); break;
+                            case 'left':  map.panBy([-PAN_STEP, 0]); break;
+                            case 'right': map.panBy([ PAN_STEP, 0]); break;
+                            case 'close':
+                                pad.classList.remove('show');
+                                toggle.style.display = '';
+                                break;
+                        }
+                    });
+                });
+
+                L.DomEvent.disableClickPropagation(wrap);
+                L.DomEvent.disableScrollPropagation(wrap);
+                return wrap;
+            }
+        });
+        map.addControl(new CameraControl());
+
+        // === Custom "topcenter" control corner (Nearby bar) ===
+        map._controlCorners['topcenter'] = L.DomUtil.create(
+            'div', 'leaflet-top leaflet-center', map._controlContainer
+        );
 
         nearbyMarkersGroup.addTo(map);
     }
@@ -1896,12 +2203,167 @@ document.addEventListener('DOMContentLoaded', () => {
         return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     }
 
+    // === NEARBY HOTELS (muncul setelah lokasi dicari) ===
+    let categoryMarkers   = [];
+    let activeCategoryBtn = null;
+    let categoryBar       = null;
+
+    function resetCategoryBtn(btn) {
+        btn.style.background  = '#fff';
+        btn.style.color       = '#222';
+        btn.style.borderColor = 'rgba(0,0,0,0.12)';
+    }
+
+    function clearCategoryMarkers() {
+        categoryMarkers.forEach(m => map.removeLayer(m));
+        categoryMarkers = [];
+    }
+
+    function showNearbyCategory(type, label) {
+        if (!searchLocation) return;
+        clearCategoryMarkers();
+
+        const center  = new google.maps.LatLng(searchLocation.lat, searchLocation.lng);
+        const service = new google.maps.places.PlacesService(document.createElement('div'));
+
+        const iconColors = { lodging: '#1a73e8' };
+        const color = iconColors[type] || '#555';
+
+        function makeSvgIcon(col) {
+            const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='32' height='40' viewBox='0 0 32 40'>`
+                      + `<path d='M16 0C7.16 0 0 7.16 0 16c0 12 16 24 16 24S32 28 32 16C32 7.16 24.84 0 16 0z' fill='${col}'/>`
+                      + `<circle cx='16' cy='16' r='7' fill='#fff'/>`
+                      + `</svg>`;
+            return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+        }
+
+        const placeIcon = L.icon({
+            iconUrl: makeSvgIcon(color),
+            iconSize: [32, 40],
+            iconAnchor: [16, 40],
+            popupAnchor: [0, -36]
+        });
+
+        service.nearbySearch({ location: center, radius: 5000, type }, (results, status) => {
+            if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                if (status === 'ZERO_RESULTS') {
+                    alert(`No ${label.toLowerCase()} found within 5 km.`);
+                } else {
+                    alert(`Failed to load ${label.toLowerCase()}. Error status: ${status}. Please ensure "Places API" is enabled and billing is active.`);
+                    console.error('PlacesService nearbySearch failed with status:', status);
+                }
+                return;
+            }
+            if (!results.length) return;
+
+            results.forEach(place => {
+                if (!place.geometry?.location) return;
+
+                const destLat = place.geometry.location.lat();
+                const destLng = place.geometry.location.lng();
+
+                const marker = L.marker([destLat, destLng], {
+                    icon: placeIcon,
+                    title: place.name
+                }).addTo(map);
+
+                const dist     = google.maps.geometry.spherical.computeDistanceBetween(center, place.geometry.location);
+                const distText = dist >= 1000 ? (dist / 1000).toFixed(1) + ' km' : Math.round(dist) + ' m';
+                const rating   = place.rating ? `⭐ ${place.rating.toFixed(1)}` : '';
+
+                marker.bindPopup(`
+                    <div style="font-size:13px;min-width:190px;">
+                        <h5 style="border-bottom:1px solid #ccc;margin:0 0 6px;font-size:14px;">${place.name}</h5>
+                        <div style="color:#666;font-size:12px;margin-bottom:3px;">${label}</div>
+                        ${rating  ? `<div style="font-size:12px;">${rating}</div>` : ''}
+                        <div style="margin-top:4px;font-size:12px;color:#555;"> ${distText} from search location</div>
+                        <button class="btn btn-sm btn-primary mt-2"
+                            onclick="getDirection(${destLat}, ${destLng})">
+                            Get Direction
+                        </button>
+                    </div>`);
+
+                categoryMarkers.push(marker);
+            });
+        });
+    }
+
+    function setupNearbyCategoryBar() {
+        categoryBar = document.createElement('div');
+        categoryBar.id = 'nearbyCategBar';
+        Object.assign(categoryBar.style, {
+            display:       'none',
+            background:    'transparent',
+            padding:       '8px 10px 0',
+            gap:           '8px',
+            flexWrap:      'nowrap',
+            overflowX:     'auto',
+            maxWidth:      '90vw',
+            scrollbarWidth:'none'
+        });
+
+        const nearbyCategories = [
+            { label: 'Hotels', icon: '🏨', type: 'lodging' }
+        ];
+
+        nearbyCategories.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.textContent = cat.icon + ' ' + cat.label;
+            Object.assign(btn.style, {
+                display:      'inline-flex',
+                alignItems:   'center',
+                gap:          '4px',
+                padding:      '6px 14px',
+                borderRadius: '20px',
+                border:       '1px solid rgba(0,0,0,0.12)',
+                background:   '#fff',
+                color:        '#222',
+                fontSize:     '13px',
+                fontWeight:   '500',
+                cursor:       'pointer',
+                whiteSpace:   'nowrap',
+                boxShadow:    '0 1px 4px rgba(0,0,0,0.15)',
+                transition:   'all 0.15s'
+            });
+
+            btn.addEventListener('click', () => {
+                if (activeCategoryBtn === btn) {
+                    clearCategoryMarkers();
+                    resetCategoryBtn(btn);
+                    activeCategoryBtn = null;
+                    return;
+                }
+                if (activeCategoryBtn) resetCategoryBtn(activeCategoryBtn);
+                activeCategoryBtn = btn;
+                btn.style.background = '#1a73e8';
+                btn.style.color      = '#fff';
+                btn.style.borderColor= '#1a73e8';
+                showNearbyCategory(cat.type, cat.label);
+            });
+
+            categoryBar.appendChild(btn);
+        });
+
+        const CategoryBarControl = L.Control.extend({
+            options: { position: 'topcenter' },
+            onAdd: function () {
+                L.DomEvent.disableClickPropagation(categoryBar);
+                L.DomEvent.disableScrollPropagation(categoryBar);
+                return categoryBar;
+            }
+        });
+        map.addControl(new CategoryBarControl());
+    }
+
     // === ROUTING ===
     window.getDirection = function(lat, lng) {
         if (routingControl) map.removeControl(routingControl);
+        const origin = searchLocation
+            ? L.latLng(searchLocation.lat, searchLocation.lng)
+            : L.latLng(hospitalData.latitude, hospitalData.longitude);
         routingControl = L.Routing.control({
             waypoints: [
-                L.latLng(hospitalData.latitude, hospitalData.longitude),
+                origin,
                 L.latLng(lat, lng)
             ],
             routeWhileDragging: false, addWaypoints: false,
@@ -1913,7 +2375,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === FIT MAP ===
     function fitMapToBounds() {
-        const bounds = L.featureGroup([mainMarker, nearbyMarkersGroup, radiusCircle]).getBounds();
+        const layers = [mainMarker, nearbyMarkersGroup, radiusCircle];
+        // titik hasil "Search Location" ikut masuk bounds supaya tidak keluar layar
+        if (searchMarker) layers.push(searchMarker);
+        const bounds = L.featureGroup(layers).getBounds();
         if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50] });
     }
 
@@ -1972,6 +2437,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // === FILTER CONTROL (TETAP TERBUKA & ADA RADIUS) ===
+    let filterContainer = null;
+
     const FilterControl = L.Control.extend({
         options: { position: 'topright' },
         onAdd: function() {
@@ -1983,6 +2450,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             container.innerHTML = `
                 <h6><strong>Filter</strong></h6>
+
+                <strong style="font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:#555;">Search Location</strong>
+                <div style="position:relative;margin-top:5px;margin-bottom:8px;">
+                    <input type="text" id="gmSearchInput" class="form-control form-control-sm"
+                        placeholder="Search Location..." autocomplete="off" style="padding-right:28px;">
+                    <i class="fas fa-times" id="gmClearBtn"
+                        style="position:absolute;right:8px;top:50%;transform:translateY(-50%);color:#70757a;font-size:13px;cursor:pointer;display:none;"></i>
+                </div>
 
                 <label><strong>Radius:</strong> <span id="radiusLabel">${radiusKm}</span> km</label>
                 <input type="range" id="radiusRange" min="10" max="500" step="10" value="${radiusKm}" class="form-range mb-2">
@@ -2073,9 +2548,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 radiusKm = 100;
                 radiusSlider.value = radiusKm;
                 radiusLabel.textContent = radiusKm;
+
+                // Reset search location
+                const gmInput = container.querySelector('#gmSearchInput');
+                if (gmInput) gmInput.value = '';
+                const gmClear = container.querySelector('#gmClearBtn');
+                if (gmClear) gmClear.style.display = 'none';
+
+                if (searchMarker) { map.removeLayer(searchMarker); searchMarker = null; }
+                searchLocation = null;
+
+                if (categoryBar) categoryBar.style.display = 'none';
+                clearCategoryMarkers();
+                if (activeCategoryBtn) { resetCategoryBtn(activeCategoryBtn); activeCategoryBtn = null; }
+
+                if (routingControl) { map.removeControl(routingControl); routingControl = null; }
+
                 refresh();
             });
 
+            filterContainer = container;
             return container;
         }
     });
@@ -2088,11 +2580,143 @@ document.addEventListener('DOMContentLoaded', () => {
         updateMarkers(selectedType, selectedHospitalLevels, selectedAirportClasses, selectedPoliceCategories);
     }
 
+    // === SEARCH LOCATION CONTROL (bagian dari panel filter) ===
+    function setupSearchControl(container) {
+        const input = container.querySelector('#gmSearchInput');
+        const clearBtn = container.querySelector('#gmClearBtn');
+        if (!input || !clearBtn) return;
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') e.preventDefault();
+        });
+
+        // Cegah peta menangkap input keyboard / pointer
+        L.DomEvent.on(input, 'keydown keypress keyup mousedown dblclick wheel', L.DomEvent.stopPropagation);
+
+        const autocomplete = new google.maps.places.Autocomplete(input);
+
+        // Input berada di dalam kontrol peta, sehingga ".pac-container" milik Google
+        // (di-append ke <body> dengan position:absolute) bisa terpotong / tertutup
+        // pane kontrol peta. Paksa position:fixed dan terus terapkan ulang, karena
+        // Google me-reset inline style container setiap kali prediksi diperbarui.
+        let pacContainer = null;
+
+        function fixPacPosition() {
+            if (!pacContainer) return;
+            if (pacContainer.parentElement !== document.body) {
+                document.body.appendChild(pacContainer);
+            }
+            const rect = input.getBoundingClientRect();
+            pacContainer.style.position = 'fixed';
+            pacContainer.style.zIndex = '2147483647';
+            pacContainer.style.top = (rect.bottom + 2) + 'px';
+            pacContainer.style.left = rect.left + 'px';
+            pacContainer.style.width = rect.width + 'px';
+            pacContainer.style.visibility = 'visible';
+            pacContainer.style.opacity = '1';
+            pacContainer.style.pointerEvents = 'auto';
+        }
+
+        function claimPacContainer() {
+            if (pacContainer) return true;
+            pacContainer = document.querySelector('.pac-container');
+            if (pacContainer) {
+                fixPacPosition();
+                new MutationObserver(fixPacPosition).observe(
+                    pacContainer, { attributes: true, attributeFilter: ['style'] }
+                );
+                return true;
+            }
+            return false;
+        }
+
+        const pacObserver = new MutationObserver(() => claimPacContainer());
+        pacObserver.observe(document.body, { childList: true, subtree: true });
+
+        // Fallback bila ".pac-container" sudah dibuat sebelum observer dipasang
+        if (!claimPacContainer()) {
+            const pollId = setInterval(() => {
+                if (claimPacContainer()) clearInterval(pollId);
+            }, 200);
+            setTimeout(() => clearInterval(pollId), 10000);
+        }
+
+        window.addEventListener('scroll', fixPacPosition, true);
+        window.addEventListener('resize', fixPacPosition);
+        input.addEventListener('focus', fixPacPosition);
+        input.addEventListener('input', fixPacPosition);
+
+        input.addEventListener('input', (e) => {
+            clearBtn.style.display = e.target.value.length > 0 ? 'block' : 'none';
+        });
+
+        clearBtn.addEventListener('click', () => {
+            input.value = '';
+            clearBtn.style.display = 'none';
+            input.focus();
+            if (pacContainer) pacContainer.style.display = 'none';
+
+            if (searchMarker) { map.removeLayer(searchMarker); searchMarker = null; }
+            searchLocation = null;
+
+            if (categoryBar) categoryBar.style.display = 'none';
+            clearCategoryMarkers();
+            if (activeCategoryBtn) { resetCategoryBtn(activeCategoryBtn); activeCategoryBtn = null; }
+
+            if (routingControl) { map.removeControl(routingControl); routingControl = null; }
+        });
+
+        autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            if (!place.geometry || !place.geometry.location) return;
+
+            if (searchMarker) map.removeLayer(searchMarker);
+
+            const lat = place.geometry.location.lat();
+            const lon = place.geometry.location.lng();
+            searchLocation = { lat: lat, lng: lon };
+
+            const searchIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+            });
+
+            searchMarker = L.marker([lat, lon], { icon: searchIcon, zIndexOffset: 9999 })
+                .addTo(map)
+                .bindPopup(`
+                    <div style="font-size:13px;">
+                        <b>${place.name || 'Location'}</b><br>
+                        <small>Lat: ${lat.toFixed(5)}, Lng: ${lon.toFixed(5)}</small><br>
+                        <button class="btn btn-sm btn-primary mt-2"
+                            onclick="getDirection(${hospitalData.latitude}, ${hospitalData.longitude})">
+                            Get Direction to Main Hospital
+                        </button>
+                    </div>
+                `);
+
+            if (categoryBar) categoryBar.style.display = 'flex';
+
+            searchMarker.openPopup();
+
+            if (place.geometry.viewport) {
+                const vp = place.geometry.viewport;
+                const ne = vp.getNorthEast();
+                const sw = vp.getSouthWest();
+                map.fitBounds([[sw.lat(), sw.lng()], [ne.lat(), ne.lng()]]);
+            } else {
+                map.setView([lat, lon], 14);
+            }
+        });
+    }
+
     // === JALANKAN ===
     initializeMap();
     addMainHospitalAndCircle();
     updateMarkers('all', [], [], []);
     map.addControl(new FilterControl());
+    setupSearchControl(filterContainer);
+    setupNearbyCategoryBar();
 });
 </script>
 
