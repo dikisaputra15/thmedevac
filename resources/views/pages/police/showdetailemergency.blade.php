@@ -2374,7 +2374,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <div id="hospitalFilter" style="display:none;">
                 <strong>Facility Level:</strong><br>
-                ${['Class A','Class B','Class C','Class D','Public Health Center (PUSKESMAS)']
+                ${['Regional Hospital (A)','General Hospital (S, M1)','Community Hospital (M2, F1, F2, F3) & SHPH','Large Private Hospital','Medium Private Hospital','Small Private Hospital & Private Clinic / Polyclinic']
                     .map(lvl => `<label style="display:block;font-size:13px;">
                         <input type="checkbox" name="hospitalLevel" value="${lvl}"> ${lvl}
                     </label>`).join('')}
@@ -2391,13 +2391,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <div id="policeFilter" style="display:none;margin-top:8px;">
                 <strong>Police Category:</strong><br>
                 ${[
-                    'Indonesian National Police (Polri) HQ',
-                    'Provincial Police (Polda)',
-                    'Municipality Police (Polres)',
-                    'District Police (Polsek)',
-                    'Police Mobile Brigade (Brimob)',
-                    'Police Bomb Squad (Gegana)'
-                ].map(cat => `
+                    'National Police (HQ)',
+                    'Regional Police',
+                    'Provincial Police',
+                    'City Police Station'
+                   ].map(cat => `
                     <label style="display:block;font-size:13px;">
                         <input type="checkbox" name="policeCategory" value="${cat}"> ${cat}
                     </label>
