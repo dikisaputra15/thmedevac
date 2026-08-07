@@ -2551,10 +2551,16 @@ function addHospitalMarkers(data) {
             iconSize: [24, 24], iconAnchor: [12, 24], popupAnchor: [0, -20]
         });
 
-        const marker = L.marker([h.latitude, h.longitude], { icon }).addTo(hospitalMarkers);
+        const destLat = parseFloat(h.latitude);
+        const destLng = parseFloat(h.longitude);
 
-        marker.bindPopup(`
-            <h5 style="border-bottom:1px solid #ccc;">${h.name || 'N/A'}</h5>
+        const marker = L.marker([destLat, destLng], { icon }).addTo(hospitalMarkers);
+
+        const itemName  = h.name || 'N/A';
+        const detailUrl = h.id ? `/hospitals/${h.id}` : '';
+
+        const popupContent = `
+            <h5 style="border-bottom:1px solid #ccc;">${itemName}</h5>
             <strong>Global Classification:</strong> ${h.facility_category || 'N/A'}<br>
             <strong>Country Classification:</strong> ${h.facility_level || 'N/A'}<br>
             <strong>Address:</strong>
@@ -2563,8 +2569,62 @@ function addHospitalMarkers(data) {
                 ${h.provinces_region ? ', ' + h.provinces_region : ''}, Thailand<br>
             <strong>Coords:</strong> ${h.latitude}, ${h.longitude}<br>
             <strong>Province:</strong> ${h.provinces_region || 'N/A'}<br>
-            ${h.id ? `<a href="/hospitals/${h.id}" class="btn btn-primary btn-sm mt-2" style="color:white;">Read More</a>` : ''}
-        `);
+        `;
+
+        // Tombol dibangun saat popup dibuka supaya status lastClickedLocation selalu terbaru
+        marker.on('click', () => {
+            let actionBtns = '';
+
+            if (lastClickedLocation && !isNaN(destLat) && !isNaN(destLng)) {
+                const oLat = lastClickedLocation.lat;
+                const oLng = lastClickedLocation.lng;
+                actionBtns = `
+                    <div style="margin-top:8px;padding-top:8px;border-top:1px solid #eee;display:flex;gap:6px;flex-wrap:wrap;">
+                        <button onclick="showRouteOnMap(${oLat},${oLng},${destLat},${destLng},'${(itemName||'').replace(/'/g,"\\'")}')"
+                           style="display:inline-flex;align-items:center;gap:5px;
+                                  background:#1a73e8;color:#fff;border:none;
+                                  padding:5px 12px;border-radius:6px;font-size:12px;
+                                  font-weight:500;cursor:pointer;">
+                            <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+                                <polygon points='3 11 22 2 13 21 11 13 3 11'/>
+                            </svg>
+                            Get Directions
+                        </button>
+                        ${detailUrl ? `<a href="${detailUrl}"
+                           style="display:inline-flex;align-items:center;gap:5px;
+                                  background:#395272;color:#fff;text-decoration:none;
+                                  padding:5px 12px;border-radius:6px;font-size:12px;
+                                  font-weight:500;"
+                           onmouseover="this.style.background='#5686c3'"
+                           onmouseout="this.style.background='#395272'">
+                            <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+                                <circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><line x1='12' y1='16' x2='12.01' y2='16'/>
+                            </svg>
+                            Read More
+                        </a>` : ''}
+                    </div>`;
+            } else if (detailUrl) {
+                actionBtns = `
+                    <div style="margin-top:8px;padding-top:8px;border-top:1px solid #eee;">
+                        <a href="${detailUrl}"
+                           style="display:inline-flex;align-items:center;gap:5px;
+                                  background:#395272;color:#fff;text-decoration:none;
+                                  padding:5px 12px;border-radius:6px;font-size:12px;
+                                  font-weight:500;"
+                           onmouseover="this.style.background='#5686c3'"
+                           onmouseout="this.style.background='#395272'">
+                            <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+                                <circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><line x1='12' y1='16' x2='12.01' y2='16'/>
+                            </svg>
+                            Read More
+                        </a>
+                    </div>`;
+            }
+
+            marker.setPopupContent(`<div style="font-size:13px; min-width: 200px;">${popupContent}${actionBtns}</div>`);
+        });
+
+        marker.bindPopup(`<div style="font-size:13px; min-width: 200px;">${popupContent}</div>`);
     });
 
     if (hospitalMarkers.getLayers().length > 0)

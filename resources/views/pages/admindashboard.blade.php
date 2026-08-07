@@ -3106,10 +3106,63 @@ document.addEventListener('DOMContentLoaded', function () {
                 `;
             }
 
-            if (item.id && detailUrl)
-                popupContent += `<a href="${detailUrl}" class="btn btn-primary btn-sm mt-2" style="color:white;">Read More</a>`;
+            const destLat = parseFloat(item.latitude);
+            const destLng = parseFloat(item.longitude);
 
-            marker.bindPopup(popupContent);
+            // Tombol dibangun saat popup dibuka supaya status lastClickedLocation selalu terbaru
+            marker.on('click', () => {
+                let actionBtns = '';
+
+                if (lastClickedLocation && !isNaN(destLat) && !isNaN(destLng)) {
+                    const oLat = lastClickedLocation.lat;
+                    const oLng = lastClickedLocation.lng;
+                    actionBtns = `
+                        <div style="margin-top:8px;padding-top:8px;border-top:1px solid #eee;display:flex;gap:6px;flex-wrap:wrap;">
+                            <button onclick="showRouteOnMap(${oLat},${oLng},${destLat},${destLng},'${(itemName||'').replace(/'/g,"\\'")}')"
+                               style="display:inline-flex;align-items:center;gap:5px;
+                                      background:#1a73e8;color:#fff;border:none;
+                                      padding:5px 12px;border-radius:6px;font-size:12px;
+                                      font-weight:500;cursor:pointer;">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+                                    <polygon points='3 11 22 2 13 21 11 13 3 11'/>
+                                </svg>
+                                Get Directions
+                            </button>
+                            ${detailUrl ? `<a href="${detailUrl}"
+                               style="display:inline-flex;align-items:center;gap:5px;
+                                      background:#395272;color:#fff;text-decoration:none;
+                                      padding:5px 12px;border-radius:6px;font-size:12px;
+                                      font-weight:500;"
+                               onmouseover="this.style.background='#5686c3'"
+                               onmouseout="this.style.background='#395272'">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+                                    <circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><line x1='12' y1='16' x2='12.01' y2='16'/>
+                                </svg>
+                                Read More
+                            </a>` : ''}
+                        </div>`;
+                } else if (detailUrl) {
+                    actionBtns = `
+                        <div style="margin-top:8px;padding-top:8px;border-top:1px solid #eee;">
+                            <a href="${detailUrl}"
+                               style="display:inline-flex;align-items:center;gap:5px;
+                                      background:#395272;color:#fff;text-decoration:none;
+                                      padding:5px 12px;border-radius:6px;font-size:12px;
+                                      font-weight:500;"
+                               onmouseover="this.style.background='#5686c3'"
+                               onmouseout="this.style.background='#395272'">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+                                    <circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><line x1='12' y1='16' x2='12.01' y2='16'/>
+                                </svg>
+                                Read More
+                            </a>
+                        </div>`;
+                }
+
+                marker.setPopupContent(`<div style="font-size:13px; min-width: 200px;">${popupContent}${actionBtns}</div>`);
+            });
+
+            marker.bindPopup(`<div style="font-size:13px; min-width: 200px;">${popupContent}</div>`);
         });
     }
 
@@ -3273,6 +3326,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // === COMBINED PANEL ===
+    let filterPanelDiv = null;
+
     const CombinedPanel = L.Control.extend({
         options: { position: 'topright' },
         onAdd: function () {
@@ -3283,14 +3338,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
                 minWidth: '260px',
                 maxWidth: '290px',
-                overflow: 'visible'
+                overflow: 'visible',
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column'
             });
 
             div.innerHTML = `
-                <button style="background:#007bff;color:white;border:none;width:100%;padding:8px;border-radius:8px 8px 0 0;font-weight:600;letter-spacing:0.3px;">Filter &amp; Radius</button>
+                <button style="flex:0 0 auto;background:#007bff;color:white;border:none;width:100%;padding:8px;border-radius:8px 8px 0 0;font-weight:600;letter-spacing:0.3px;">Filter &amp; Radius</button>
 
                 <!-- Search Location - NOT inside scrollable div so dropdown is never clipped -->
-                <div id="searchSection" style="padding:10px 10px 6px 10px;background:white;position:relative;">
+                <div id="searchSection" style="flex:0 0 auto;padding:10px 10px 6px 10px;background:white;position:relative;">
                     <strong style="font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:#555;"> Search Location</strong>
                     <div style="position:relative;margin-top:5px;">
                         <input
@@ -3313,7 +3371,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
 
                 <!-- Radius - also outside scrollable, enabled after location selected -->
-                <div id="radiusSection" style="padding:0 10px 0 10px;opacity:0.4;pointer-events:none;transition:opacity 0.3s;">
+                <div id="radiusSection" style="flex:0 0 auto;padding:0 10px 0 10px;opacity:0.4;pointer-events:none;transition:opacity 0.3s;">
                     <hr style="margin:8px 0;">
                     <strong style="font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:#555;">&#11096; Radius: <span id="radiusValueMap">0</span> km</strong>
                     <input type="range" id="radiusRangeMap" min="0" max="500" value="0" style="width:100%;margin:4px 0;">
@@ -3328,12 +3386,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 <!-- Scrollable filters below -->
                 <div id="filterPanel" style="
+                    flex:1 1 auto;
+                    min-height:0;
                     padding:0 10px 10px 10px;
-                    max-height:52vh;
                     overflow-y:auto;
                     border-top:1px solid #eee;
-                    display:flex;
-                    flex-direction:column;
                 ">
                     <strong style="margin-top:8px;">Facilities</strong>
                     <div class="form-check">
@@ -3413,12 +3470,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     </button>
                     <div id="totalCountDisplay" style="margin-top:8px;text-align:center;font-size:13px;"></div>
                 </div>`;
+            filterPanelDiv = div;
             L.DomEvent.disableClickPropagation(div);
             L.DomEvent.disableScrollPropagation(div);
             return div;
         }
     });
     map.addControl(new CombinedPanel());
+
+    // Tinggi panel mengikuti tinggi peta supaya tombol "Reset All" tidak terpotong
+    function syncFilterPanelHeight() {
+        if (!filterPanelDiv) return;
+        filterPanelDiv.style.maxHeight = Math.max(220, map.getSize().y - 20) + 'px';
+    }
+    syncFilterPanelHeight();
+    map.on('resize', syncFilterPanelHeight);
+    window.addEventListener('resize', syncFilterPanelHeight);
 
     // === INIT SELECT2 ===
     setTimeout(() => {

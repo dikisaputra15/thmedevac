@@ -1111,27 +1111,78 @@ async function fetchAndDisplayembassy(filters = {}) {
                 popupAnchor: [0, -20]
             });
 
-            const marker = L.marker([embassy.latitude, embassy.longitude], { icon: embassyIcon }).addTo(embassyMarkers);
+            const destLat = parseFloat(embassy.latitude);
+            const destLng = parseFloat(embassy.longitude);
 
-            // Simpan kedutaan terakhir yang diklik sebagai pusat radius
-            marker.on('click', () => {
-                lastClickedLocation = {
-                    lat: embassy.latitude,
-                    lng: embassy.longitude
-                };
-                updateRadiusCircle();
-            });
+            const marker = L.marker([destLat, destLng], { icon: embassyIcon }).addTo(embassyMarkers);
 
-            marker.bindPopup(`
-                <h5 style="border-bottom:1px solid #cccccc;">${embassy.name_embassiees || 'N/A'}</h5>
+            const itemName  = embassy.name_embassiees || 'N/A';
+            const detailUrl = embassy.id ? `/embassiees/${embassy.id}/detail` : '';
+
+            const popupContent = `
+                <h5 style="border-bottom:1px solid #cccccc;">${itemName}</h5>
                 <strong>Address:</strong>
                     ${embassy.location || 'N/A'}
                     ${embassy.city ? ', ' + embassy.city : ''}
                     ${embassy.provinces_region ? ', ' + embassy.provinces_region : ''}, Thailand <br>
                 <strong>Telephone:</strong> ${embassy.telephone || 'N/A'}<br>
                 ${embassy.website ? `<strong>Website:</strong><a href='${embassy.website}' target='__blank'> ${embassy.website} </a><br>` : ''}
-                ${embassy.id ? `<a href="/embassiees/${embassy.id}/detail" class="btn btn-primary btn-sm mt-2" style="color:white;">Read More</a>` : ''}
-            `);
+            `;
+
+            // Tombol dibangun saat popup dibuka supaya status lastClickedLocation selalu terbaru
+            marker.on('click', () => {
+                let actionBtns = '';
+
+                if (lastClickedLocation && !isNaN(destLat) && !isNaN(destLng)) {
+                    const oLat = lastClickedLocation.lat;
+                    const oLng = lastClickedLocation.lng;
+                    actionBtns = `
+                        <div style="margin-top:8px;padding-top:8px;border-top:1px solid #eee;display:flex;gap:6px;flex-wrap:wrap;">
+                            <button onclick="showRouteOnMap(${oLat},${oLng},${destLat},${destLng},'${(itemName||'').replace(/'/g,"\\'")}')"
+                               style="display:inline-flex;align-items:center;gap:5px;
+                                      background:#1a73e8;color:#fff;border:none;
+                                      padding:5px 12px;border-radius:6px;font-size:12px;
+                                      font-weight:500;cursor:pointer;">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+                                    <polygon points='3 11 22 2 13 21 11 13 3 11'/>
+                                </svg>
+                                Get Directions
+                            </button>
+                            ${detailUrl ? `<a href="${detailUrl}"
+                               style="display:inline-flex;align-items:center;gap:5px;
+                                      background:#395272;color:#fff;text-decoration:none;
+                                      padding:5px 12px;border-radius:6px;font-size:12px;
+                                      font-weight:500;"
+                               onmouseover="this.style.background='#5686c3'"
+                               onmouseout="this.style.background='#395272'">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+                                    <circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><line x1='12' y1='16' x2='12.01' y2='16'/>
+                                </svg>
+                                Read More
+                            </a>` : ''}
+                        </div>`;
+                } else if (detailUrl) {
+                    actionBtns = `
+                        <div style="margin-top:8px;padding-top:8px;border-top:1px solid #eee;">
+                            <a href="${detailUrl}"
+                               style="display:inline-flex;align-items:center;gap:5px;
+                                      background:#395272;color:#fff;text-decoration:none;
+                                      padding:5px 12px;border-radius:6px;font-size:12px;
+                                      font-weight:500;"
+                               onmouseover="this.style.background='#5686c3'"
+                               onmouseout="this.style.background='#395272'">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+                                    <circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><line x1='12' y1='16' x2='12.01' y2='16'/>
+                                </svg>
+                                Read More
+                            </a>
+                        </div>`;
+                }
+
+                marker.setPopupContent(`<div style="font-size:13px; min-width: 200px;">${popupContent}${actionBtns}</div>`);
+            });
+
+            marker.bindPopup(`<div style="font-size:13px; min-width: 200px;">${popupContent}</div>`);
         });
 
         if (embassyMarkers.getLayers().length > 0) {
